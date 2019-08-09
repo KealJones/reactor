@@ -6,19 +6,13 @@ part 'function.reactor.g.dart';
 @Factory()
 var Functional = _Functional;
 
-class FunctionalPropsInterface {
-  String placeholder;
-}
-
-class FunctionalProps extends UiProps implements FunctionalPropsInterface {}
-
 @Component()
-ReactElement FunctionalComponent(FunctionalProps props) {
+ReactElement FunctionalComponent(props, String placeholder, int myNum) {
     return Dom.div()(
       Dom.div()(
         (Dom.input()
           ..className = 'test'
-          ..placeholder = '${props.placeholder}' ?? "type something here"
+          ..placeholder = '$placeholder' ?? "type something here"
           ..aria.readonly = false
           ..onChange = (event){
             String value = js_util.getProperty(js_util.getProperty(event, 'currentTarget'), 'value');

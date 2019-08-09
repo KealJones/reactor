@@ -17,15 +17,28 @@ getComponentPropsName(Element element){
 createComponentFromElement(Element _element, [BuildStep buildStep]) async {
   Element element = _element;
   if (element is FunctionElement) {
+    final args = element.parameters;
+    final destructuredPropArgs = args.where((arg) => !arg.name.toLowerCase().contains('props')).toList();
     return '''
-      // Component Instance
-      ${getComponentPropsName(element)} _${getComponentShortName(element)}() {
-        return new ${getComponentPropsName(element)}()..\$componentClass = allowInterop((props, context){
-          var tProps = ${getComponentPropsName(element)}().fromJs(props);
-          return ${element.name}(tProps);
+      class _${getComponentPropsName(element)}Interface {
+        ${destructuredPropArgs.map((arg) {
+          return '${arg.type.name ?? 'var'} ${arg.name};\n';
+        }).join('\n')}
+      }
+      class _${getComponentPropsName(element)} extends UiProps implements _${getComponentPropsName(element)}Interface {}
+
+      // Component Factory
+      _${getComponentPropsName(element)} _${getComponentShortName(element)}() {
+        return new _${getComponentPropsName(element)}()..\$componentClass = allowInterop((props, context){
+          _${getComponentPropsName(element)} tProps = _${getComponentPropsName(element)}().fromJs(props);
+          return ${element.name}(tProps,
+            ${destructuredPropArgs.map((arg) {
+              return 'tProps.${arg.name},';
+            }).join(' ')} 
+          );
         });
       }
-  ''';
+    ''';
   }
   return '''
   class _${element.name} extends ${element.name} {
