@@ -5,7 +5,7 @@ import 'package:reactor/src/interop/interop.dart';
 import 'package:reactor/src/interop/events.dart';
 import 'package:reactor/src/wrappers/maps.dart';
 
-class UiDomProps extends BaseProps with ReactPropsInterface, DomPropsInterface {
+class UiDomProps extends BaseProps implements ReactPropsInterface, DomPropsInterface {
   UiDomProps([backingMap]) {
     this.$backingMap ??= backingMap;
   }

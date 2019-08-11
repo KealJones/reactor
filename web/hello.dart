@@ -42,7 +42,7 @@ class HelloComponent extends UiComponent<HelloProps, HelloState> {
         (Dom.input()
           ..className = 'test'
           ..ref = (ref){ inputRef = ref; }
-          ..dom.placeholder = "type something here"
+          ..placeholder = "type something here"
           ..aria.readonly = false
           ..onChange = (_){
             String value = inputRef.value;
