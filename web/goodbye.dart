@@ -21,7 +21,7 @@ class GoodbyeState extends UiState implements GoodbyeStateInterface {}
 class GoodbyeComponent extends UiComponent<GoodbyeProps, GoodbyeState> {
   @override
   render() {
-    return Dom.div()(
+    return (Dom.div()..id = props.dom.id)(
     '${this.state?.matchesString ?? false ? "does" : "does not"} match.'
     );
   }

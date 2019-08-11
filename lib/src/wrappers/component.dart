@@ -26,7 +26,7 @@ class UiComponent<P extends UiProps, S extends UiState> {
 
   bool shouldComponentUpdate(P nextProps, S nextState) => true;
 
-  ReactElement render() => throw UnimplementedError();
+  dynamic render() => throw UnimplementedError();
 
   void componentDidMount(){}
 
@@ -35,20 +35,4 @@ class UiComponent<P extends UiProps, S extends UiState> {
   void componentWillUnmount(){}
 
   void componentDidCatch(error, info) {}
-}
-
-typedef dynamic OnCall(List l);
-
-class VarargsFunction implements Function {
-  OnCall _onCall;
-
-  VarargsFunction(this._onCall);
-
-  call() => _onCall([]);
-
-  @override
-  noSuchMethod(Invocation invocation) {
-    final arguments = invocation.positionalArguments;
-    return _onCall(arguments);
-  }
 }

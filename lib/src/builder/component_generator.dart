@@ -1,17 +1,23 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 
-
 getComponentShortName(Element element){
   return element.name.replaceAll('Component', '');
 }
 
-getComponentStateName(ClassElement element){
-  return '${getComponentShortName(element)}State';
+getComponentStateName(Element element){
+  return getComponentGenerics(element)[1];
 }
 
 getComponentPropsName(Element element){
-  return '${getComponentShortName(element)}Props';
+  return getComponentGenerics(element)[0];
+}
+
+getComponentGenerics(Element element){
+  if (element is ClassElement){
+    return element.supertype.typeArguments.map((dartType) => dartType.toString()).toList();
+  }
+  return ['UiProps', 'UiState'];
 }
 
 createComponentFromElement(Element _element, [BuildStep buildStep]) async {
@@ -29,7 +35,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
 
       // Component Factory
       _${getComponentPropsName(element)} _${getComponentShortName(element)}() {
-        return new _${getComponentPropsName(element)}()..\$componentClass = allowInterop((props, context){
+        var interopFunction = allowInterop((props, context){
           _${getComponentPropsName(element)} tProps = _${getComponentPropsName(element)}().fromJs(props);
           return ${element.name}(tProps,
             ${destructuredPropArgs.map((arg) {
@@ -37,30 +43,35 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
             }).join(' ')} 
           );
         });
+        ReactorJsUtils.setInteropComponentName(interopFunction, '${getComponentShortName(element)}');
+        return new _${getComponentPropsName(element)}()..\$componentClass = interopFunction;
       }
     ''';
   }
-  return '''
-  class _${element.name} extends ${element.name} {
-    _${element.name}(){
-      this.reactorComponent = ReactComponentBuilder(displayName: '${getComponentShortName(element)}');
-      reactorComponent
-      ${await createComponentJsMethods(element, buildStep)};
-    }
 
-    @override
-    ${getComponentPropsName(element)} get props => ${getComponentPropsName(element)}().fromJs(reactorComponent.props);
+  if (element is ClassElement) {
+    return '''
+      class _${element.name} extends ${element.name} {
+        _${element.name}(){
+          this.reactorComponent = ReactComponentBuilder(displayName: '${getComponentShortName(element)}');
+          reactorComponent
+          ${await createComponentJsMethods(element, buildStep)};
+        }
 
-    @override
-    ${getComponentStateName(element)} get state => ${getComponentStateName(element)}().fromJs(reactorComponent.state);
+        @override
+        ${getComponentPropsName(element)} get props => ${getComponentPropsName(element)}().fromJs(reactorComponent.props);
+
+        @override
+        ${getComponentStateName(element)} get state => ${getComponentStateName(element)}().fromJs(reactorComponent.state);
+      }
+
+      // Component Instance
+      ${getComponentPropsName(element)} _${getComponentShortName(element)}() {
+        var _dartComp = _${element.name}();
+        return new ${getComponentPropsName(element)}()..\$componentClass = _dartComp.reactorComponent.reactClass;
+      }
+    ''';
   }
-
-  // Component Instance
-  ${getComponentPropsName(element)} _${getComponentShortName(element)}() {
-    var _dartComp = _${element.name}();
-    return new ${getComponentPropsName(element)}()..\$componentClass = _dartComp.reactorComponent.reactClass;
-  }
-  ''';
 }
 
 createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {

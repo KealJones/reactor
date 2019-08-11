@@ -42,7 +42,7 @@ class HelloComponent extends UiComponent<HelloProps, HelloState> {
         (Dom.input()
           ..className = 'test'
           ..ref = (ref){ inputRef = ref; }
-          ..placeholder = "type something here"
+          ..dom.placeholder = "type something here"
           ..aria.readonly = false
           ..onChange = (_){
             String value = inputRef.value;
@@ -54,7 +54,7 @@ class HelloComponent extends UiComponent<HelloProps, HelloState> {
       Dom.br()(),
       Dom.div()(
         (Goodbye()
-          ..addAll({'value': this.state.customHelloText}) // This is to test out UiProps maps features.
+          ..dom.id = 'goodbye'
         )(
           Dom.div()('Test')
         ),

@@ -6,23 +6,24 @@ part of 'function.dart';
 // Generator: ReactorComponentBuilder
 // **************************************************************************
 
-class _FunctionalPropsInterface {
+class _UiPropsInterface {
   String placeholder;
 
   int myNum;
 }
 
-class _FunctionalProps extends UiProps implements _FunctionalPropsInterface {}
+class _UiProps extends UiProps implements _UiPropsInterface {}
 
 // Component Factory
-_FunctionalProps _Functional() {
-  return new _FunctionalProps()
-    ..$componentClass = allowInterop((props, context) {
-      _FunctionalProps tProps = _FunctionalProps().fromJs(props);
-      return FunctionalComponent(
-        tProps,
-        tProps.placeholder,
-        tProps.myNum,
-      );
-    });
+_UiProps _Functional() {
+  var interopFunction = allowInterop((props, context) {
+    _UiProps tProps = _UiProps().fromJs(props);
+    return FunctionalComponent(
+      tProps,
+      tProps.placeholder,
+      tProps.myNum,
+    );
+  });
+  ReactorJsUtils.setInteropComponentName(interopFunction, 'Functional');
+  return new _UiProps()..$componentClass = interopFunction;
 }

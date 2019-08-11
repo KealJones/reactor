@@ -1,6 +1,9 @@
 @JS()
 library reactor.interop.js;
 
+import 'dart:html';
+import 'dart:js_util' as js_util;
+
 import 'package:js/js.dart';
 import 'package:reactor/src/annotations/annotations.dart';
 import 'package:reactor/src/interop/utils.dart';
@@ -43,14 +46,18 @@ external Window3ArgsFunction(arg1, arg2, arg3, String functionBody);
 class React {
   external static ReactComponent get Component;
   external static String get version;
-  external static createElement(component, props, [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30]);
 }
 
-ReactElement createElement(dynamic element, [dynamic props, c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified]){
-  List childArguments = [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30]
-        .takeWhile((child) => !identical(child, notSpecified))
-        .toList();
-  return ReactorObject('React').call('createElement', [element, props, if (childArguments.isNotEmpty) ...childArguments]);
+ReactElement createElement(component, props, children){
+  return js_util.callMethod(
+      js_util.getProperty(window, 'React'),
+      'createElement',
+      [
+        component, 
+        props, 
+        ...children
+      ],
+    );
 }
 
 @JS()
