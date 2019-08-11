@@ -5,6 +5,16 @@ import 'package:reactor/src/interop/interop.dart';
 import 'package:reactor/src/interop/events.dart';
 import 'package:reactor/src/wrappers/maps.dart';
 
+class UiDomProps extends BaseProps with ReactPropsInterface, DomPropsInterface {
+  UiDomProps([backingMap]) {
+    this.$backingMap ??= backingMap;
+  }
+
+  @override
+  String keyPrefix = '';
+
+  AriaPropsInterface get aria => new AriaProps(this.$backingMap);
+}
 
 class DomProps extends UiMap implements DomPropsInterface {
   DomProps([backingMap]) {
