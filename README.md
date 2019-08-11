@@ -1,6 +1,6 @@
 # Reactor
 
-Reactor is a statically-typed Dart library, that wraps ReactJS, for building user interfaces.
+Reactor is a statically-typed Dart library for building user interfaces. Reactor wraps ReactJS.
 
 ## Getting Started
 
@@ -8,29 +8,23 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+* Dart 2.4 or higher
+
+### Running the example
 
 ```
-Give examples
+pub run build_runner serve
 ```
 
-### Installing
+### Using in your project
 
 A step by step series of examples that tell you how to get a development env running
 
 Say what the step will be
 
 ```
-Give the example
+yep
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
@@ -64,17 +58,17 @@ Add additional notes about how to deploy this on a live system
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+<!--Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.-->
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kealjones/reactor/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Keal Jones** - [Keal Joones](https://github.com/kealjones)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/kealjones/reactor/contributors) who participated in this project.
 
 ## License
 
@@ -82,6 +76,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+These projects were the inperation for Reactor and we learn alot from them still.
+
+* [OverReact](https://github.com/workiva/over_react)
+* [react-dart](https://github.com/cleandart/react-dart)
