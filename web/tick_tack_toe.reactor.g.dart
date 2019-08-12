@@ -6,7 +6,9 @@ part of 'tick_tack_toe.dart';
 // Generator: ReactorComponentBuilder
 // **************************************************************************
 
-class __SquarePropsInterface {}
+class __SquarePropsInterface {
+  String displayValue;
+}
 
 class __SquareProps extends UiProps implements __SquarePropsInterface {}
 
@@ -16,6 +18,7 @@ __SquareProps _Square() {
     __SquareProps tProps = __SquareProps().fromJs(props);
     return SquareComponent(
       tProps,
+      tProps.displayValue,
     );
   });
   ReactorJsUtils.setInteropComponentName(interopFunction, 'Square');

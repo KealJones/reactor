@@ -5,8 +5,8 @@ part 'tick_tack_toe.reactor.g.dart';
 var Square = _Square;
 
 @Component()
-SquareComponent(UiProps props) {
-  return (Dom.button()..className = 'square'..onClick = props.onClick..value=props.children?.single)([props.children?.single]);
+SquareComponent(UiProps props, String displayValue) {
+  return (Dom.button()..className = 'square'..onClick = props.onClick..value=displayValue)([displayValue]);
 }
 
 var Board = _Board;
@@ -39,7 +39,8 @@ class BoardComponent extends UiComponent<BoardProps, BoardState> {
   renderSquare(i) {
     return (Square()
       ..onClick = (_) { handleClick(i); }
-    )([state.squares[i]]);
+      ..displayValue = state.squares[i]
+    )();
   }
 
   @override
