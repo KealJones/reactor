@@ -10,7 +10,10 @@ getComponentStateName(Element element){
 }
 
 getComponentPropsName(Element element){
-  return getComponentGenerics(element)[0];
+  if (element is ClassElement){
+    return getComponentGenerics(element)[0];
+  }
+  return '_${getComponentShortName(element)}Props';
 }
 
 getComponentGenerics(Element element){
@@ -90,7 +93,9 @@ createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
   });
 
   element.methods.forEach((MethodElement method){
-    implementedMethods[method.name] = method;
+    if(componentLifecycleMethods.contains(method.name)){
+      implementedMethods[method.name] = method;
+    }
   });
   implementedMethods.values.forEach((MethodElement method){
     //setProperty(this, 'render', allowInterop(this.render));

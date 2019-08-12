@@ -1,4 +1,5 @@
 import 'package:reactor/reactor.dart';
+import 'hello.dart';
 
 part 'goodbye.reactor.g.dart';
 
@@ -9,20 +10,20 @@ class GoodbyePropsInterface {
   String test;
 }
 
-class GoodbyeProps extends UiProps implements GoodbyePropsInterface {}
+class GoodbyeProps extends UiProps implements GoodbyePropsInterface, HelloPropsInterface {}
 
 class GoodbyeStateInterface {
   bool matchesString;
 }
 
-class GoodbyeState extends UiState implements GoodbyeStateInterface {}
+class GoodbyeState extends UiState implements GoodbyeStateInterface, HelloStateInterface {}
 
 @Component()
 class GoodbyeComponent extends UiComponent<GoodbyeProps, GoodbyeState> {
   @override
   render() {
     return (Dom.div()..id = props.dom.id)(
-    '${this.state?.matchesString ?? false ? "does" : "does not"} match.'
+    '${this.state?.matchesString ?? false ? "Input is equal too \"omg\"" : "Input is not equal too \"omg\""}.'
     );
   }
 

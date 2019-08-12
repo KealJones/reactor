@@ -54,7 +54,9 @@ class HelloComponent extends UiComponent<HelloProps, HelloState> {
       Dom.br()(),
       Dom.div()(
         (Goodbye()
+          ..addAll(props)
           ..dom.id = 'goodbye'
+          ..dom.value = state.customHelloText
         )(
           Dom.div()('Test')
         ),

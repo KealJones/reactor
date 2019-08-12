@@ -5,6 +5,7 @@ import 'package:reactor/reactor.dart';
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
+import 'tick_tack_toe.dart';
 
 main() {
   var content = Dom.div()(
@@ -17,6 +18,7 @@ main() {
       (Dom.span()..key='test')('Test'),
     ),
     Simple()(),
+    Game()(),
   );
 
   ReactDOM.render(

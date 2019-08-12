@@ -12,24 +12,22 @@ class UiDomProps extends BaseProps implements ReactPropsInterface, DomPropsInter
 
   @override
   String keyPrefix = '';
-
-  AriaPropsInterface get aria => new AriaProps(this.$backingMap);
 }
 
 class DomProps extends UiMap implements DomPropsInterface {
   DomProps([backingMap]) {
-    this.$backingMap = backingMap;
+    this.$backingMap ??= backingMap;
   }
 
   @override
   String keyPrefix = '';
 
-  AriaPropsInterface get aria => new AriaProps(this.$backingMap);
+  AriaProps get aria => new AriaProps(this.$backingMap);
 }
 
 class AriaProps extends UiMap implements AriaPropsInterface {
   AriaProps([backingMap]) {
-    this.$backingMap = backingMap;
+    this.$backingMap ??= backingMap;
   }
 
   @override
@@ -49,7 +47,7 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  AriaPropsInterface get aria {
+  AriaProps get aria {
     _aria ??= new AriaProps(this.$backingMap);
     return _aria;
   }
@@ -61,7 +59,7 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  DomPropsInterface get dom {
+  DomProps get dom {
     _dom ??= new DomProps(this.$backingMap);
     return _dom;
   }
