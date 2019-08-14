@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tick_tack_toe.dart';
+part of tic_tac_toe;
 
 // **************************************************************************
 // Generator: ReactorComponentBuilder
@@ -13,7 +13,7 @@ class __SquarePropsInterface {
 class __SquareProps extends UiProps implements __SquarePropsInterface {}
 
 // Component Factory
-__SquareProps _Square() {
+__SquareProps _Square([Map backingMap]) {
   var interopFunction = allowInterop((props, context) {
     __SquareProps tProps = __SquareProps().fromJs(props);
     return SquareComponent(
@@ -22,7 +22,9 @@ __SquareProps _Square() {
     );
   });
   ReactorJsUtils.setInteropComponentName(interopFunction, 'Square');
-  return new __SquareProps()..$componentClass = interopFunction;
+  return new __SquareProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
+    ..$componentClass = interopFunction;
 }
 
 class _BoardComponent extends BoardComponent {
@@ -39,9 +41,10 @@ class _BoardComponent extends BoardComponent {
 }
 
 // Component Instance
-BoardProps _Board() {
+BoardProps _Board([Map backingMap]) {
   var _dartComp = _BoardComponent();
   return new BoardProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
     ..$componentClass = _dartComp.reactorComponent.reactClass;
 }
 
@@ -59,7 +62,9 @@ class _GameComponent extends GameComponent {
 }
 
 // Component Instance
-UiProps _Game() {
+UiProps _Game([Map backingMap]) {
   var _dartComp = _GameComponent();
-  return new UiProps()..$componentClass = _dartComp.reactorComponent.reactClass;
+  return new UiProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
+    ..$componentClass = _dartComp.reactorComponent.reactClass;
 }

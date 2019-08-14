@@ -15,7 +15,7 @@ class __FunctionalPropsInterface {
 class __FunctionalProps extends UiProps implements __FunctionalPropsInterface {}
 
 // Component Factory
-__FunctionalProps _Functional() {
+__FunctionalProps _Functional([Map backingMap]) {
   var interopFunction = allowInterop((props, context) {
     __FunctionalProps tProps = __FunctionalProps().fromJs(props);
     return FunctionalComponent(
@@ -25,5 +25,7 @@ __FunctionalProps _Functional() {
     );
   });
   ReactorJsUtils.setInteropComponentName(interopFunction, 'Functional');
-  return new __FunctionalProps()..$componentClass = interopFunction;
+  return new __FunctionalProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
+    ..$componentClass = interopFunction;
 }

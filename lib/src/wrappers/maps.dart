@@ -4,7 +4,7 @@ import 'dart:collection';
 import 'dart:html';
 import 'dart:js_util' as js_util;
 import 'dart:js' show allowInterop;
-import 'package:reactor/src/annotations/annotations.dart';
+import 'package:reactor/src/global/annotations.dart';
 import 'package:reactor/src/dom/dom.dart';
 import 'package:reactor/src/interop/interop.dart';
 import 'package:reactor/src/wrappers/js_backed_map.dart';
@@ -190,7 +190,6 @@ class UiMap extends MapBase with ReactorMapBase, MapViewMixin {
         this.$backingMap[memberNameString] = value;
       }
     }
-    print(this.$backingMap);
   }
 }
 

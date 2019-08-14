@@ -8,7 +8,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:reactor/src/annotations/annotations.dart';
+import 'package:reactor/src/global/annotations.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'component_generator.dart';

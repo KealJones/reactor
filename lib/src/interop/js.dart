@@ -5,7 +5,7 @@ import 'dart:html';
 import 'dart:js_util' as js_util;
 
 import 'package:js/js.dart';
-import 'package:reactor/src/annotations/annotations.dart';
+import 'package:reactor/src/global/annotations.dart';
 import 'package:reactor/src/interop/utils.dart';
 
 @JS()

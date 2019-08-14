@@ -26,8 +26,9 @@ class _HelloComponent extends HelloComponent {
 }
 
 // Component Instance
-HelloProps _Hello() {
+HelloProps _Hello([Map backingMap]) {
   var _dartComp = _HelloComponent();
   return new HelloProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
     ..$componentClass = _dartComp.reactorComponent.reactClass;
 }

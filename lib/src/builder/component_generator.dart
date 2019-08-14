@@ -37,7 +37,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
       class _${getComponentPropsName(element)} extends UiProps implements _${getComponentPropsName(element)}Interface {}
 
       // Component Factory
-      _${getComponentPropsName(element)} _${getComponentShortName(element)}() {
+      _${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
         var interopFunction = allowInterop((props, context){
           _${getComponentPropsName(element)} tProps = _${getComponentPropsName(element)}().fromJs(props);
           return ${element.name}(tProps,
@@ -47,7 +47,9 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
           );
         });
         ReactorJsUtils.setInteropComponentName(interopFunction, '${getComponentShortName(element)}');
-        return new _${getComponentPropsName(element)}()..\$componentClass = interopFunction;
+        return new _${getComponentPropsName(element)}()
+          ..\$backingMap = backingMap ?? JsBackedMap()
+          ..\$componentClass = interopFunction;
       }
     ''';
   }
@@ -69,9 +71,11 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
       }
 
       // Component Instance
-      ${getComponentPropsName(element)} _${getComponentShortName(element)}() {
+      ${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
         var _dartComp = _${element.name}();
-        return new ${getComponentPropsName(element)}()..\$componentClass = _dartComp.reactorComponent.reactClass;
+        return new ${getComponentPropsName(element)}()
+          ..\$backingMap = backingMap ?? JsBackedMap()
+          ..\$componentClass = _dartComp.reactorComponent.reactClass;
       }
     ''';
   }

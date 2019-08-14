@@ -27,8 +27,9 @@ class _GoodbyeComponent extends GoodbyeComponent {
 }
 
 // Component Instance
-GoodbyeProps _Goodbye() {
+GoodbyeProps _Goodbye([Map backingMap]) {
   var _dartComp = _GoodbyeComponent();
   return new GoodbyeProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
     ..$componentClass = _dartComp.reactorComponent.reactClass;
 }

@@ -5,7 +5,7 @@ import 'package:reactor/reactor.dart';
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
-import 'tick_tack_toe.dart';
+import 'tic_tac_toe.dart';
 
 main() {
   var content = Dom.div()(

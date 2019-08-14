@@ -1,0 +1,1 @@
+typedef TProps UiFactory<TProps>([Map backingMap]);

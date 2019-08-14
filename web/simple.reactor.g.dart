@@ -20,7 +20,9 @@ class _SimpleComponent extends SimpleComponent {
 }
 
 // Component Instance
-UiProps _Simple() {
+UiProps _Simple([Map backingMap]) {
   var _dartComp = _SimpleComponent();
-  return new UiProps()..$componentClass = _dartComp.reactorComponent.reactClass;
+  return new UiProps()
+    ..$backingMap = backingMap ?? JsBackedMap()
+    ..$componentClass = _dartComp.reactorComponent.reactClass;
 }
