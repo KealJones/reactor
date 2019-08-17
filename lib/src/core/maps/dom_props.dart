@@ -1,45 +1,36 @@
 library reactor.dom.map;
 
-import 'package:reactor/src/core.dart';
-import 'package:reactor/src/interop/interop.dart';
+import 'package:reactor/src/core/maps/props.dart';
+import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
-import 'package:reactor/src/wrappers/maps.dart';
 
-class UiDomProps extends BaseProps implements ReactPropsInterface, DomPropsInterface {
-  UiDomProps([backingMap]) {
-    this.$backingMap ??= backingMap;
+class UiDomProps extends UiProps implements ReactPropsInterface, DomPropsInterface {
+  UiDomProps([Map backingMap]) {
+    $backingMap ??= backingMap;
   }
 
   @override
-  String keyPrefix = '';
+  final String keyPrefix = '';
 }
 
 class DomProps extends UiMap implements DomPropsInterface {
-  DomProps([backingMap]) {
-    this.$backingMap ??= backingMap;
+  DomProps([Map backingMap]) {
+    $backingMap ??= backingMap;
   }
 
   @override
-  String keyPrefix = '';
-
-  AriaProps get aria => new AriaProps(this.$backingMap);
+  final String keyPrefix = '';
 }
 
 class AriaProps extends UiMap implements AriaPropsInterface {
-  AriaProps([backingMap]) {
-    this.$backingMap ??= backingMap;
+  AriaProps([Map backingMap]) {
+    $backingMap ??= backingMap;
   }
-
   @override
-  String keyPrefix = 'aria-';
+  final String keyPrefix = 'aria-';
 }
 
 mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
-  /// A cache for the MapView used for [aria].
-  AriaProps _aria;
-
-  /// A cache for the MapView used for [dom].
-  DomProps _dom;
   /// A view into this map that can be used to access `aria-` props, for convenience.
   ///
   /// Example:
@@ -47,10 +38,9 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  AriaProps get aria {
-    _aria ??= new AriaProps(this.$backingMap);
-    return _aria;
-  }
+  @override
+  AriaProps get aria => AriaProps($backingMap);
+
 
   /// A view into this map that can be used to access DOM props, for convenience.
   ///
@@ -59,13 +49,9 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  DomProps get dom {
-    _dom ??= new DomProps(this.$backingMap);
-    return _dom;
-  }
+  @override
+  DomProps get dom => DomProps($backingMap);
 }
-
-
 
 class DomPropsInterface {
   int cols, rows, size, span, start;
@@ -772,6 +758,9 @@ class AriaPropsInterface {
 }
 
 class UbiquitousDomPropsInterface {
+  AriaPropsInterface aria;
+  DomPropsInterface dom;
+
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
   dynamic tabIndex;

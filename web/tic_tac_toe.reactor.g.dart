@@ -3,68 +3,77 @@
 part of tic_tac_toe;
 
 // **************************************************************************
-// Generator: ReactorComponentBuilder
+// ReactorComponentGenerator
 // **************************************************************************
 
-class __SquarePropsInterface {
+class _SquarePropsInterface {
   String displayValue;
+
+  Function handleSquareClick;
 }
 
-class __SquareProps extends UiProps implements __SquarePropsInterface {}
+class _SquareProps extends Props implements _SquarePropsInterface {}
 
 // Component Factory
-__SquareProps _Square([Map backingMap]) {
-  var interopFunction = allowInterop((props, context) {
-    __SquareProps tProps = __SquareProps().fromJs(props);
+_SquareProps _Square([Map backingMap]) {
+  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+      .allowInterop((props, context) {
+    _SquareProps tProps = _SquareProps().fromJs(props);
     return SquareComponent(
       tProps,
       tProps.displayValue,
+      tProps.handleSquareClick,
     );
   });
-  ReactorJsUtils.setInteropComponentName(interopFunction, 'Square');
-  return new __SquareProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
+  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
+      interopFunction, 'name', 'Square');
+  return _SquareProps()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = interopFunction;
 }
 
 class _BoardComponent extends BoardComponent {
   _BoardComponent() {
-    this.reactorComponent = ReactComponentBuilder(displayName: 'Board');
-    reactorComponent..render = render;
+    this.reactJsComponent =
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Board');
+    reactJsComponent..render = render;
   }
 
   @override
-  BoardProps get props => BoardProps().fromJs(reactorComponent.props);
+  BoardProps get props => BoardProps().fromJs(reactJsComponent.props);
 
   @override
-  BoardState get state => BoardState().fromJs(reactorComponent.state);
+  State get state => State().fromJs(reactJsComponent.state);
 }
 
 // Component Instance
 BoardProps _Board([Map backingMap]) {
   var _dartComp = _BoardComponent();
-  return new BoardProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
-    ..$componentClass = _dartComp.reactorComponent.reactClass;
+  return BoardProps()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
+    ..$componentClass = _dartComp.reactJsComponent.reactClass;
 }
 
 class _GameComponent extends GameComponent {
   _GameComponent() {
-    this.reactorComponent = ReactComponentBuilder(displayName: 'Game');
-    reactorComponent..render = render;
+    this.reactJsComponent =
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Game', constructor: constructor);
+    reactJsComponent..render = render;
   }
 
   @override
-  UiProps get props => UiProps().fromJs(reactorComponent.props);
+  Props get props => Props().fromJs(reactJsComponent.props);
 
   @override
-  UiState get state => UiState().fromJs(reactorComponent.state);
+  GameState get state => GameState().fromJs(reactJsComponent.state);
 }
 
 // Component Instance
-UiProps _Game([Map backingMap]) {
+Props _Game([Map backingMap]) {
   var _dartComp = _GameComponent();
-  return new UiProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
-    ..$componentClass = _dartComp.reactorComponent.reactClass;
+  return Props()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
+    ..$componentClass = _dartComp.reactJsComponent.reactClass;
 }

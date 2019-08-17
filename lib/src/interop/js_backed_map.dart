@@ -1,11 +1,12 @@
 @JS()
-library reactor.interop.js_map;
+library reactor.interop.js_backed_map;
 
 import 'dart:collection';
 import 'dart:core';
 import 'dart:js_util' as js_util;
 
 import 'package:js/js.dart';
+import 'package:reactor/src/interop/js.dart';
 
 class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
   final jsObject;
@@ -45,19 +46,19 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
 
   // todo this cast seems to work in Dart 1 without much overhead in dart2js, but may break in DDC/Dartium and may also break reified types
   @override
-  Iterable<K> get keys => _Object.keys(jsObject) as List<K>;
+  Iterable<K> get keys => JsObject.keys(jsObject) as List<K>;
 
   @override
   V remove(Object key) {
     final value = this[key];
-    _Reflect.deleteProperty(jsObject, key);
+    Reflect.deleteProperty(jsObject, key);
     return value;
   }
 
   @override
   void clear() {
     for (var key in keys) {
-      _Reflect.deleteProperty(jsObject, key);
+      Reflect.deleteProperty(jsObject, key);
     }
   }
 
@@ -74,7 +75,7 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
       // This cast is necessary due to type inference not working
       // properly without the generic parameter, and has no
       // overhead in dart2js
-      _Object.assign(jsObject, (other as JsBackedMap).jsObject);
+      JsObject.assign(jsObject, (other as JsBackedMap).jsObject);
     } else {
       super.addAll(other);
     }
@@ -87,7 +88,7 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
 
   // todo this cast seems to work in Dart 1 without much overhead in dart2js, but may break in DDC/Dartium and may also break reified types
   @override
-  Iterable<V> get values => _Object.values(jsObject) as List<V>;
+  Iterable<V> get values => JsObject.values(jsObject) as List<V>;
 
 // TODO not sure if overriding makes sense; check to see which is more optimal for smaller maps
 //  @override
@@ -104,23 +105,6 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
   int get hashCode => jsObject.hashCode;
 }
 
-@JS()
-@anonymous
-class JsMap {
-  external factory JsMap();
-}
-
-@JS('Object')
-abstract class _Object {
-  external static void assign(JsMap to, JsMap from);
-  external static List<dynamic> keys(JsMap object);
-  external static List<dynamic> values(JsMap object);
-}
-
-@JS('Reflect')
-abstract class _Reflect {
-  external static bool deleteProperty(JsMap target, dynamic propertyKey);
-}
 
 JsMap jsBackingMapOrJsCopy(Map other) {
   // todo is it faster to just always do .from?

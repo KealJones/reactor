@@ -3,29 +3,31 @@
 part of 'function.dart';
 
 // **************************************************************************
-// Generator: ReactorComponentBuilder
+// ReactorComponentGenerator
 // **************************************************************************
 
-class __FunctionalPropsInterface {
+class _FunctionalPropsInterface {
   String placeholder;
 
   int myNum;
 }
 
-class __FunctionalProps extends UiProps implements __FunctionalPropsInterface {}
+class _FunctionalProps extends Props implements _FunctionalPropsInterface {}
 
 // Component Factory
-__FunctionalProps _Functional([Map backingMap]) {
-  var interopFunction = allowInterop((props, context) {
-    __FunctionalProps tProps = __FunctionalProps().fromJs(props);
+_FunctionalProps _Functional([Map backingMap]) {
+  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+      .allowInterop((props, context) {
+    _FunctionalProps tProps = _FunctionalProps().fromJs(props);
     return FunctionalComponent(
       tProps,
       tProps.placeholder,
       tProps.myNum,
     );
   });
-  ReactorJsUtils.setInteropComponentName(interopFunction, 'Functional');
-  return new __FunctionalProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
+  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
+      interopFunction, 'name', 'Functional');
+  return _FunctionalProps()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = interopFunction;
 }

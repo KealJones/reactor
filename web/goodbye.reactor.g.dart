@@ -3,13 +3,15 @@
 part of 'goodbye.dart';
 
 // **************************************************************************
-// Generator: ReactorComponentBuilder
+// ReactorComponentGenerator
 // **************************************************************************
 
 class _GoodbyeComponent extends GoodbyeComponent {
   _GoodbyeComponent() {
-    this.reactorComponent = ReactComponentBuilder(displayName: 'Goodbye');
-    reactorComponent
+    this.reactJsComponent =
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Goodbye');
+    reactJsComponent
       ..render = render
       ..getDerivedStateFromProps = (_js_props, _jsstate) {
         return getDerivedStateFromProps(GoodbyeProps().fromJs(_js_props),
@@ -20,16 +22,16 @@ class _GoodbyeComponent extends GoodbyeComponent {
   }
 
   @override
-  GoodbyeProps get props => GoodbyeProps().fromJs(reactorComponent.props);
+  GoodbyeProps get props => GoodbyeProps().fromJs(reactJsComponent.props);
 
   @override
-  GoodbyeState get state => GoodbyeState().fromJs(reactorComponent.state);
+  GoodbyeState get state => GoodbyeState().fromJs(reactJsComponent.state);
 }
 
 // Component Instance
 GoodbyeProps _Goodbye([Map backingMap]) {
   var _dartComp = _GoodbyeComponent();
-  return new GoodbyeProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
-    ..$componentClass = _dartComp.reactorComponent.reactClass;
+  return GoodbyeProps()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
+    ..$componentClass = _dartComp.reactJsComponent.reactClass;
 }

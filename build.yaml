@@ -1,8 +1,8 @@
 # Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
 builders:
-  reactorBuilder:
-    import: "package:reactor/builder.dart"
-    builder_factories: ["reactorBuilder"]
+  reactorGenerator:
+    import: "package:reactor/generator.dart"
+    builder_factories: ["reactorGenerator"]
     build_extensions: {".dart": ["reactor.g.dart"]}
     build_to: source
     auto_apply: root_package

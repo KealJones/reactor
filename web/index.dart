@@ -8,17 +8,32 @@ import 'simple.dart';
 import 'tic_tac_toe.dart';
 
 main() {
+  Map<String, String> sharedStyleMap = {
+    'display': 'flex',
+    'flexDirection': 'column',
+    'textAlign': 'center',
+    'alignItems': 'center',
+    'justifyContent': 'center',
+    'height': '50vh',
+  };
   var content = Dom.div()(
-    (Functional()..placeholder = 'test'..id = 'omg')(),
-    (Hello()
-      ..aria.required = true
-      ..isThisDefault = false
-      ..key = 'hello'
-    )(
-      (Dom.span()..key='test')('Test'),
+    (Dom.div()..hidden = true..aria.hidden = true..style = sharedStyleMap)(
+      (Hello()
+        ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))
+        ..dom.hidden = true
+        ..aria.hidden = true
+        ..isThisDefault = false
+        ..key = 'hello'
+      )(
+        (Dom.span()..key='test')('Test'),
+      ),
+      Simple()(),
+      (Functional()..placeholder = 'I am a functional component'..id = 'omg')(),
     ),
-    Simple()(),
-    Game()(),
+    Dom.hr()(),
+    (Dom.div()..style = sharedStyleMap)(
+      Game()(),
+    )
   );
 
   ReactDOM.render(

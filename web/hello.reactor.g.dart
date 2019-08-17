@@ -3,13 +3,15 @@
 part of 'hello.dart';
 
 // **************************************************************************
-// Generator: ReactorComponentBuilder
+// ReactorComponentGenerator
 // **************************************************************************
 
 class _HelloComponent extends HelloComponent {
   _HelloComponent() {
-    this.reactorComponent = ReactComponentBuilder(displayName: 'Hello');
-    reactorComponent
+    this.reactJsComponent =
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Hello');
+    reactJsComponent
       ..render = render
       ..componentDidMount = componentDidMount
       ..componentDidUpdate = (_jsprevProps, _jsprevState, _jssnapshot) {
@@ -19,16 +21,16 @@ class _HelloComponent extends HelloComponent {
   }
 
   @override
-  HelloProps get props => HelloProps().fromJs(reactorComponent.props);
+  HelloProps get props => HelloProps().fromJs(reactJsComponent.props);
 
   @override
-  HelloState get state => HelloState().fromJs(reactorComponent.state);
+  HelloState get state => HelloState().fromJs(reactJsComponent.state);
 }
 
 // Component Instance
 HelloProps _Hello([Map backingMap]) {
   var _dartComp = _HelloComponent();
-  return new HelloProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
-    ..$componentClass = _dartComp.reactorComponent.reactClass;
+  return HelloProps()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
+    ..$componentClass = _dartComp.reactJsComponent.reactClass;
 }

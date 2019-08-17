@@ -20,7 +20,7 @@ getComponentGenerics(Element element){
   if (element is ClassElement){
     return element.supertype.typeArguments.map((dartType) => dartType.toString()).toList();
   }
-  return ['UiProps', 'UiState'];
+  return ['Props', 'State'];
 }
 
 createComponentFromElement(Element _element, [BuildStep buildStep]) async {
@@ -29,69 +29,67 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
     final args = element.parameters;
     final destructuredPropArgs = args.where((arg) => !arg.name.toLowerCase().contains('props')).toList();
     return '''
-      class _${getComponentPropsName(element)}Interface {
+      class ${getComponentPropsName(element)}Interface {
         ${destructuredPropArgs.map((arg) {
           return '${arg.type.name ?? 'var'} ${arg.name};\n';
         }).join('\n')}
       }
-      class _${getComponentPropsName(element)} extends UiProps implements _${getComponentPropsName(element)}Interface {}
+      class ${getComponentPropsName(element)} extends Props implements ${getComponentPropsName(element)}Interface {}
 
       // Component Factory
-      _${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
-        var interopFunction = allowInterop((props, context){
-          _${getComponentPropsName(element)} tProps = _${getComponentPropsName(element)}().fromJs(props);
+      ${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
+        var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, context){
+          ${getComponentPropsName(element)} tProps = ${getComponentPropsName(element)}().fromJs(props);
           return ${element.name}(tProps,
             ${destructuredPropArgs.map((arg) {
               return 'tProps.${arg.name},';
             }).join(' ')} 
           );
         });
-        ReactorJsUtils.setInteropComponentName(interopFunction, '${getComponentShortName(element)}');
-        return new _${getComponentPropsName(element)}()
-          ..\$backingMap = backingMap ?? JsBackedMap()
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', '${getComponentShortName(element)}');
+        return ${getComponentPropsName(element)}()
+          ..\$backingMap = JsBackedMap.from(backingMap ?? {})
           ..\$componentClass = interopFunction;
       }
     ''';
   }
 
   if (element is ClassElement) {
+    MethodElement constructorMethod = element.methods.singleWhere((method) => method.name == 'constructor', orElse:() => null);
     return '''
       class _${element.name} extends ${element.name} {
-        _${element.name}(){
-          this.reactorComponent = ReactComponentBuilder(displayName: '${getComponentShortName(element)}');
-          reactorComponent
+        _${element.name}() {
+          this.reactJsComponent = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: '${getComponentShortName(element)}' ${constructorMethod != null ? ', constructor: ' + constructorMethod.name : ''});
+          reactJsComponent
           ${await createComponentJsMethods(element, buildStep)};
         }
 
         @override
-        ${getComponentPropsName(element)} get props => ${getComponentPropsName(element)}().fromJs(reactorComponent.props);
+        ${getComponentPropsName(element)} get props => ${getComponentPropsName(element)}().fromJs(reactJsComponent.props);
 
         @override
-        ${getComponentStateName(element)} get state => ${getComponentStateName(element)}().fromJs(reactorComponent.state);
+        ${getComponentStateName(element)} get state => ${getComponentStateName(element)}().fromJs(reactJsComponent.state);
       }
 
       // Component Instance
       ${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
         var _dartComp = _${element.name}();
-        return new ${getComponentPropsName(element)}()
-          ..\$backingMap = backingMap ?? JsBackedMap()
-          ..\$componentClass = _dartComp.reactorComponent.reactClass;
+        return ${getComponentPropsName(element)}()
+          ..\$backingMap = JsBackedMap.from(backingMap ?? {})
+          ..\$componentClass = _dartComp.reactJsComponent.reactClass;
       }
     ''';
   }
 }
 
 createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
-  // var resolvedLibrary = await element.session.getResolvedLibraryByElement(element.library);
-  // var declaration = resolvedLibrary.getElementDeclaration(element);
-  // var unit = declaration.resolvedUnit.unit;
   String content = '';
   
   List<String> componentLifecycleMethods = ['getDerivedStateFromError','getDerivedStateFromProps','getSnapshotBeforeUpdate','shouldComponentUpdate','render','componentDidMount','componentDidUpdate','componentWillUnmount','componentDidCatch'];
   Map<String, MethodElement> implementedMethods = {};
-  componentLifecycleMethods.forEach((String methodString) async {//unit.declarations.forEach((CompilationUnitMember dec){
+  componentLifecycleMethods.forEach((String methodString) async {
     MethodElement method = element.lookUpInheritedMethod(methodString, element.library);
-    if (method.enclosingElement.name != 'UiComponent' && method.enclosingElement.name != 'UiComponent') {
+    if (method.enclosingElement.name != 'Component' && method.enclosingElement.name != 'Component') {
       implementedMethods[methodString] = method;
     }
   });
@@ -102,7 +100,6 @@ createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
     }
   });
   implementedMethods.values.forEach((MethodElement method){
-    //setProperty(this, 'render', allowInterop(this.render));
     content += '..${method.name} = ${createInteropWrapperMethod(method, element)}\n';
   });
   return content;

@@ -12,8 +12,7 @@ class ExampleDartValue {
   ExampleDartValue({this.dur = const Duration(seconds: 2)});
 }
 
-@Factory()
-var Hello = _Hello;
+Factory<HelloProps> Hello = _Hello;
 
 class HelloPropsInterface {
   /// An example dart value
@@ -24,39 +23,39 @@ class HelloPropsInterface {
   bool isThisDefault;
 }
 
-class HelloProps extends UiProps implements HelloPropsInterface {}
+class HelloProps extends Props implements HelloPropsInterface {}
 
 class HelloStateInterface {
-  String customHelloText;
+  String usersName;
 }
-class HelloState extends UiState implements HelloStateInterface {}
+class HelloState extends State implements HelloStateInterface {}
 
-@Component()
-class HelloComponent extends UiComponent<HelloProps, HelloState> {
+@ReactorComponent()
+class HelloComponent extends Component<HelloProps, HelloState> {
   InputElement inputRef = InputElement();
 
   @override
   render() {
+    var tempProps = HelloProps().from(props)..remove('isThisDefault')..remove('children');
     return Dom.div()(
       Dom.div()(
         (Dom.input()
           ..className = 'test'
           ..ref = (ref){ inputRef = ref; }
-          ..placeholder = "type something here"
+          ..placeholder = "Type your name here!"
           ..aria.readonly = false
           ..onChange = (_){
             String value = inputRef.value;
-            this.setState(HelloState()..customHelloText = value);
+            this.setState(HelloState()..usersName = value);
           }
         )(),
       ),
-      Dom.span()('${this.state.customHelloText?.isNotEmpty ?? false ? this.state.customHelloText + ' ' : 'Hello '}'),
+      Dom.span()('Hello${this.state.usersName?.isNotEmpty ?? false ? ', ' + this.state.usersName + '!' : ''}'),
       Dom.br()(),
       Dom.div()(
         (Goodbye()
-          ..addAll(props)
           ..dom.id = 'goodbye'
-          ..dom.value = state.customHelloText
+          ..dom.value = state.usersName
         )(
           Dom.div()('Test')
         ),

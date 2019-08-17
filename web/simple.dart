@@ -4,8 +4,8 @@ part 'simple.reactor.g.dart';
 
 var Simple = _Simple;
 
-@Component()
-class SimpleComponent extends UiComponent {
+@ReactorComponent()
+class SimpleComponent extends Component {
   @override
   render() {
     return 'Its simple.';

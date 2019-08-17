@@ -6,9 +6,7 @@ import 'package:reactor/reactor.dart';
 
 part 'tic_tac_toe.reactor.g.dart';
 
-//////////////////////////////////////////////////////////////////////////////
 /// SQUARE ///////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
 ///
 /// Javascript:
 /// ```
@@ -20,17 +18,19 @@ part 'tic_tac_toe.reactor.g.dart';
 ///   );
 /// }
 /// ```
-var Square = _Square;
+Factory<_SquareProps> Square = _Square;
 
-@Component()
-SquareComponent(UiProps props, String displayValue) {
-  return (Dom.button()..className = 'square'..onClick = props.onClick..value=displayValue)([displayValue]);
+@ReactorComponent()
+SquareComponent(_SquareProps props, String displayValue, Function handleSquareClick) {
+  return (Dom.button()
+    ..className = 'square'
+    ..onClick = (SyntheticMouseEvent event) { handleSquareClick(); }
+    ..value=displayValue
+  )([displayValue]);
 }
 
 
-//////////////////////////////////////////////////////////////////////////////
 /// BOARD ////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
 ///
 /// Javascript:
 /// ```
@@ -38,8 +38,8 @@ SquareComponent(UiProps props, String displayValue) {
 ///   renderSquare(i) {
 ///     return (
 ///       <Square
-///         value={this.props.squares[i]}
-///         onClick={() => this.props.onClick(i)}
+///         value={props.squares[i]}
+///         onClick={() => props.onClick(i)}
 ///       />
 ///     );
 ///   }
@@ -48,19 +48,19 @@ SquareComponent(UiProps props, String displayValue) {
 ///     return (
 ///       <div>
 ///         <div className="board-row">
-///           {this.renderSquare(0)}
-///           {this.renderSquare(1)}
-///           {this.renderSquare(2)}
+///           {renderSquare(0)}
+///           {renderSquare(1)}
+///           {renderSquare(2)}
 ///         </div>
 ///         <div className="board-row">
-///           {this.renderSquare(3)}
-///           {this.renderSquare(4)}
-///           {this.renderSquare(5)}
+///           {renderSquare(3)}
+///           {renderSquare(4)}
+///           {renderSquare(5)}
 ///         </div>
 ///         <div className="board-row">
-///           {this.renderSquare(6)}
-///           {this.renderSquare(7)}
-///           {this.renderSquare(8)}
+///           {renderSquare(6)}
+///           {renderSquare(7)}
+///           {renderSquare(8)}
 ///         </div>
 ///       </div>
 ///     );
@@ -68,69 +68,53 @@ SquareComponent(UiProps props, String displayValue) {
 /// }
 /// ```
 
-UiFactory<BoardProps> Board = _Board;
+Factory<BoardProps> Board = _Board;
 
 class BoardPropsInterface {
   List<dynamic> squares;
   Function(int squareId) handleClick;
 }
-class BoardProps extends UiProps implements BoardPropsInterface {}
+class BoardProps extends Props implements BoardPropsInterface {}
 
-@Component()
-class BoardComponent extends UiComponent<BoardProps, UiState> {
+@ReactorComponent()
+class BoardComponent extends Component<BoardProps, State> {
   renderSquare(i) {
     return (Square()
-      ..displayValue = this.props.squares[i]
-      ..onClick = (_) { this.props.handleClick(i); }
+      ..displayValue = props.squares[i]
+      ..handleSquareClick = () => props.handleClick(i)
     )();
   }
 
   @override
   render() {
-    if (state?.isEmpty ?? true) {
-      state = BoardState()
-          ..stepNumber = 0
-          ..history = [List.filled(9, null)]
-          ..xIsNext = true;
-    }
-    var winner = calculateWinner(state.squares);
-    var status;
-    if (winner != null) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (state.xIsNext ? 'X' : 'O');
-    }
     return Dom.div()(
-      (Dom.div()..className='status')(status),
       (Dom.div()..className = 'board-row')(
-        this.renderSquare(0),
-        this.renderSquare(1),
-        this.renderSquare(2),
+        renderSquare(0),
+        renderSquare(1),
+        renderSquare(2),
       ),
       (Dom.div()..className = 'board-row')(
-        this.renderSquare(3),
-        this.renderSquare(4),
-        this.renderSquare(5),
+        renderSquare(3),
+        renderSquare(4),
+        renderSquare(5),
       ),
       (Dom.div()..className = 'board-row')(
-        this.renderSquare(6),
-        this.renderSquare(7),
-        this.renderSquare(8),
+        renderSquare(6),
+        renderSquare(7),
+        renderSquare(8),
       ),
     );
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////
 /// GAME /////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
 ///
 /// Javascript:
 /// ```
 /// class Game extends React.Component {
 ///   constructor(props) {
 ///     super(props);
-///     this.state = {
+///     state = {
 ///       history: [
 ///         {
 ///           squares: Array(9).fill(null)
@@ -142,34 +126,34 @@ class BoardComponent extends UiComponent<BoardProps, UiState> {
 ///   }
 ///
 ///   handleClick(i) {
-///     const history = this.state.history.slice(0, this.state.stepNumber + 1);
+///     const history = state.history.slice(0, state.stepNumber + 1);
 ///     const current = history[history.length - 1];
 ///     const squares = current.squares.slice();
 ///     if (calculateWinner(squares) || squares[i]) {
 ///       return;
 ///     }
-///     squares[i] = this.state.xIsNext ? "X" : "O";
-///     this.setState({
+///     squares[i] = state.xIsNext ? "X" : "O";
+///     setState({
 ///       history: history.concat([
 ///         {
 ///           squares: squares
 ///         }
 ///       ]),
 ///       stepNumber: history.length,
-///       xIsNext: !this.state.xIsNext
+///       xIsNext: !state.xIsNext
 ///     });
 ///   }
 ///
 ///   jumpTo(step) {
-///     this.setState({
+///     setState({
 ///       stepNumber: step,
 ///       xIsNext: (step % 2) === 0
 ///     });
 ///   }
 ///
 ///   render() {
-///     const history = this.state.history;
-///     const current = history[this.state.stepNumber];
+///     const history = state.history;
+///     const current = history[state.stepNumber];
 ///     const winner = calculateWinner(current.squares);
 ///
 ///     const moves = history.map((step, move) => {
@@ -178,7 +162,7 @@ class BoardComponent extends UiComponent<BoardProps, UiState> {
 ///         'Go to game start';
 ///       return (
 ///         <li key={move}>
-///           <button onClick={() => this.jumpTo(move)}>{desc}</button>
+///           <button onClick={() => jumpTo(move)}>{desc}</button>
 ///         </li>
 ///       );
 ///     });
@@ -187,7 +171,7 @@ class BoardComponent extends UiComponent<BoardProps, UiState> {
 ///     if (winner) {
 ///       status = "Winner: " + winner;
 ///     } else {
-///       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+///       status = "Next player: " + (state.xIsNext ? "X" : "O");
 ///     }
 ///
 ///     return (
@@ -195,7 +179,7 @@ class BoardComponent extends UiComponent<BoardProps, UiState> {
 ///         <div className="game-board">
 ///           <Board
 ///             squares={current.squares}
-///             onClick={i => this.handleClick(i)}
+///             onClick={i => handleClick(i)}
 ///           />
 ///         </div>
 ///         <div className="game-info">
@@ -207,113 +191,78 @@ class BoardComponent extends UiComponent<BoardProps, UiState> {
 ///   }
 /// }
 /// ```
-var Game = _Game;
+Factory<Props> Game = _Game;
 
 class GameStateInterface {
-  List history;
+  List<List<String>> history;
   bool xIsNext;
   int stepNumber;
 }
-class GameState extends UiState implements GameStateInterface {}
+class GameState extends State implements GameStateInterface {}
 
-@Component()
-class GameComponent extends UiComponent<UiProps, GameState> {
+@ReactorComponent()
+class GameComponent extends Component<Props, GameState> {
+  @override 
+  constructor() {
+    state = GameState()
+      ..history = [List<String>.filled(9, null)]
+      ..stepNumber = 0
+      ..xIsNext = true;
+  }
 
   handleClick(i) {
-    var history = List.from(this.state.history);
-    var current = history[history.length - 1];
-    var squares = List.from(current);
+    var history = List<List<String>>.from(state.history).sublist(0, state.stepNumber + 1);
+    var squares = List<String>.from(history[(history.length - 1)]);
 
-    if (calculateWinner(squares) || squares[i] != null) {
+    if (calculateWinner(squares) != null || squares[i] != null) {
       return;
     }
 
-    squares[i] = this.state.xIsNext ? "X" : "O";
-    history.add(squares);
+    squares[i] = state.xIsNext ? "X" : "O";
 
-    this.setState(GameState()
-      ..history = history
+    setState(GameState()
+      ..history = (List<List<String>>.from(history)..add(squares))
       ..stepNumber = history.length
-      ..xIsNext = !this.state.xIsNext
+      ..xIsNext = !state.xIsNext
     );
   }
 
   jumpTo(step) {
-    this.setState(GameState()
+    setState(GameState()
       ..stepNumber = step
       ..xIsNext = (step % 2) == 0
     );
   }
-///   render() {
-///     const history = this.state.history;
-///     const current = history[this.state.stepNumber];
-///     const winner = calculateWinner(current.squares);
-///
-///     const moves = history.map((step, move) => {
-///       const desc = move ?
-///         'Go to move #' + move :
-///         'Go to game start';
-///       return (
-///         <li key={move}>
-///           <button onClick={() => this.jumpTo(move)}>{desc}</button>
-///         </li>
-///       );
-///     });
-///
-///     let status;
-///     if (winner) {
-///       status = "Winner: " + winner;
-///     } else {
-///       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
-///     }
-///
-///     return (
-///       <div className="game">
-///         <div className="game-board">
-///           <Board
-///             squares={current.squares}
-///             onClick={i => this.handleClick(i)}
-///           />
-///         </div>
-///         <div className="game-info">
-///           <div>{status}</div>
-///           <ol>{moves}</ol>
-///         </div>
-///       </div>
-///     );
-///   }
+
   @override
   render(){
-    var history = this.state.history;
-    var current = history[this.state.stepNumber];
+    var history = List<List<String>>.from(state.history);
+    var current = history[state.stepNumber];
     var winner = calculateWinner(current);
-    var move = 0;
     var moves = history.map((step) {
-      move++;
-      var desc = move != null ?
+      var move = history.indexOf(step);
+      var desc = move != 0 ?
         'Go to move #$move' :
         'Go to game start';
-      return (
-        (Dom.li()..key = move)(
-          (Dom.button()..onClick = (el(toString()<li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      ).toList();
-    }  
+      return (Dom.li()..key = '$move')(
+          (Dom.button()..onClick = (_) => jumpTo(move))(desc)
+        );
+    }).toList();  
 
     String status;
 
-    if (winner) {
+    if (winner != null) {
       status = "Winner: " + winner;
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = "Next player: " + (state.xIsNext ? "X" : "O");
     }
 
     return (Dom.div()..className='game')(
       (Dom.div()..className = 'game-board')(
         (Board()
           ..squares = current
-          ..onClick = (e) => this.handleClick(i))(),
+          ..handleClick = handleClick
+        )()
       ),
       (Dom.div()..className = 'game-info')(
         Dom.div()(status),
@@ -323,9 +272,7 @@ class GameComponent extends UiComponent<UiProps, GameState> {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////
 /// calculateWinner //////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
 ///
 /// Javascript:
 /// ```

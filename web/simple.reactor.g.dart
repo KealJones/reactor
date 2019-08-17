@@ -3,26 +3,28 @@
 part of 'simple.dart';
 
 // **************************************************************************
-// Generator: ReactorComponentBuilder
+// ReactorComponentGenerator
 // **************************************************************************
 
 class _SimpleComponent extends SimpleComponent {
   _SimpleComponent() {
-    this.reactorComponent = ReactComponentBuilder(displayName: 'Simple');
-    reactorComponent..render = render;
+    this.reactJsComponent =
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Simple');
+    reactJsComponent..render = render;
   }
 
   @override
-  UiProps get props => UiProps().fromJs(reactorComponent.props);
+  Props get props => Props().fromJs(reactJsComponent.props);
 
   @override
-  UiState get state => UiState().fromJs(reactorComponent.state);
+  State get state => State().fromJs(reactJsComponent.state);
 }
 
 // Component Instance
-UiProps _Simple([Map backingMap]) {
+Props _Simple([Map backingMap]) {
   var _dartComp = _SimpleComponent();
-  return new UiProps()
-    ..$backingMap = backingMap ?? JsBackedMap()
-    ..$componentClass = _dartComp.reactorComponent.reactClass;
+  return Props()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
+    ..$componentClass = _dartComp.reactJsComponent.reactClass;
 }
