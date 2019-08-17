@@ -1,9 +1,10 @@
+library reactor.core.maps.ui_maps;
 
 import 'dart:collection';
 import 'dart:js';
 import 'dart:js_util';
 
-import 'package:reactor/src/atoms/constants.dart';
+import 'package:reactor/src/core/constants.dart';
 import 'package:reactor/src/core/maps/dom_props.dart';
 import 'package:reactor/src/core/react.dart';
 import 'package:reactor/src/interop/js.dart';

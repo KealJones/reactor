@@ -16,7 +16,7 @@ main() {
     'justifyContent': 'center',
     'height': '50vh',
   };
-  var content = Dom.div()(
+  var content = React.Fragment()(
     (Dom.div()..hidden = true..aria.hidden = true..style = sharedStyleMap)(
       (Hello()
         ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))

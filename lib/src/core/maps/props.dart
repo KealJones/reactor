@@ -1,3 +1,5 @@
+library reactor.core.maps.props;
+
 import 'package:reactor/src/core/maps/ui_maps.dart';
 
 class ReactPropsInterface {

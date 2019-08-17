@@ -1,4 +1,4 @@
-library reactor.atoms.annotations;
+library reactor.core.annotations;
 
 class ReactorComponent {
   const ReactorComponent();

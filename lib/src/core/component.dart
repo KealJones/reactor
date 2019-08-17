@@ -1,4 +1,4 @@
-library reactor.wrappers.component;
+library reactor.core.component;
 
 import 'package:reactor/src/interop/component.dart';
 import 'package:reactor/src/core/maps.dart';

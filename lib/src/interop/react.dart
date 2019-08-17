@@ -9,6 +9,7 @@ import 'package:js/js.dart';
 class React {
   external static ReactJsComponent get Component;
   external static String get version;
+  external static ReactJsComponent get Fragment;
 }
 
 @JS()

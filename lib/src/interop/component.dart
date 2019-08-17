@@ -1,3 +1,4 @@
+library reactor.interop.component;
 import 'dart:js';
 
 import 'package:reactor/src/interop/react.dart';

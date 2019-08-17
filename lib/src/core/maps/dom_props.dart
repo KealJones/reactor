@@ -1,4 +1,4 @@
-library reactor.dom.map;
+library reactor.core.maps.dom_props;
 
 import 'package:reactor/src/core/maps/props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';

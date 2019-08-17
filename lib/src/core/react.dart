@@ -1,11 +1,14 @@
+library reactor.core.react;
+
 import 'dart:js_util' as js_util;
 import 'dart:html';
 
+import 'package:reactor/src/core/components/fragment.dart' as fragment;
 import 'package:reactor/src/interop/react.dart' as reactjs;
 
 export 'package:reactor/src/interop/react.dart' show ReactElement;
 
-class React {
+class React extends reactjs.React {
   static reactjs.ReactElement createElement(component, props, children){
     return js_util.callMethod(
         js_util.getProperty(window, 'React'),
@@ -17,6 +20,7 @@ class React {
         ],
       );
   }
+  static get Fragment => fragment.Fragment;
 }
 
 class ReactDOM {
