@@ -4,8 +4,16 @@ builders:
     import: "package:reactor/generator.dart"
     builder_factories: ["reactorGenerator"]
     build_extensions: {".dart": ["reactor.g.dart"]}
-    build_to: source
+    build_to: cache
     auto_apply: dependents
+
+  # Builder just for this package.
+  reactorLocalGenerator:
+    import: "package:reactor/generator.dart"
+    builder_factories: ["reactorGenerator"]
+    build_extensions: {".dart": ["reactor.g.dart"]}
+    build_to: source
+    auto_apply: root_package
     defaults:
       generate_for:
         # Only apply to .dart files in the web directory
