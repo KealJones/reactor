@@ -36,14 +36,15 @@ class HelloComponent extends Component<HelloProps, HelloState> {
 
   @override
   render() {
-    var tempProps = HelloProps().from(props)..remove('isThisDefault')..remove('children');
+    var tempProps = HelloProps().from(props)..remove('dartVal')..remove('isThisDefault')..remove('children');
     return Dom.div()(
       Dom.div()(
         (Dom.input()
+          ..addAll(tempProps)
           ..className = 'test'
           ..ref = (ref){ inputRef = ref; }
           ..placeholder = "Type your name here!"
-          ..aria.readonly = false
+          ..aria.readonly = true
           ..onChange = (_){
             String value = inputRef.value;
             this.setState(HelloState()..usersName = value);

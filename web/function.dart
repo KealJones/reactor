@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:js_util' as js_util;
 import 'package:reactor/reactor.dart';
 
@@ -21,4 +22,17 @@ FunctionalComponent(props, String placeholder, int myNum) {
       )(),
     ),
   );
+}
+
+Factory<_HookTestProps> HookTest = _HookTest;
+
+@ReactorComponent()
+HookTestComponent(_HookTestProps props) {
+  var state = React.useState(1);
+
+  React.useEffect(() {
+    js_util.setProperty(window.document, 'title', 'You clicked ${state.value} times');
+  });
+
+  return (Dom.button()..onClick = (_)=>state.set(++state.value))('${state.value}');
 }

@@ -33,7 +33,8 @@ main() {
     Dom.hr()(),
     (Dom.div()..style = sharedStyleMap)(
       Game()(),
-    )
+    ),
+    HookTest()()
   );
 
   ReactDOM.render(

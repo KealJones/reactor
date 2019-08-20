@@ -10,6 +10,8 @@ class React {
   external static ReactJsComponent get Component;
   external static String get version;
   external static ReactJsComponent get Fragment;
+  external static dynamic useState<TState>(TState initalState);
+  external static void useEffect(void Function());
 }
 
 @JS()
