@@ -24,10 +24,10 @@ FunctionalComponent(props, String placeholder, int myNum) {
   );
 }
 
-Factory<_HookTestProps> HookTest = _HookTest;
+Factory HookTest = _HookTest;
 
 @ReactorComponent()
-HookTestComponent(_HookTestProps props) {
+HookTestComponent() {
   var state = React.useState(1);
 
   React.useEffect(() {

@@ -1,3 +1,5 @@
 library reactor.core.typedefs;
 
-typedef TProps Factory<TProps extends Map>([Map backingMap]);
+import 'package:reactor/src/core/maps.dart';
+
+typedef TProps Factory<TProps extends UiProps>([Map backingMap]);

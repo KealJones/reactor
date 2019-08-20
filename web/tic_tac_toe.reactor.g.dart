@@ -17,7 +17,7 @@ class _SquareProps extends Props implements _SquarePropsInterface {}
 // Component Factory
 _SquareProps _Square([Map backingMap]) {
   var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-      .allowInterop((props, context) {
+      .allowInterop((props, [context]) {
     _SquareProps tProps = _SquareProps().fromJs(props);
     return SquareComponent(
       tProps,

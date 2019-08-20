@@ -26,28 +26,38 @@ getComponentGenerics(Element element){
 createComponentFromElement(Element _element, [BuildStep buildStep]) async {
   Element element = _element;
   if (element is FunctionElement) {
+    var content = '';
     final args = element.parameters;
     final destructuredPropArgs = args.where((arg) => !arg.name.toLowerCase().contains('props')).toList();
-    return '''
-      class ${getComponentPropsName(element)}Interface {
-        ${destructuredPropArgs.map((arg) {
-          return '${arg.type.name ?? 'var'} ${arg.name};\n';
-        }).join('\n')}
-      }
-      class ${getComponentPropsName(element)} extends Props implements ${getComponentPropsName(element)}Interface {}
-
+    var functionalPropsName = '${getComponentPropsName(element)}';
+    if (destructuredPropArgs.length > 1){
+      content = '''
+        class ${getComponentPropsName(element)}Interface {
+          ${destructuredPropArgs.map((arg) {
+            return '${arg.type.name ?? 'var'} ${arg.name};\n';
+          }).join('\n')}
+        }
+        class ${getComponentPropsName(element)} extends Props implements ${getComponentPropsName(element)}Interface {}
+        ''';
+    } else {
+      functionalPropsName = 'Props';
+    }
+    return content + '''
       // Component Factory
-      ${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
-        var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, context){
-          ${getComponentPropsName(element)} tProps = ${getComponentPropsName(element)}().fromJs(props);
-          return ${element.name}(tProps,
-            ${destructuredPropArgs.map((arg) {
+      $functionalPropsName _${getComponentShortName(element)}([Map backingMap]) {
+        var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]){
+          $functionalPropsName tProps = $functionalPropsName().fromJs(props);
+          return ${element.name}(
+            ${args.map((arg) {
+              if (arg.name == 'props') {
+                return 'tProps, ';
+              }
               return 'tProps.${arg.name},';
             }).join(' ')} 
           );
         });
         REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', '${getComponentShortName(element)}');
-        return ${getComponentPropsName(element)}()
+        return $functionalPropsName()
           ..\$backingMap = JsBackedMap.from(backingMap ?? {})
           ..\$componentClass = interopFunction;
       }
