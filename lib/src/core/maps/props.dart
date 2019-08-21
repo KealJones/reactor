@@ -1,5 +1,6 @@
 library reactor.core.maps.props;
 
+import 'package:reactor/src/core/maps/dom_props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
 
 class ReactPropsInterface {
@@ -9,9 +10,9 @@ class ReactPropsInterface {
   String className;
 }
 
-class Props extends UiProps implements ReactPropsInterface {
+class Props extends UiProps with UbiquitousDomProps implements ReactPropsInterface {
   Props([Map backingMap]) { 
-    if (backingMap != null) $backingMap = backingMap;
+    $backingMap = backingMap ?? $backingMap;
   }
 }
 

@@ -5,12 +5,11 @@ import 'dart:js';
 import 'dart:js_util';
 
 import 'package:reactor/src/core/constants.dart';
-import 'package:reactor/src/core/maps/dom_props.dart';
 import 'package:reactor/src/core/react.dart';
 import 'package:reactor/src/interop/js.dart';
 import 'package:reactor/src/interop/js_backed_map.dart';
 
-class UiProps extends UiMap with UbiquitousDomProps, UiComponentInterface {
+class UiProps extends UiMap with UiComponentInterface {
   /// NO.
   dynamic $componentClass;
 

@@ -12,7 +12,6 @@ class DomProps extends UiProps implements ReactPropsInterface, DomPropsInterface
   @override
   final String keyPrefix = '';
 
-  @override
   AriaProps get aria => AriaProps($backingMap);
 }
 
