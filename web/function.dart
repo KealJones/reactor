@@ -4,7 +4,6 @@ import 'package:reactor/reactor.dart';
 
 part 'function.reactor.g.dart';
 
-
 Factory<_FunctionalProps> Functional = _Functional;
 
 @ReactorComponent()

@@ -17,11 +17,10 @@ main() {
     'height': '50vh',
   };
   var content = React.Fragment()(
-    (Dom.div()..hidden = true..aria.hidden = true..style = sharedStyleMap)(
+    (Dom.div()..style = sharedStyleMap)(
       (Hello()
         ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))
-        ..dom.hidden = true
-        ..aria.hidden = true
+        ..aria.autocomplete = false
         ..isThisDefault = false
         ..key = 'hello'
       )(
