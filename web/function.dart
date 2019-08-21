@@ -26,7 +26,7 @@ FunctionalComponent(_FunctionalProps props, String placeholder, int myNum) {
 Factory HookTest = _HookTest;
 
 @ReactorComponent()
-HookTestComponent(Props props) {
+HookTestComponent() {
   var counter = React.useState(1);
   var toggle = React.useState(true);
 

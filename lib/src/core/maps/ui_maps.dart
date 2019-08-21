@@ -74,7 +74,6 @@ class UiMap extends MapBase with UiMapBase, UiMapViewMixin {
         $backingMap[memberNameString] = value;
       }
     }
-    print($backingMap);
   }
 }
 

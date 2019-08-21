@@ -12,6 +12,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Running the example
 
+First:
+```
+pub get
+```
+
+Then:
 ```
 pub run build_runner serve
 ```
@@ -52,9 +58,8 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Dart](https://dart.dev/) - The language
+* [React](https://reactjs.org/) - The wrapped JavaScript library
 
 ## Contributing
 
@@ -66,7 +71,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Keal Jones** - [Keal Joones](https://github.com/kealjones)
+* **Keal Jones** - [Keal Jones](https://github.com/kealjones)
 
 See also the list of [contributors](https://github.com/kealjones/reactor/contributors) who participated in this project.
 
