@@ -46,7 +46,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
       // Component Factory
       $functionalPropsName _${getComponentShortName(element)}([Map backingMap]) {
         var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]){
-          $functionalPropsName tProps = $functionalPropsName().fromJs(props);
+          ${(args.length > 0 && args[0].name == 'props') ? '$functionalPropsName tProps = $functionalPropsName().fromJs(props);' : ''}
           return ${element.name}(
             ${args.map((arg) {
               if (arg.name == 'props') {

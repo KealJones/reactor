@@ -37,7 +37,9 @@ Props _HookTest([Map backingMap]) {
   var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
       .allowInterop((props, [context]) {
     Props tProps = Props().fromJs(props);
-    return HookTestComponent();
+    return HookTestComponent(
+      tProps,
+    );
   });
   REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
       interopFunction, 'name', 'HookTest');

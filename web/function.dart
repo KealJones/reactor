@@ -5,10 +5,10 @@ import 'package:reactor/reactor.dart';
 part 'function.reactor.g.dart';
 
 
-var Functional = _Functional;
+Factory<_FunctionalProps> Functional = _Functional;
 
 @ReactorComponent()
-FunctionalComponent(props, String placeholder, int myNum) {
+FunctionalComponent(_FunctionalProps props, String placeholder, int myNum) {
   return Dom.div()(
     Dom.div()(
       (Dom.input()
@@ -27,12 +27,16 @@ FunctionalComponent(props, String placeholder, int myNum) {
 Factory HookTest = _HookTest;
 
 @ReactorComponent()
-HookTestComponent() {
-  var state = React.useState(1);
+HookTestComponent(Props props) {
+  var counter = React.useState(1);
+  var toggle = React.useState(true);
 
   React.useEffect(() {
-    js_util.setProperty(window.document, 'title', 'You clicked ${state.value} times');
+    js_util.setProperty(window.document, 'title', 'You clicked ${counter.value} times');
   });
 
-  return (Dom.button()..onClick = (_)=>state.set(++state.value))('${state.value}');
+  return (Dom.button()..onClick = (_) { 
+    counter.set(++counter.value);
+    toggle.set(!toggle.value); 
+  })('${counter.value} ${toggle.value}');
 }

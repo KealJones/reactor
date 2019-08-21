@@ -33,6 +33,10 @@ class UiProps extends UiMap with UbiquitousDomProps, UiComponentInterface {
 }
 
 class UiMap extends MapBase with UiMapBase, UiMapViewMixin {
+  UiMap([backingMap]){
+    $backingMap = backingMap ?? $backingMap;
+  }
+
   final String keyPrefix = '';
 
   from(dynamic someMap) {
@@ -70,6 +74,7 @@ class UiMap extends MapBase with UiMapBase, UiMapViewMixin {
         $backingMap[memberNameString] = value;
       }
     }
+    print($backingMap);
   }
 }
 

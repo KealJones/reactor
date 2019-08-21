@@ -5,21 +5,20 @@ import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
 
 class DomProps extends UiProps implements ReactPropsInterface, DomPropsInterface {
-  DomProps([Map backingMap]) {
-    $backingMap ??= backingMap;
+  DomProps([backingMap]) {
+    $backingMap = backingMap ?? $backingMap;
   }
 
   @override
   final String keyPrefix = '';
 
   @override
-  AriaProps get aria => new AriaProps($backingMap);
+  AriaProps get aria => AriaProps($backingMap);
 }
 
 class AriaProps extends UiMap implements AriaPropsInterface {
-  AriaProps([Map backingMap]) {
-    $backingMap ??= backingMap;
-  }
+  AriaProps([backingMap]) : super(backingMap);
+
   @override
   final String keyPrefix = 'aria-';
 }
