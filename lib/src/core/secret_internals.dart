@@ -1,18 +1,22 @@
+@experimental
 library reactor.core.secret_internals;
 
 import 'dart:html' as html;
 import 'dart:js_util' as js_util;
 import 'dart:js' as js;
 
+import 'package:meta/meta.dart';
 import 'package:reactor/src/interop/component.dart';
 import 'package:reactor/src/interop/js.dart';
 
-/// Seriously, NO.
-// ignore: camel_case_types
-class REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
+
+/// Seriously, NO. 
+/// 
+/// This will change whenever we want so dont use it cause we will break
+/// this whenever we want.
+class REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED { // ignore: camel_case_types
   get react => js_util.getProperty('React', html.window);
   get reactDom => js_util.getProperty('ReactDOM', html.window);
-
   static JsComponentBuilder({displayName, constructor}) =>
       ReactJsComponentInterop(displayName: displayName, constructor: constructor);
 

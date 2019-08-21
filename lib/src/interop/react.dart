@@ -4,14 +4,20 @@ library reactor.interop.react;
 import 'package:js/js.dart';
 
 /// React.js Interop Classes
-
 @JS()
 class React {
-  external static ReactJsComponent get Component;
   external static String get version;
+
+  // Components
+  external static ReactJsComponent get Component;
   external static ReactJsComponent get Fragment;
+
+  // Hooks
   external static dynamic useState<TState>(TState initalState);
   external static void useEffect(void Function());
+
+  // Utilites
+  external static dynamic createRef();
 }
 
 @JS()
