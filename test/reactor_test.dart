@@ -6,13 +6,21 @@ import 'package:reactor/test.dart';
 
 import "package:test/test.dart";
 
+part 'reactor_test.reactor.g.dart';
+
+@ReactorComponent() 
+TestComponent(UiProps props) {
+  return 'Test';
+}
+
 void main() {
   enableTestMode();
 
   group('Reactor', (){
     test("test works", () {
-      ReactDOM.render(Dom.b()('test'), querySelector('#content'));
-      expect(querySelector('#content').innerHtml, '<b>test</b>');
+      
+      ReactDOM.render(_Test()(), querySelector('#content'));
+      expect(querySelector('#content').innerHtml, 'Test');
     });
   });
 }

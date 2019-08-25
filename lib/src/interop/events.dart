@@ -36,7 +36,6 @@ class SyntheticEvent {
   external void persist();
 
   external factory SyntheticEvent({
-
     // SyntheticEvent
     bool bubbles,
     bool cancelable,

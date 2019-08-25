@@ -32,4 +32,5 @@ builders:
         # Only apply to .dart files in the web directory
         include:
         - web/**
+        - test/**
         #- example/**

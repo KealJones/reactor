@@ -28,7 +28,7 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
 
   // these checks moved to asserts for better inlining...
   // todo see if we can keep toString() behavior of keys without asserts without breaking map behavior? probably not
-  bool _isValidKey(Object key) => key == null || key is String;
+  //static bool _isValidKey(Object key) => key == null || key is String;
 
   // ----------------------------------
   // Core overrides
@@ -68,9 +68,6 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
 
   @override
   void addAll(Map<K, V> other) {
-    // Don't check against JsBackedMap<V> since it's less optimized in dart2js,
-    // and we can assume that any JsBackedMap that is also a Map<String, V>
-    // is also a JsBackedMap<V>. TODO validate in Dart 2 and create dart-lang/sdk bug for this
     if (other is JsBackedMap) {
       // This cast is necessary due to type inference not working
       // properly without the generic parameter, and has no
@@ -104,7 +101,6 @@ class JsBackedMap<K, V> extends MapBase<K, V> implements Map<K, V> {
   @override
   int get hashCode => jsObject.hashCode;
 }
-
 
 JsMap jsBackingMapOrJsCopy(Map other) {
   // todo is it faster to just always do .from?

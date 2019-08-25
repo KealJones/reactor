@@ -7,32 +7,34 @@ class Component<P extends Props, S extends State> {
   ReactJsComponentInterop reactJsComponent;
 
   P get props => reactJsComponent.props;
-  set props(_props) { reactJsComponent.props = _props; }
+  set props(_props) => reactJsComponent.props = _props;
 
   S get state => reactJsComponent.state;
-  set state(_state) { reactJsComponent.state = _state; }
+  set state(_state) => reactJsComponent.state = _state;
 
   setState(dynamic partialOrFunction, [Function callback]) {
     reactJsComponent.setState(partialOrFunction, callback);
   }
 
-  void constructor(){}
+  void constructor() {}
 
-  S getDerivedStateFromError(error){}
+  // ignore: missing_return
+  S getDerivedStateFromError(error) {}
 
-  S getDerivedStateFromProps(P props, S state){}
+  // ignore: missing_return
+  S getDerivedStateFromProps(P props, S state) {}
 
-  dynamic getSnapshotBeforeUpdate(P prevProps, S prevState){}
+  dynamic getSnapshotBeforeUpdate(P prevProps, S prevState) {}
 
   bool shouldComponentUpdate(P nextProps, S nextState) => true;
 
   dynamic render() => throw UnimplementedError();
 
-  void componentDidMount(){}
+  void componentDidMount() {}
 
-  void componentDidUpdate(P prevProps, S prevState, dynamic snapshot){}
+  void componentDidUpdate(P prevProps, S prevState, dynamic snapshot) {}
 
-  void componentWillUnmount(){}
+  void componentWillUnmount() {}
 
   void componentDidCatch(error, info) {}
 }

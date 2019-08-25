@@ -33,7 +33,6 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   @override
   AriaProps get aria => AriaProps($backingMap);
 
-
   /// A view into this map that can be used to access DOM props, for convenience.
   ///
   /// Example:
@@ -48,28 +47,127 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
 class DomPropsInterface {
   int cols, rows, size, span, start;
 
-  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, readOnly, required, seamless, selected;
+  bool allowFullScreen,
+      async,
+      autoPlay,
+      checked,
+      controls,
+      defer,
+      disabled,
+      formNoValidate,
+      hidden,
+      loop,
+      multiple,
+      muted,
+      noValidate,
+      readOnly,
+      required,
+      seamless,
+      selected;
 
   Map<String, dynamic> style;
 
   String className, title, id;
 
-  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
-    charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
-    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
-    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
-    srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
+  dynamic accept,
+      acceptCharset,
+      accessKey,
+      action,
+      allowTransparency,
+      alt,
+      autoComplete,
+      cellPadding,
+      cellSpacing,
+      charSet,
+      classID,
+      colSpan,
+      content,
+      contentEditable,
+      contextMenu,
+      coords,
+      crossOrigin,
+      data,
+      dateTime,
+      dir,
+      download,
+      draggable,
+      encType,
+      form,
+      frameBorder,
+      height,
+      href,
+      hrefLang,
+      htmlFor,
+      httpEquiv,
+      icon,
+      label,
+      lang,
+      list,
+      manifest,
+      max,
+      maxLength,
+      media,
+      mediaGroup,
+      method,
+      min,
+      name,
+      open,
+      pattern,
+      placeholder,
+      poster,
+      preload,
+      radioGroup,
+      rel,
+      role,
+      rowSpan,
+      sandbox,
+      scope,
+      scrolling,
+      shape,
+      sizes,
+      spellCheck,
+      src,
+      srcDoc,
+      srcSet,
+      step,
+      tabIndex,
+      target,
+      type,
+      useMap,
+      value,
+      width,
+      wmode;
 
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
   FormEventCallback onChange, onInput, onSubmit, onReset;
-  MouseEventCallback
-    onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
-    onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
-  PointerEventCallback onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
+  MouseEventCallback onClick,
+      onContextMenu,
+      onDoubleClick,
+      onDrag,
+      onDragEnd,
+      onDragEnter,
+      onDragExit,
+      onDragLeave,
+      onDragOver,
+      onDragStart,
+      onDrop,
+      onMouseDown,
+      onMouseEnter,
+      onMouseLeave,
+      onMouseMove,
+      onMouseOut,
+      onMouseOver,
+      onMouseUp;
+  PointerEventCallback onPointerCancel,
+      onPointerDown,
+      onPointerEnter,
+      onPointerLeave,
+      onPointerMove,
+      onPointerOver,
+      onPointerOut,
+      onPointerUp;
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
@@ -78,9 +176,24 @@ class DomPropsInterface {
   KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
   FocusEventCallback onFocusCapture, onBlurCapture;
   FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
-  MouseEventCallback
-    onClickCapture, onContextMenuCapture, onDoubleClickCapture, onDragCapture, onDragEndCapture, onDragEnterCapture, onDragExitCapture, onDragLeaveCapture, onDragOverCapture,
-    onDragStartCapture, onDropCapture, onMouseDownCapture, onMouseEnterCapture, onMouseLeaveCapture, onMouseMoveCapture, onMouseOutCapture, onMouseOverCapture, onMouseUpCapture;
+  MouseEventCallback onClickCapture,
+      onContextMenuCapture,
+      onDoubleClickCapture,
+      onDragCapture,
+      onDragEndCapture,
+      onDragEnterCapture,
+      onDragExitCapture,
+      onDragLeaveCapture,
+      onDragOverCapture,
+      onDragStartCapture,
+      onDropCapture,
+      onMouseDownCapture,
+      onMouseEnterCapture,
+      onMouseLeaveCapture,
+      onMouseMoveCapture,
+      onMouseOutCapture,
+      onMouseOverCapture,
+      onMouseUpCapture;
   PointerEventCallback onGotPointerCapture, onLostPointerCapture;
   TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
   UIEventCallback onScrollCapture;

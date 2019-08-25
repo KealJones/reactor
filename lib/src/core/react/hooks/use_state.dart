@@ -1,4 +1,3 @@
-
 import 'package:reactor/src/interop/react.dart';
 
 UseStateObject<TState> useState<TState>(TState initalState) {

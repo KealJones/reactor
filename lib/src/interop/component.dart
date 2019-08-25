@@ -1,4 +1,5 @@
 library reactor.interop.component;
+
 import 'dart:js';
 
 import 'package:reactor/src/interop/react.dart';
@@ -12,7 +13,7 @@ class ReactJsComponentInterop {
   dynamic reactClass;
   ReactJsComponent reactJsComponentInstance;
 
-  getReactComponentThis(dynamic self){
+  getReactComponentThis(dynamic self) {
     this.reactJsComponentInstance = self;
   }
 
@@ -32,7 +33,7 @@ class ReactJsComponentInterop {
       return $displayName;
       ''',
     )(
-      allowInterop(constructor ?? (){}), 
+      allowInterop(constructor ?? () {}),
       allowInterop(getReactComponentThis),
     );
   }
@@ -53,7 +54,7 @@ class ReactJsComponentInterop {
       _newState = allowInterop(partialOrFunction);
     }
 
-    if (callback != null){
+    if (callback != null) {
       reactJsComponentInstance.setState(_newState, allowInterop(callback));
     } else {
       reactJsComponentInstance.setState(_newState);
@@ -61,23 +62,28 @@ class ReactJsComponentInterop {
   }
 
   set displayName(String v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(reactClass, 'displayName', DefinePropertyValue(value: v, configurable: true));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
+        reactClass, 'displayName', DefinePropertyValue(value: v, configurable: true));
   }
 
   set getDerivedStateFromError(Function(dynamic error) v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.set(reactClass, 'getDerivedStateFromError', allowInterop(v));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.set(
+        reactClass, 'getDerivedStateFromError', allowInterop(v));
   }
 
   set getDerivedStateFromProps(Function(dynamic props, dynamic state) v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.set(reactClass, 'getDerivedStateFromProps', allowInterop(v));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.set(
+        reactClass, 'getDerivedStateFromProps', allowInterop(v));
   }
 
   set getSnapshotBeforeUpdate(Function(dynamic prevProps, dynamic prevState) v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.set(reactClass, 'getSnapshotBeforeUpdate', allowInterop(v));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.set(
+        reactClass, 'getSnapshotBeforeUpdate', allowInterop(v));
   }
 
   set shouldComponentUpdate(bool Function(dynamic nextProps, dynamic nextState, dynamic nextContext) v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setProto(reactClass, 'shouldComponentUpdate', allowInterop(v));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setProto(
+        reactClass, 'shouldComponentUpdate', allowInterop(v));
   }
 
   set render(dynamic Function() v) {
@@ -89,11 +95,13 @@ class ReactJsComponentInterop {
   }
 
   set componentDidUpdate(void Function(dynamic prevProps, dynamic prevState, dynamic snapshot) v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setProto(reactClass, 'componentDidUpdate', allowInterop(v));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setProto(
+        reactClass, 'componentDidUpdate', allowInterop(v));
   }
 
   set componentWillUnmount(void Function() v) {
-    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setProto(reactClass, 'componentWillUnmount', allowInterop(v));
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.setProto(
+        reactClass, 'componentWillUnmount', allowInterop(v));
   }
 
   set componentDidCatch(void Function(dynamic error, dynamic info) v) {

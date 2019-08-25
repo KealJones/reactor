@@ -56,7 +56,7 @@ abstract class ReactElement {
   external dynamic get props;
   external set props(dynamic v);
 
-    /// The state this element was created with.
+  /// The state this element was created with.
   external dynamic get state;
 
   /// This element's `key`, which is used to uniquely identify it among its siblings.
