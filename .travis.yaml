@@ -1,0 +1,21 @@
+language: dart
+dart:
+  - stable
+  - dev
+script:
+  # check for out of date generated code
+  - pub run build_runner build --delete-conflicting-outputs
+  - git diff --exit-code
+  # check formatting
+  - pub run dart_dev format --check
+  # check for bad code
+  - pub run dart_dev analyze
+  # run tests on ddc output
+  - pub run build_runner test --delete-conflicting-outputs
+  # run tests on dart2js output
+  - pub run build_runner test -r  --delete-conflicting-outputs
+
+cache:
+  directories:
+   - $HOME/.pub-cache
+   - $HOME/.dart_tool/build
