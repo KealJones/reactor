@@ -1,5 +1,7 @@
 # Reactor
 
+[![Build Status](https://travis-ci.com/KealJones/reactor.svg?branch=master)](https://travis-ci.com/KealJones/reactor)
+
 Reactor is a statically-typed Dart library for building user interfaces. Reactor wraps ReactJS.
 
 ## Getting Started

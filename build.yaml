@@ -34,3 +34,16 @@ builders:
         - web/**
         - test/**
         #- example/**
+
+  # Builder just for this package.
+  reactorLocalTestHtmlGenerator:
+    import: "package:reactor/generator.dart"
+    builder_factories: ["reactorTestHtmlGenerator"]
+    build_extensions: {"_test.dart": ["_test.html"]}
+    build_to: cache
+    auto_apply: root_package
+    defaults:
+      generate_for:
+        # Only apply to .dart files in the test directory
+        include:
+        - test/**
