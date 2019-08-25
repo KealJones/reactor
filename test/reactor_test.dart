@@ -1,4 +1,4 @@
-@TestOn('chrome')
+@TestOn('browser')
 import "dart:html";
 
 import 'package:reactor/reactor.dart';
@@ -18,7 +18,7 @@ TestComponent(UiProps props) {
 void main() {
   group('Reactor', (){
     enableTestMode();
-    
+
     test("test works", () {
       ReactDOM.render(_Test()(), querySelector('#content'));
       expect(querySelector('#content').innerHtml, '<button>1</button>');
