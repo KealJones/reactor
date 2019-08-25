@@ -18,19 +18,20 @@ TestComponent(UiProps props) {
 void main() {
   group('Reactor', (){
     enableTestMode();
+    group('testing tests', (){
+      test("1", () {
+        ReactDOM.render(_Test()(), querySelector('#content'));
+        
+        expect(querySelector('#content').innerHtml, '<button>1</button>');
+      });
 
-    test("test works", () {
-      ReactDOM.render(_Test()(), querySelector('#content'));
-      expect(querySelector('#content').innerHtml, '<button>1</button>');
-    });
+      test("2", () {
+        ReactDOM.render(_Test()(), querySelector('#content'));
 
-    test("test works", () {
-      
-      ReactDOM.render(_Test()(), querySelector('#content'));
+        querySelector('button').click();
 
-      querySelector('button').click();
-
-      expect(querySelector('#content').innerHtml, '<button>2</button>');
+        expect(querySelector('#content').innerHtml, '<button>2</button>');
+      });
     });
   });
 }
