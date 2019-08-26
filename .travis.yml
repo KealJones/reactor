@@ -13,7 +13,7 @@ script:
   # run tests on ddc output
   - pub run build_runner test --delete-conflicting-outputs
   # run tests on dart2js output
-  - pub run build_runner test -r  --delete-conflicting-outputs
+  - pub run build_runner test -r --delete-conflicting-outputs
 
 cache:
   directories:

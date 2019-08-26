@@ -2,6 +2,7 @@
 import "dart:html";
 
 import 'package:reactor/reactor.dart';
+import 'package:reactor/src/core/react/hooks/use_state.dart';
 import 'package:reactor/test.dart';
 
 import "package:test/test.dart";
@@ -10,17 +11,27 @@ part 'reactor_test.reactor.g.dart';
 
 @ReactorComponent() 
 TestComponent(UiProps props) {
-  return 'Test';
+  var state = useState(1);
+  return (Dom.button()..onClick = (_){ state.set(++state.value); })(state.value);
 }
 
 void main() {
-  enableTestMode();
-
   group('Reactor', (){
-    test("test works", () {
-      
-      ReactDOM.render(_Test()(), querySelector('#content'));
-      expect(querySelector('#content').innerHtml, 'Test');
+    enableTestMode();
+    group('testing tests', (){
+      test("1", () {
+        ReactDOM.render(_Test()(), querySelector('#content'));
+        
+        expect(querySelector('#content').innerHtml, '<button>1</button>');
+      });
+
+      test("2", () {
+        ReactDOM.render(_Test()(), querySelector('#content'));
+
+        querySelector('button').click();
+
+        expect(querySelector('#content').innerHtml, '<button>2</button>');
+      });
     });
   });
 }
