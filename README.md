@@ -83,7 +83,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-These projects were the inperation for Reactor and we learn alot from them still.
+These projects are the true OG's of React in dart. Reactor would not exist without them. They have been strong insperation points and togeather, Reactor and these projects, will continue to grow to make the community even stronger.
 
 * [OverReact](https://github.com/workiva/over_react)
 * [react-dart](https://github.com/cleandart/react-dart)
