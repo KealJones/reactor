@@ -1,6 +1,11 @@
+import 'dart:async';
 import 'dart:html';
+import 'dart:js';
 
 import 'package:reactor/reactor.dart';
+import 'package:reactor/src/interop/js.dart';
+
+export 'package:reactor/src/interop/js.dart' show TestingLibraryReact;
 
 const contentDivId = 'content';
 
@@ -20,6 +25,8 @@ enableTestMode({bool includeReactTestingLibrary = false}) {
   }
 }
 
-render(element) {
-  ReactDOM.render(element, querySelector('#$contentDivId'));
+Future<T> promiseToFuture<T>(Promise<T> promise) {
+  final completer = new Completer<T>();
+  promise.then(allowInterop(completer.complete), allowInterop(completer.completeError));
+  return completer.future;
 }

@@ -1,13 +1,19 @@
 import 'dart:html';
+import 'dart:js';
 
 import 'package:reactor/reactor.dart';
+import 'package:reactor/test.dart';
 
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
 import 'tic_tac_toe.dart';
 
-main() {
+main() async {
+  var test = Dom.div()(Dom.span()('test'));
+  var whatever = TestingLibraryReact.render(test);
+  var newNode = await promiseToFuture(whatever.findAllByText('test'));
+  print(newNode);
   Map<String, String> sharedStyleMap = {
     'display': 'flex',
     'flexDirection': 'column',

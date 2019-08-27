@@ -16,11 +16,12 @@ TestComponent(UiProps props) {
 }
 
 void main() {
+  
   group('Reactor', (){
-    enableTestMode();
+    enableTestMode(includeReactTestingLibrary: true);
     group('testing tests', (){
       test("1", () {
-        ReactDOM.render(_Test()(), querySelector('#content'));
+        print(TestingLibraryReact.render(_Test().$componentClass));
         
         expect(querySelector('#content').innerHtml, '<button>1</button>');
       });

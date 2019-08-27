@@ -1,6 +1,8 @@
 @JS()
 library reactor.interop.js;
 
+import 'dart:html';
+
 import 'package:js/js.dart';
 
 /// Javascript Interop Helpers
@@ -33,84 +35,144 @@ abstract class Reflect {
 
 @JS('TestingLibraryReact')
 class TestingLibraryReact {
-  external act(callback);
-  external bindElementToQueriesgetQueriesForElement(element, queries);
-  external buildQueriesbuildQueries(queryAllBy, getMultipleError, getMissingError);
-  external cleanupcleanup();
-  external configureconfigure(newConfig);
-  external CreateEvent get createEvent;
-  external findAllByAltText(container, text, options, waitForElementOptions);
-  external findAllByDisplayValue(container, text, options, waitForElementOptions);
-  external findAllByLabelText(container, text, options, waitForElementOptions);
-  external findAllByPlaceholderText(container, text, options, waitForElementOptions);
-  external findAllByRole(container, text, options, waitForElementOptions);
-  external findAllByTestId(container, text, options, waitForElementOptions);
-  external findAllByText(container, text, options, waitForElementOptions);
-  external findAllByTitle(container, text, options, waitForElementOptions);
-  external findByAltText(container, text, options, waitForElementOptions);
-  external findByDisplayValue(container, text, options, waitForElementOptions);
-  external findByLabelText(container, text, options, waitForElementOptions);
-  external findByPlaceholderText(container, text, options, waitForElementOptions);
-  external findByRole(container, text, options, waitForElementOptions);
-  external findByTestId(container, text, options, waitForElementOptions);
-  external findByText(container, text, options, waitForElementOptions);
-  external findByTitle(container, text, options, waitForElementOptions);
-  external fireEventfireEvent$1();
-  external getAllByAltText(container);
-  external getAllByDisplayValue(container);
-  external getAllByLabelTextgetAllByLabelText(container, text);
-  external getAllByPlaceholderText(container);
-  external getAllByRole(container);
-  external getAllByTestId(container);
-  external getAllByText(container);
-  external getAllByTitle(container);
-  external getByAltText(container);
-  external getByDisplayValue(container);
-  external getByLabelText(container);
-  external getByPlaceholderText(container);
-  external getByRole(container);
-  external getByTestId(container);
-  external getByText(container);
-  external getByTitle(container);
-  external getDefaultNormalizer(_temp);
-  external getElementError(message, container);
-  external getMultipleElementsFoundError(message, container);
-  external getNodeTextgetNodeText(node);
-  external getQueriesForElement(element, queries);
-  external getRolesgetRoles(container);
-  external logDOM();
-  external logRoles(dom);
-  external makeFindQuery(getter);
-  external makeGetAllQuery(allQuery, getMissingError);
-  external makeSingleQuery(allQuery, getMultipleError);
-  external prettyDOMprettyDOM(dom, maxLength, options);
-  external Queries get queries;
-  external queryAllByAltText(container, alt, _temp);
-  external queryAllByAttribute(attribute, container, text, _temp);
-  external queryAllByDisplayValue(container, value, _temp);
-  external queryAllByLabelText(container, text, _temp2);
-  external queryAllByPlaceholderText();
-  external queryAllByRole(container, role, _temp);
-  external queryAllByTestId();
-  external queryAllByText(container, text, _temp);
-  external queryAllByTitle(container, text, _temp);
-  external queryByAltText(container);
-  external queryByAttribute(attribute, container, text);
-  external queryByDisplayValue(container);
-  external queryByLabelText(container);
-  external queryByPlaceholderText(container);
-  external queryByRole(container);
-  external queryByTestId(container);
-  external queryByText(container);
-  external queryByTitle(container);
-  external QueryHelpers get queryHelpers;
-  external renderrender(ui, _temp);
-  external waitwaitWrapper();
-  external waitForDomChangewaitForDomChangeWrapper();
-  external waitForElementwaitForElementWrapper();
-  external waitForElementToBeRemovedwaitForElementToBeRemovedWrapper();
-  external withingetQueriesForElement(element, queries);
+  external static act(callback);
+  external static bindElementToQueries(element, queries);
+  external static buildQueries(queryAllBy, getMultipleError, getMissingError);
+  external static cleanup();
+  external static configure(newConfig);
+  external static CreateEvent get createEvent;
+  external static findAllByAltText(container, text, options, waitForElementOptions);
+  external static findAllByDisplayValue(container, text, options, waitForElementOptions);
+  external static findAllByLabelText(container, text, options, waitForElementOptions);
+  external static findAllByPlaceholderText(container, text, options, waitForElementOptions);
+  external static findAllByRole(container, text, options, waitForElementOptions);
+  external static findAllByTestId(container, text, options, waitForElementOptions);
+  external static findAllByText(container, text, options, waitForElementOptions);
+  external static findAllByTitle(container, text, options, waitForElementOptions);
+  external static findByAltText(container, text, options, waitForElementOptions);
+  external static findByDisplayValue(container, text, options, waitForElementOptions);
+  external static findByLabelText(container, text, options, waitForElementOptions);
+  external static findByPlaceholderText(container, text, options, waitForElementOptions);
+  external static findByRole(container, text, options, waitForElementOptions);
+  external static findByTestId(container, text, options, waitForElementOptions);
+  external static findByText(container, text, options, waitForElementOptions);
+  external static findByTitle(container, text, options, waitForElementOptions);
+  external static fireEvent();
+  external static getAllByAltText(container);
+  external static getAllByDisplayValue(container);
+  external static getAllByLabelText(container, text);
+  external static getAllByPlaceholderText(container);
+  external static getAllByRole(container);
+  external static getAllByTestId(container);
+  external static getAllByText(container);
+  external static getAllByTitle(container);
+  external static getByAltText(container);
+  external static getByDisplayValue(container);
+  external static getByLabelText(container);
+  external static getByPlaceholderText(container);
+  external static getByRole(container);
+  external static getByTestId(container);
+  external static getByText(container);
+  external static getByTitle(container);
+  external static getDefaultNormalizer(_temp);
+  external static getElementError(message, container);
+  external static getMultipleElementsFoundError(message, container);
+  external static getNodeText(node);
+  external static getQueriesForElement(element, queries);
+  external static getRoles(container);
+  external static logDOM();
+  external static logRoles(dom);
+  external static makeFindQuery(getter);
+  external static makeGetAllQuery(allQuery, getMissingError);
+  external static makeSingleQuery(allQuery, getMultipleError);
+  external static prettyDOM(dom, maxLength, options);
+  external static Queries get queries;
+  external static queryAllByAltText(container, alt, _temp);
+  external static queryAllByAttribute(attribute, container, text, _temp);
+  external static queryAllByDisplayValue(container, value, _temp);
+  external static queryAllByLabelText(container, text, _temp2);
+  external static queryAllByPlaceholderText();
+  external static queryAllByRole(container, role, _temp);
+  external static queryAllByTestId();
+  external static queryAllByText(container, text, _temp);
+  external static queryAllByTitle(container, text, _temp);
+  external static queryByAltText(container);
+  external static queryByAttribute(attribute, container, text);
+  external static queryByDisplayValue(container);
+  external static queryByLabelText(container);
+  external static queryByPlaceholderText(container);
+  external static queryByRole(container);
+  external static queryByTestId(container);
+  external static queryByText(container);
+  external static queryByTitle(container);
+  external static QueryHelpers get queryHelpers;
+  external static RenderReturn render(ui, [container]);
+  external static wait();
+  external static waitForDomChange();
+  external static waitForElement();
+  external static waitForElementToBeRemoved();
+  external static within(element, queries);
 }
+
+@JS()
+@anonymous
+class RenderReturn {
+  external asFragment();
+  external Element get baseElement;
+  external Element get container;
+  external debug(el);
+  external findAllByAltText();
+  external findAllByDisplayValue();
+  external findAllByLabelText();
+  external findAllByPlaceholderText();
+  external findAllByRole();
+  external findAllByTestId();
+  external Promise<Element> findAllByText(text);
+  external findAllByTitle();
+  external findByAltText();
+  external findByDisplayValue();
+  external findByLabelText();
+  external findByPlaceholderText();
+  external findByRole();
+  external findByTestId();
+  external findByText();
+  external findByTitle();
+  external getAllByAltText();
+  external getAllByDisplayValue();
+  external getAllByLabelText();
+  external getAllByPlaceholderText();
+  external getAllByRole();
+  external getAllByTestId();
+  external getAllByText();
+  external getAllByTitle();
+  external getByAltText();
+  external getByDisplayValue();
+  external getByLabelText();
+  external getByPlaceholderText();
+  external getByRole();
+  external getByTestId();
+  external getByText();
+  external getByTitle();
+  external queryAllByAltText();
+  external queryAllByDisplayValue();
+  external queryAllByLabelText();
+  external queryAllByPlaceholderText();
+  external queryAllByRole();
+  external queryAllByTestId();
+  external queryAllByText();
+  external queryAllByTitle();
+  external queryByAltText();
+  external queryByDisplayValue();
+  external queryByLabelText();
+  external queryByPlaceholderText();
+  external queryByRole();
+  external queryByTestId();
+  external queryByText();
+  external queryByTitle();
+  external rerender(rerenderUi);
+  external unmount();
+}
+
 @JS('TestingLibraryReact.queries')
 class Queries {
   external findAllByAltText(container, text, options, waitForElementOptions);
@@ -278,4 +340,9 @@ class DefinePropertyValue {
 @anonymous
 class JsMap {
   external factory JsMap();
+}
+
+@JS('Promise')
+abstract class Promise<T> {
+  external Promise then(onFulfilled(T value), onRejected(Object reason));
 }
