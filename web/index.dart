@@ -6,8 +6,10 @@ import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
 import 'tic_tac_toe.dart';
+import 'js_interoper.dart';
 
 main() {
+  print(interoper('packages/reactor/js/testing-library-react.umd.js', 'TestingLibraryReact', asStatic: true));
   Map<String, String> sharedStyleMap = {
     'display': 'flex',
     'flexDirection': 'column',
