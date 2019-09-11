@@ -52,11 +52,16 @@ class ReactorTestHtmlBuilder implements Builder {
       '  <head>\n'
       '    <script src="packages/reactor/js/react.development.js"></script>\n'
       '    <script src="packages/reactor/js/react-dom.development.js"></script>\n'
+      '    <script src="packages/reactor/js/react-dom-test-utils.development.js"></script>\n'
+      '    <script>\n'
+      '      window.ReactDom = ReactDOM;\n'
+      '      window.testUtils = ReactTestUtils;\n'
+      '    </script>\n'
+      '    <script src="packages/reactor/js/testing-library-react.umd.js"></script>\n'
       '    <link rel="x-dart-test" href="$dartFilePath">\n'
       '    <script src="packages/test/dart.js"></script>\n'
       '  </head>\n'
       '  <body>\n'
-      '    <div id="content"></div>\n'
       '  </body>\n'
       '</html>\n';
 

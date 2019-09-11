@@ -9,6 +9,7 @@ import 'package:reactor/src/core/react/hooks/hooks.dart' as hooks;
 import 'package:reactor/src/core/react/components/components.dart' as components;
 
 export 'package:reactor/src/interop/react.dart' show ReactElement;
+export 'package:reactor/src/core/react/hooks/hooks.dart';
 
 class React {
   static reactjs.ReactElement createElement(component, props, children) {

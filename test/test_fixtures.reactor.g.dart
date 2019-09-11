@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reactor_test.dart';
+part of 'test_fixtures.dart';
 
 // **************************************************************************
 // ReactorComponentGenerator

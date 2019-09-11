@@ -1,19 +1,13 @@
 @TestOn('browser')
-import "dart:html";
+import 'dart:html';
 
 import 'package:reactor/reactor.dart';
-import 'package:reactor/src/core/react/hooks/use_state.dart';
 import 'package:reactor/test.dart';
 
-import "package:test/test.dart";
+import 'package:test/test.dart';
 
-part 'reactor_test.reactor.g.dart';
+import './test_fixtures.dart';
 
-@ReactorComponent() 
-TestComponent(UiProps props) {
-  var state = useState(1);
-  return (Dom.button()..onClick = (_){ state.set(++state.value); })(state.value);
-}
 
 void main() {
   
@@ -21,17 +15,21 @@ void main() {
     enableTestMode(includeReactTestingLibrary: true);
     group('testing tests', (){
       test("1", () {
-        print(TestingLibraryReact.render(_Test().$componentClass));
-        
-        expect(querySelector('#content').innerHtml, '<button>1</button>');
+        window.console.log(document.body.innerHtml);
+
+        var test = TestingLibraryReact.render(Test()());
+
+        test.getByText('Counter: 1').click();
+
+        expect(test.getByText('Counter: 2'), isNotNull);
       });
 
       test("2", () {
-        ReactDOM.render(_Test()(), querySelector('#content'));
+         var test = TestingLibraryReact.render(Test()());
 
-        querySelector('button').click();
+        test.getByText('Counter: 1')..click()..click()..click();
 
-        expect(querySelector('#content').innerHtml, '<button>2</button>');
+        expect(test.getByText('Counter: 4'), isNotNull);
       });
     });
   });
