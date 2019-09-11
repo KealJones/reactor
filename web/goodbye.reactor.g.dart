@@ -9,13 +9,11 @@ part of 'goodbye.dart';
 class _GoodbyeComponent extends GoodbyeComponent {
   _GoodbyeComponent() {
     this.reactJsComponent =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-            .JsComponentBuilder(displayName: 'Goodbye');
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Goodbye');
     reactJsComponent
       ..render = render
       ..getDerivedStateFromProps = (_js_props, _jsstate) {
-        return getDerivedStateFromProps(GoodbyeProps().fromJs(_js_props),
-                GoodbyeState().fromJs(_jsstate))
+        return getDerivedStateFromProps(GoodbyeProps().fromJs(_js_props), GoodbyeState().fromJs(_jsstate))
             .$backingMap
             .jsObject;
       };

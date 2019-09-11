@@ -1,7 +1,8 @@
 /// This tic-tac-toe example is a Reactor implementation of the React.js Tutorial.
-/// 
+///
 /// See: <https://reactjs.org/tutorial/>
 library tic_tac_toe;
+
 import 'package:reactor/reactor.dart';
 
 part 'tic_tac_toe.reactor.g.dart';
@@ -24,11 +25,11 @@ Factory<_SquareProps> Square = _Square;
 SquareComponent(_SquareProps props, String displayValue, Function handleSquareClick) {
   return (Dom.button()
     ..className = 'square'
-    ..onClick = (SyntheticMouseEvent event) { handleSquareClick(); }
-    ..value=displayValue
-  )([displayValue]);
+    ..onClick = (SyntheticMouseEvent event) {
+      handleSquareClick();
+    }
+    ..value = displayValue)([displayValue]);
 }
-
 
 /// BOARD ////////////////////////////////////////////////////////////////////
 ///
@@ -74,6 +75,7 @@ class BoardPropsInterface {
   List<dynamic> squares;
   Function(int squareId) handleClick;
 }
+
 class BoardProps extends Props implements BoardPropsInterface {}
 
 @ReactorComponent()
@@ -81,8 +83,7 @@ class BoardComponent extends Component<BoardProps, State> {
   renderSquare(i) {
     return (Square()
       ..displayValue = props.squares[i]
-      ..handleSquareClick = () => props.handleClick(i)
-    )();
+      ..handleSquareClick = () => props.handleClick(i))();
   }
 
   @override
@@ -198,11 +199,12 @@ class GameStateInterface {
   bool xIsNext;
   int stepNumber;
 }
+
 class GameState extends State implements GameStateInterface {}
 
 @ReactorComponent()
 class GameComponent extends Component<Props, GameState> {
-  @override 
+  @override
   constructor() {
     state = GameState()
       ..history = [List<String>.filled(9, null)]
@@ -223,31 +225,25 @@ class GameComponent extends Component<Props, GameState> {
     setState(GameState()
       ..history = (List<List<String>>.from(history)..add(squares))
       ..stepNumber = history.length
-      ..xIsNext = !state.xIsNext
-    );
+      ..xIsNext = !state.xIsNext);
   }
 
   jumpTo(step) {
     setState(GameState()
       ..stepNumber = step
-      ..xIsNext = (step % 2) == 0
-    );
+      ..xIsNext = (step % 2) == 0);
   }
 
   @override
-  render(){
+  render() {
     var history = List<List<String>>.from(state.history);
     var current = history[state.stepNumber];
     var winner = calculateWinner(current);
     var moves = history.map((step) {
       var move = history.indexOf(step);
-      var desc = move != 0 ?
-        'Go to move #$move' :
-        'Go to game start';
-      return (Dom.li()..key = '$move')(
-          (Dom.button()..onClick = (_) => jumpTo(move))(desc)
-        );
-    }).toList();  
+      var desc = move != 0 ? 'Go to move #$move' : 'Go to game start';
+      return (Dom.li()..key = '$move')((Dom.button()..onClick = (_) => jumpTo(move))(desc));
+    }).toList();
 
     String status;
 
@@ -257,13 +253,10 @@ class GameComponent extends Component<Props, GameState> {
       status = "Next player: " + (state.xIsNext ? "X" : "O");
     }
 
-    return (Dom.div()..className='game')(
-      (Dom.div()..className = 'game-board')(
-        (Board()
-          ..squares = current
-          ..handleClick = handleClick
-        )()
-      ),
+    return (Dom.div()..className = 'game')(
+      (Dom.div()..className = 'game-board')((Board()
+        ..squares = current
+        ..handleClick = handleClick)()),
       (Dom.div()..className = 'game-info')(
         Dom.div()(status),
         Dom.ol()(moves),

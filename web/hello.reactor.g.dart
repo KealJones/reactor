@@ -9,14 +9,12 @@ part of 'hello.dart';
 class _HelloComponent extends HelloComponent {
   _HelloComponent() {
     this.reactJsComponent =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
-            .JsComponentBuilder(displayName: 'Hello');
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Hello');
     reactJsComponent
       ..render = render
       ..componentDidMount = componentDidMount
       ..componentDidUpdate = (_jsprevProps, _jsprevState, _jssnapshot) {
-        return componentDidUpdate(HelloProps().fromJs(_jsprevProps),
-            HelloState().fromJs(_jsprevState), _jssnapshot);
+        return componentDidUpdate(HelloProps().fromJs(_jsprevProps), HelloState().fromJs(_jsprevState), _jssnapshot);
       };
   }
 

@@ -10,4 +10,4 @@ class SimpleComponent extends Component {
   render() {
     return 'Its simple.';
   }
-} 
+}

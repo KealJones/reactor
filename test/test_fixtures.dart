@@ -5,8 +5,11 @@ part 'test_fixtures.reactor.g.dart';
 
 Factory<UiProps> Test = _Test;
 
-@ReactorComponent() 
+@ReactorComponent()
 TestComponent(UiProps props) {
   var state = hooker.useState(1);
-  return (Dom.button()..onClick = (_){ state.set(++state.value); })('Counter: ' + state.value.toString());
+  return (Dom.button()
+    ..onClick = (_) {
+      state.set(++state.value);
+    })('Counter: ' + state.value.toString());
 }

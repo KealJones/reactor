@@ -28,6 +28,7 @@ class HelloProps extends Props implements HelloPropsInterface {}
 class HelloStateInterface {
   String usersName;
 }
+
 class HelloState extends State implements HelloStateInterface {}
 
 @ReactorComponent()
@@ -38,30 +39,27 @@ class HelloComponent extends Component<HelloProps, HelloState> {
   render() {
     var tempProps = HelloProps().from(props)..remove('dartVal')..remove('isThisDefault')..remove('children');
     return Dom.div()(
-      Dom.div()(
-        (Dom.input()
-          ..addAll(tempProps)
-          ..className = 'test'
-          ..ref = (ref){ inputRef = ref; }
-          ..placeholder = "Type your name here!"
-          ..aria.readonly = true
-          ..onChange = (_){
-            String value = inputRef.value;
-            this.setState(HelloState()..usersName = value);
-          }
-        )(),
-      ),
-      Dom.span()('Hello${this.state.usersName?.isNotEmpty ?? false ? ', ' + this.state.usersName + '!' : ''}'),
-      Dom.br()(),
-      Dom.div()(
-        (Goodbye()
-          ..dom.id = 'goodbye'
-          ..dom.value = state.usersName
-        )(
-          Dom.div()('Test')
+        Dom.div()(
+          (Dom.input()
+            ..addAll(tempProps)
+            ..className = 'test'
+            ..ref = (ref) {
+              inputRef = ref;
+            }
+            ..placeholder = "Type your name here!"
+            ..aria.readonly = true
+            ..onChange = (_) {
+              String value = inputRef.value;
+              this.setState(HelloState()..usersName = value);
+            })(),
         ),
-      )
-    );
+        Dom.span()('Hello${this.state.usersName?.isNotEmpty ?? false ? ', ' + this.state.usersName + '!' : ''}'),
+        Dom.br()(),
+        Dom.div()(
+          (Goodbye()
+            ..dom.id = 'goodbye'
+            ..dom.value = state.usersName)(Dom.div()('Test')),
+        ));
   }
 
   @override

@@ -24,6 +24,7 @@ main(List<String> args) async {
   ];
 
   config.format
+    ..paths = ['./lib', './web', './test']
     ..lineLength = 120;
 
   config.analyze.entryPoints = directories;

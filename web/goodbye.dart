@@ -22,8 +22,7 @@ class GoodbyeComponent extends Component<GoodbyeProps, GoodbyeState> {
   @override
   render() {
     return (Dom.div()..id = props.dom.id)(
-    '${this.state?.matchesString ?? false ? "Input is equal too \"omg\"" : "Input is not equal too \"omg\""}.'
-    );
+        '${this.state?.matchesString ?? false ? "Input is equal too \"omg\"" : "Input is not equal too \"omg\""}.');
   }
 
   @override

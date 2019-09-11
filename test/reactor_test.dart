@@ -8,12 +8,10 @@ import 'package:test/test.dart';
 
 import './test_fixtures.dart';
 
-
 void main() {
-  
-  group('Reactor', (){
+  group('Reactor', () {
     enableTestMode(includeReactTestingLibrary: true);
-    group('testing tests', (){
+    group('testing tests', () {
       test("1", () {
         window.console.log(document.body.innerHtml);
 
@@ -25,7 +23,7 @@ void main() {
       });
 
       test("2", () {
-         var test = TestingLibraryReact.render(Test()());
+        var test = TestingLibraryReact.render(Test()());
 
         test.getByText('Counter: 1')..click()..click()..click();
 
