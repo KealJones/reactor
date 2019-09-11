@@ -10,7 +10,7 @@ enableTestMode({bool includeReactTestingLibrary = false}) {
     var reactJsScript = ScriptElement();
     reactJsScript.src = 'packages/reactor/js/react.development.js';
     document.head.append(reactJsScript);
-  } 
+  }
   if (js_util.getProperty(window, 'ReactDOM') == null) {
     var reactDomJsScript = ScriptElement();
     reactDomJsScript.src = 'packages/reactor/js/react-dom.development.js';

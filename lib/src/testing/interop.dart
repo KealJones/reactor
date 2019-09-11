@@ -14,7 +14,7 @@ class TestingLibraryReact {
   external static buildQueries(queryAllBy, getMultipleError, getMissingError);
 
   /// Unmounts React trees that were mounted with render.
-  /// 
+  ///
   /// Example:
   /// ```
   ///   tearDown((){
@@ -111,7 +111,6 @@ class RenderOptions {
   external get queries;
   external set queries(value);
 }
-
 
 @JS()
 @anonymous
