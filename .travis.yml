@@ -1,42 +1,21 @@
 language: dart
+
 dart:
   - stable
   - dev
 
-# Optional, required for web tests.
-sudo: required
-addons:
-  chrome: 
-    - stable
-    - dev
-
-# Defines the stages we want to run.
-jobs:
-  include:
-    # First, check that everything is formatted.
-    - stage: analyze_and_format
-      script:
-        - dartanalyzer --fatal-warnings .
-        - dartfmt -n --set-exit-if-changed .
-    # Third, check for un-generated code.
-    - stage: build
-      script:
-        - pub run build_runner build test
-    # Set up several jobs in the next stage, using the built in sharding
-    # feature from the `test` package.
-    #
-    # Since a build already happened in the previous stage, these tasks will
-    # perform no-op builds which are fast (assuming you set up your cache
-    # properly above!).
-    - stage: unit_test
-      script:
-        - pub run build_runner test
-
-# Specify the ordering of your stages
-stages:
-  - analyze_and_format
-  - build
-  - unit_test
+script:
+  # check for out of date generated code
+  - pub run build_runner build --delete-conflicting-outputs
+  - git diff --exit-code
+  # check formatting
+  - pub run dart_dev format --check
+  # check for bad code
+  - pub run dart_dev analyze
+  # run tests on ddc output
+  - pub run build_runner test --delete-conflicting-outputs
+  # run tests on dart2js output
+  - pub run build_runner test -r --delete-conflicting-outputs
 
 cache:
   directories:
