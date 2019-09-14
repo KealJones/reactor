@@ -7,6 +7,17 @@ import 'goodbye.dart';
 
 part 'hello.reactor.g.dart';
 
+Factory<UiProps> Test = _Test;
+
+@ReactorComponent()
+TestComponent(UiProps props) {
+  var state = useState(1);
+  return (Dom.button()
+    ..onClick = (_) {
+      state.set(++state.value);
+    })('Counter: ' + state.value.toString());
+}
+
 class ExampleDartValue {
   Duration dur;
   ExampleDartValue({this.dur = const Duration(seconds: 2)});

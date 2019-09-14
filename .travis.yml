@@ -14,8 +14,49 @@ script:
   - pub run build_runner test --delete-conflicting-outputs
   # run tests on dart2js output
   - pub run build_runner test -r --delete-conflicting-outputs
+# Optional, required for web tests.
+sudo: required
+addons:
+  chrome: stable
+
+# Defines the stages we want to run.
+jobs:
+  include:
+    # First, check that everything is formatted.
+    - stage: format
+      script:
+        - pub run dart_dev format --check
+    # First, check that everything analyzes properly.
+    - stage: analyze
+      script:
+        - dartanalyzer --fatal-warnings .
+    # Set up several jobs in the next stage, using the built in sharding
+    # feature from the `test` package.
+    #
+    # Since a build already happened in the previous stage, these tasks will
+    # perform no-op builds which are fast (assuming you set up your cache
+    # properly above!).
+    - stage: unit_test
+      script:
+        - pub run dart_dev test #-- --total-shards 4 --shard-index 0
+    # - stage: unit_test
+    #   script:
+    #     - pub run build_runner test -- --total-shards 4 --shard-index 1
+    # - stage: unit_test
+    #   script:
+    #     - pub run build_runner test -- --total-shards 4 --shard-index 2
+    # - stage: unit_test
+    #   script:
+    #     - pub run build_runner test -- --total-shards 4 --shard-index 3
+
+# Specify the ordering of your stages
+stages:
+  - format
+  - analyze
+  - build
+  - unit_test
 
 cache:
   directories:
-   - $HOME/.pub-cache
-   - $HOME/.dart_tool/build
+    - $HOME/.pub-cache
+    - .dart_tool/build
