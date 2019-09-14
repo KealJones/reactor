@@ -47,7 +47,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
       // Component Factory
       $functionalPropsName _${getComponentShortName(element)}([Map backingMap]) {
         var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]){
-          ${(args.length > 0 && args[0].name == 'props') ? '$functionalPropsName tProps = $functionalPropsName().fromJs(props);' : ''}
+          ${(args.isNotEmpty && args[0].name == 'props') ? '$functionalPropsName tProps = $functionalPropsName().fromJs(props);' : ''}
           return ${element.name}(
             ${args.map((arg) {
           if (arg.name == 'props') {
@@ -127,7 +127,7 @@ createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
   return content;
 }
 
-createInteropMethodArgList(List<ParameterElement> parameters, {withWrapper: false, element}) {
+createInteropMethodArgList(List<ParameterElement> parameters, {withWrapper = false, element}) {
   String content = '';
   parameters.forEach((param) {
     if (withWrapper) {
@@ -148,7 +148,7 @@ createInteropMethodArgList(List<ParameterElement> parameters, {withWrapper: fals
 createInteropWrapperMethod(MethodElement method, ClassElement element) {
   String methodToInvoke = '${method.name}';
   bool isMapReturn = methodToInvoke.contains('getDerivedState');
-  if (method.parameters.length == 0) {
+  if (method.parameters.isEmpty) {
     return methodToInvoke;
   }
   String returnValue =
