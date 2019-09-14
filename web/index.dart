@@ -1,9 +1,7 @@
 import 'dart:html';
-import 'dart:js_util' as js_util;
 
 import 'package:reactor/reactor.dart';
 import 'package:reactor/src/core/react/hooks/hooks.dart';
-import 'package:reactor/test.dart';
 
 import 'function.dart';
 import 'hello.dart';
@@ -11,6 +9,8 @@ import 'simple.dart';
 import 'tic_tac_toe.dart';
 
 part 'index.reactor.g.dart';
+
+Factory<UiProps> Test = _Test;
 
 @ReactorComponent()
 TestComponent(UiProps props) {

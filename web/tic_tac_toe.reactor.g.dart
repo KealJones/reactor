@@ -16,7 +16,8 @@ class _SquareProps extends Props implements _SquarePropsInterface {}
 
 // Component Factory
 _SquareProps _Square([Map backingMap]) {
-  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]) {
+  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+      .allowInterop((props, [context]) {
     _SquareProps tProps = _SquareProps().fromJs(props);
     return SquareComponent(
       tProps,
@@ -24,7 +25,8 @@ _SquareProps _Square([Map backingMap]) {
       tProps.handleSquareClick,
     );
   });
-  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', 'Square');
+  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
+      interopFunction, 'name', 'Square');
   return _SquareProps()
     ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = interopFunction;
@@ -33,7 +35,8 @@ _SquareProps _Square([Map backingMap]) {
 class _BoardComponent extends BoardComponent {
   _BoardComponent() {
     this.reactJsComponent =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Board');
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Board');
     reactJsComponent..render = render;
   }
 
@@ -54,8 +57,9 @@ BoardProps _Board([Map backingMap]) {
 
 class _GameComponent extends GameComponent {
   _GameComponent() {
-    this.reactJsComponent = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
-        displayName: 'Game', constructor: constructor);
+    this.reactJsComponent =
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Game', constructor: constructor);
     reactJsComponent..render = render;
   }
 

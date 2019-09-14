@@ -1,7 +1,6 @@
 @TestOn('browser')
 import 'dart:html';
 
-import 'package:reactor/reactor.dart';
 import 'package:reactor/test.dart';
 
 import 'package:test/test.dart';

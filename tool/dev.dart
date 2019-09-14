@@ -20,11 +20,11 @@ main(List<String> args) async {
   const directories = const <String>[
     'lib/',
     'test/',
-    'tool/',
+    'web/',
   ];
 
   config.format
-    ..paths = ['./lib', './web', './test']
+    ..paths = directories
     ..lineLength = 120;
 
   config.analyze.entryPoints = directories;
