@@ -18,11 +18,13 @@ enableTestMode({bool includeReactTestingLibrary = false}) {
   }
   if (js_util.getProperty(window, 'ReactTestUtils') == null) {
     var reactDomTestUtilsJsScript = ScriptElement();
-    reactDomTestUtilsJsScript.src = 'packages/reactor/js/react-dom-test-utils.development.js';
+    reactDomTestUtilsJsScript.src =
+        'packages/reactor/js/react-dom-test-utils.development.js';
     document.head.append(reactDomTestUtilsJsScript);
   }
 
-  if (includeReactTestingLibrary && js_util.getProperty(window, 'TestingLibraryReact') == null) {
+  if (includeReactTestingLibrary &&
+      js_util.getProperty(window, 'TestingLibraryReact') == null) {
     var reactTestingLibraryCompatJsScript = ScriptElement();
     reactTestingLibraryCompatJsScript.innerHtml = '''
       window.ReactDom = ReactDOM;
@@ -31,7 +33,8 @@ enableTestMode({bool includeReactTestingLibrary = false}) {
     document.head.append(reactTestingLibraryCompatJsScript);
 
     var reactTestingLibraryJsScript = ScriptElement();
-    reactTestingLibraryJsScript.src = 'packages/reactor/js/testing-library-react.umd.js';
+    reactTestingLibraryJsScript.src =
+        'packages/reactor/js/testing-library-react.umd.js';
     document.head.append(reactTestingLibraryJsScript);
   }
 }

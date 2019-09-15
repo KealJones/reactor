@@ -18,7 +18,9 @@ getComponentPropsName(Element element) {
 
 getComponentGenerics(Element element) {
   if (element is ClassElement) {
-    return element.supertype.typeArguments.map((dartType) => dartType.toString()).toList();
+    return element.supertype.typeArguments
+        .map((dartType) => dartType.toString())
+        .toList();
   }
   return ['Props', 'State'];
 }
@@ -28,7 +30,8 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
   if (element is FunctionElement) {
     var content = '';
     final args = element.parameters;
-    final destructuredPropArgs = args.where((arg) => !arg.name.toLowerCase().contains('props')).toList();
+    final destructuredPropArgs =
+        args.where((arg) => !arg.name.toLowerCase().contains('props')).toList();
     var functionalPropsName = '${getComponentPropsName(element)}';
     if (destructuredPropArgs.length > 1) {
       content = '''
@@ -66,8 +69,9 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
   }
 
   if (element is ClassElement) {
-    MethodElement constructorMethod =
-        element.methods.singleWhere((method) => method.name == 'constructor', orElse: () => null);
+    MethodElement constructorMethod = element.methods.singleWhere(
+        (method) => method.name == 'constructor',
+        orElse: () => null);
     return '''
       class _${element.name} extends ${element.name} {
         _${element.name}() {
@@ -110,8 +114,10 @@ createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
   ];
   Map<String, MethodElement> implementedMethods = {};
   componentLifecycleMethods.forEach((String methodString) async {
-    MethodElement method = element.lookUpInheritedMethod(methodString, element.library);
-    if (method.enclosingElement.name != 'Component' && method.enclosingElement.name != 'Component') {
+    MethodElement method =
+        element.lookUpInheritedMethod(methodString, element.library);
+    if (method.enclosingElement.name != 'Component' &&
+        method.enclosingElement.name != 'Component') {
       implementedMethods[methodString] = method;
     }
   });
@@ -122,19 +128,23 @@ createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
     }
   });
   implementedMethods.values.forEach((MethodElement method) {
-    content += '..${method.name} = ${createInteropWrapperMethod(method, element)}\n';
+    content +=
+        '..${method.name} = ${createInteropWrapperMethod(method, element)}\n';
   });
   return content;
 }
 
-createInteropMethodArgList(List<ParameterElement> parameters, {withWrapper = false, element}) {
+createInteropMethodArgList(List<ParameterElement> parameters,
+    {withWrapper = false, element}) {
   String content = '';
   parameters.forEach((param) {
     if (withWrapper) {
       if (param.name.toLowerCase().contains('props')) {
-        content += '${getComponentPropsName(element)}().fromJs(_js${param.name}), ';
+        content +=
+            '${getComponentPropsName(element)}().fromJs(_js${param.name}), ';
       } else if (param.name.toLowerCase().contains('state')) {
-        content += '${getComponentStateName(element)}().fromJs(_js${param.name}), ';
+        content +=
+            '${getComponentStateName(element)}().fromJs(_js${param.name}), ';
       } else {
         content += '_js${param.name}, ';
       }
@@ -178,7 +188,8 @@ createPropsFromElement(ClassElement element) {
 }
 
 createStateFromElement(ClassElement element) {
-  String content = 'class ${element.name.replaceAll('_', '')} extends ${element.name} {';
+  String content =
+      'class ${element.name.replaceAll('_', '')} extends ${element.name} {';
   element.fields.forEach((FieldElement field) {
     // content += toGetterString(field, 'state');
     // content += toSetterString(field, 'state');

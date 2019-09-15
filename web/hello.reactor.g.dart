@@ -8,13 +8,15 @@ part of 'hello.dart';
 
 // Component Factory
 Props _Test([Map backingMap]) {
-  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]) {
+  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+      .allowInterop((props, [context]) {
     Props tProps = Props().fromJs(props);
     return TestComponent(
       tProps,
     );
   });
-  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', 'Test');
+  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
+      interopFunction, 'name', 'Test');
   return Props()
     ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = interopFunction;
@@ -23,12 +25,14 @@ Props _Test([Map backingMap]) {
 class _HelloComponent extends HelloComponent {
   _HelloComponent() {
     this.reactJsComponent =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Hello');
+        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+            .JsComponentBuilder(displayName: 'Hello');
     reactJsComponent
       ..render = render
       ..componentDidMount = componentDidMount
       ..componentDidUpdate = (_jsprevProps, _jsprevState, _jssnapshot) {
-        return componentDidUpdate(HelloProps().fromJs(_jsprevProps), HelloState().fromJs(_jsprevState), _jssnapshot);
+        return componentDidUpdate(HelloProps().fromJs(_jsprevProps),
+            HelloState().fromJs(_jsprevState), _jssnapshot);
       };
   }
 

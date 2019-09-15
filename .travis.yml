@@ -9,9 +9,9 @@ script:
   - pub run build_runner build --delete-conflicting-outputs
   - git diff --exit-code
   # check formatting
-  - pub run dart_dev format --check
+  - dartfmt -l 120 -n --set-exit-if-changed .
   # check for bad code
-  - pub run dart_dev analyze
+  - dartanalyzer --fatal-warnings .
   # run tests on ddc output
   - pub run build_runner test --delete-conflicting-outputs
   # run tests on dart2js output

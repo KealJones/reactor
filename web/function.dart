@@ -15,7 +15,8 @@ FunctionalComponent(_FunctionalProps props, String placeholder, int myNum) {
         ..placeholder = '$placeholder' ?? "type something here"
         ..aria.readonly = false
         ..onChange = (event) {
-          String value = js_util.getProperty(js_util.getProperty(event, 'currentTarget'), 'value');
+          String value = js_util.getProperty(
+              js_util.getProperty(event, 'currentTarget'), 'value');
           print(value);
         })(),
     ),
@@ -30,7 +31,8 @@ HookTestComponent() {
   var toggle = React.useState(true);
 
   React.useEffect(() {
-    js_util.setProperty(window.document, 'title', 'You clicked ${counter.value} times');
+    js_util.setProperty(
+        window.document, 'title', 'You clicked ${counter.value} times');
   });
 
   return (Dom.button()

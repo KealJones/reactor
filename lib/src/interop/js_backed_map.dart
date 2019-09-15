@@ -33,7 +33,8 @@ class JsBackedMap<K, V> extends MapBase<K, V> {
   factory JsBackedMap.from(Map other) => JsBackedMap()..addAll(other);
 
   /// Creates a JsBackedMap instance that contains all key/value pairs of the JS object [jsOther].
-  factory JsBackedMap.fromJs(JsMap jsOther) => JsBackedMap()..addAllFromJs(jsOther);
+  factory JsBackedMap.fromJs(JsMap jsOther) =>
+      JsBackedMap()..addAllFromJs(jsOther);
 
   // Private helpers with narrower typing than we want to expose, for use in other methods
   List<K> get _keys => JsObject.keys(jsObject);

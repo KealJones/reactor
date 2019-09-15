@@ -7,7 +7,8 @@ import 'package:source_gen/source_gen.dart';
 
 import './component_generator.dart';
 
-class ReactorComponentGenerator extends GeneratorForAnnotation<ReactorComponent> {
+class ReactorComponentGenerator
+    extends GeneratorForAnnotation<ReactorComponent> {
   @override
   Future<String> generateForAnnotatedElement(
     Element element,

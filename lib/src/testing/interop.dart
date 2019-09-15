@@ -24,18 +24,30 @@ class TestingLibraryReact {
   external static cleanup();
   external static configure(newConfig);
   external static CreateEvent get createEvent;
-  external static findAllByAltText(container, text, options, waitForElementOptions);
-  external static findAllByDisplayValue(container, text, options, waitForElementOptions);
-  external static findAllByLabelText(container, text, options, waitForElementOptions);
-  external static findAllByPlaceholderText(container, text, options, waitForElementOptions);
-  external static findAllByRole(container, text, options, waitForElementOptions);
-  external static findAllByTestId(container, text, options, waitForElementOptions);
-  external static findAllByText(container, text, options, waitForElementOptions);
-  external static findAllByTitle(container, text, options, waitForElementOptions);
-  external static findByAltText(container, text, options, waitForElementOptions);
-  external static findByDisplayValue(container, text, options, waitForElementOptions);
-  external static findByLabelText(container, text, options, waitForElementOptions);
-  external static findByPlaceholderText(container, text, options, waitForElementOptions);
+  external static findAllByAltText(
+      container, text, options, waitForElementOptions);
+  external static findAllByDisplayValue(
+      container, text, options, waitForElementOptions);
+  external static findAllByLabelText(
+      container, text, options, waitForElementOptions);
+  external static findAllByPlaceholderText(
+      container, text, options, waitForElementOptions);
+  external static findAllByRole(
+      container, text, options, waitForElementOptions);
+  external static findAllByTestId(
+      container, text, options, waitForElementOptions);
+  external static findAllByText(
+      container, text, options, waitForElementOptions);
+  external static findAllByTitle(
+      container, text, options, waitForElementOptions);
+  external static findByAltText(
+      container, text, options, waitForElementOptions);
+  external static findByDisplayValue(
+      container, text, options, waitForElementOptions);
+  external static findByLabelText(
+      container, text, options, waitForElementOptions);
+  external static findByPlaceholderText(
+      container, text, options, waitForElementOptions);
   external static findByRole(container, text, options, waitForElementOptions);
   external static findByTestId(container, text, options, waitForElementOptions);
   external static findByText(container, text, options, waitForElementOptions);
@@ -267,8 +279,10 @@ class Queries {
   external queryAllByPlaceholderText();
   external getByPlaceholderText(container);
   external getAllByPlaceholderText(container);
-  external findAllByPlaceholderText(container, text, options, waitForElementOptions);
-  external findByPlaceholderText(container, text, options, waitForElementOptions);
+  external findAllByPlaceholderText(
+      container, text, options, waitForElementOptions);
+  external findByPlaceholderText(
+      container, text, options, waitForElementOptions);
   external queryByText(container);
   external queryAllByText(container, text, _temp);
   external getByText(container);
@@ -279,7 +293,8 @@ class Queries {
   external queryAllByDisplayValue(container, value, _temp);
   external getByDisplayValue(container);
   external getAllByDisplayValue(container);
-  external findAllByDisplayValue(container, text, options, waitForElementOptions);
+  external findAllByDisplayValue(
+      container, text, options, waitForElementOptions);
   external findByDisplayValue(container, text, options, waitForElementOptions);
   external queryByAltText(container);
   external queryAllByAltText(container, alt, _temp);
