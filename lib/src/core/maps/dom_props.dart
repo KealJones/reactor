@@ -4,8 +4,7 @@ import 'package:reactor/src/core/maps/props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
 
-class DomProps extends UiProps
-    implements ReactPropsInterface, DomPropsInterface {
+class DomProps extends UiProps implements ReactPropsInterface, DomPropsInterface {
   DomProps([backingMap]) {
     $backingMap = backingMap ?? $backingMap;
   }
@@ -176,10 +175,7 @@ class DomPropsInterface {
   ClipboardEventCallback onCopyCapture, onCutCapture, onPasteCapture;
   KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
   FocusEventCallback onFocusCapture, onBlurCapture;
-  FormEventCallback onChangeCapture,
-      onInputCapture,
-      onSubmitCapture,
-      onResetCapture;
+  FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
   MouseEventCallback onClickCapture,
       onContextMenuCapture,
       onDoubleClickCapture,
@@ -199,10 +195,7 @@ class DomPropsInterface {
       onMouseOverCapture,
       onMouseUpCapture;
   PointerEventCallback onGotPointerCapture, onLostPointerCapture;
-  TouchEventCallback onTouchCancelCapture,
-      onTouchEndCapture,
-      onTouchMoveCapture,
-      onTouchStartCapture;
+  TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
   UIEventCallback onScrollCapture;
   WheelEventCallback onWheelCapture;
 

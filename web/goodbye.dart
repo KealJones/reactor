@@ -9,15 +9,13 @@ class GoodbyePropsInterface {
   String test;
 }
 
-class GoodbyeProps extends Props
-    implements GoodbyePropsInterface, HelloPropsInterface {}
+class GoodbyeProps extends Props implements GoodbyePropsInterface, HelloPropsInterface {}
 
 class GoodbyeStateInterface {
   bool matchesString;
 }
 
-class GoodbyeState extends State
-    implements GoodbyeStateInterface, HelloStateInterface {}
+class GoodbyeState extends State implements GoodbyeStateInterface, HelloStateInterface {}
 
 @ReactorComponent()
 class GoodbyeComponent extends Component<GoodbyeProps, GoodbyeState> {

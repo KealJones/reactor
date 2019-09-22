@@ -10,7 +10,6 @@ import 'simple.dart';
 import 'tic_tac_toe.dart';
 
 main() {
-
   Map<String, String> sharedStyleMap = {
     'display': 'flex',
     'flexDirection': 'column',
@@ -19,8 +18,7 @@ main() {
     'justifyContent': 'center',
     'height': '50vh',
   };
-  var content = AppProvider()(
-    React.Fragment()(
+  var content = AppProvider()(React.Fragment()(
     (Dom.div()..style = sharedStyleMap)(
       (Hello()
         ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))

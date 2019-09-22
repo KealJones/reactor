@@ -24,13 +24,15 @@ Context<T> createContext<T>([T defaultValue, Function calculateChangedBits]) {
       ..$backingMap = JsBackedMap.from(backingMap ?? {})
       ..$componentClass = jsContext.Provider;
   }
+
   Factory<ProviderProps<T>> ProviderFactory = Provider;
-  
+
   ConsumerProps<T> Consumer([Map backingMap]) {
     return ConsumerProps<T>()
       ..$backingMap = JsBackedMap.from(backingMap ?? {})
       ..$componentClass = jsContext.Consumer;
   }
+
   Factory<ConsumerProps<T>> ConsumerFactory = Consumer;
 
   return Context(ProviderFactory, ConsumerFactory, jsContext);

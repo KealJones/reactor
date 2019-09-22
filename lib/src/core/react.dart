@@ -29,15 +29,11 @@ class React {
 
   static get Fragment => react.Fragment;
   static get Suspense => react.Suspense;
-  static UseStateObject<TState> useState<TState>(TState initialState) =>
-      react.useState(initialState);
-  static void useEffect(void Function() sideEffect) =>
-      react.useEffect(sideEffect);
-  static T useContext<T>(react.Context<T> contextType) =>
-      react.useContext<T>(contextType);
+  static UseStateObject<TState> useState<TState>(TState initialState) => react.useState(initialState);
+  static void useEffect(void Function() sideEffect) => react.useEffect(sideEffect);
+  static T useContext<T>(react.Context<T> contextType) => react.useContext<T>(contextType);
 }
 
 class ReactDOM {
-  static reactjs.ReactElement render(element, node, [callback]) =>
-      reactjs.ReactDOM.render(element, node, callback);
+  static reactjs.ReactElement render(element, node, [callback]) => reactjs.ReactDOM.render(element, node, callback);
 }

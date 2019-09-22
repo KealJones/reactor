@@ -22,8 +22,7 @@ part 'tic_tac_toe.reactor.g.dart';
 Factory<_SquareProps> Square = _Square;
 
 @ReactorComponent()
-SquareComponent(
-    _SquareProps props, String displayValue, Function handleSquareClick) {
+SquareComponent(_SquareProps props, String displayValue, Function handleSquareClick) {
   return (Dom.button()
     ..className = 'square'
     ..onClick = (SyntheticMouseEvent event) {
@@ -214,8 +213,7 @@ class GameComponent extends Component<Props, GameState> {
   }
 
   handleClick(i) {
-    var history =
-        List<List<String>>.from(state.history).sublist(0, state.stepNumber + 1);
+    var history = List<List<String>>.from(state.history).sublist(0, state.stepNumber + 1);
     var squares = List<String>.from(history[(history.length - 1)]);
 
     if (calculateWinner(squares) != null || squares[i] != null) {
@@ -244,8 +242,7 @@ class GameComponent extends Component<Props, GameState> {
     var moves = history.map((step) {
       var move = history.indexOf(step);
       var desc = move != 0 ? 'Go to move #$move' : 'Go to game start';
-      return (Dom.li()
-        ..key = '$move')((Dom.button()..onClick = (_) => jumpTo(move))(desc));
+      return (Dom.li()..key = '$move')((Dom.button()..onClick = (_) => jumpTo(move))(desc));
     }).toList();
 
     String status;
@@ -307,9 +304,7 @@ calculateWinner(squares) {
     var a = lines[i][0];
     var b = lines[i][1];
     var c = lines[i][2];
-    if (squares[a] != null &&
-        squares[a] == squares[b] &&
-        squares[a] == squares[c]) {
+    if (squares[a] != null && squares[a] == squares[b] && squares[a] == squares[c]) {
       return squares[a];
     }
   }

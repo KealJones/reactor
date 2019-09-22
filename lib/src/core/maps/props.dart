@@ -13,9 +13,7 @@ class ReactPropsInterface {
   String className;
 }
 
-class Props extends UiProps
-    with UbiquitousDomProps
-    implements ReactPropsInterface, ReactChildrenPropInterface {
+class Props extends UiProps with UbiquitousDomProps implements ReactPropsInterface, ReactChildrenPropInterface {
   Props([Map backingMap]) {
     $backingMap = backingMap ?? $backingMap;
   }

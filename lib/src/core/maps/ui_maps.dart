@@ -25,9 +25,7 @@ class UiProps extends UiMap with UiComponentInterface {
   @override
   noSuchMethod(Invocation i) {
     if (i.isMethod && i.memberName == const Symbol('call')) {
-      return build(i.positionalArguments
-          .takeWhile((child) => !identical(child, undefined))
-          .toList());
+      return build(i.positionalArguments.takeWhile((child) => !identical(child, undefined)).toList());
     }
     return super.noSuchMethod(i);
   }
@@ -80,19 +78,15 @@ class UiMap extends MapBase with UiMapBase, UiMapViewMixin {
 
 mixin UiMapViewMixin<K, V> on UiMapBase<K, V> implements Map<K, V> {
   @override
-  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) =>
-      $backingMap.map<K2, V2>(f);
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => $backingMap.map<K2, V2>(f);
   @override
   Iterable<MapEntry<K, V>> get entries => $backingMap.entries;
   @override
-  void addEntries(Iterable<MapEntry<K, V>> newEntries) =>
-      $backingMap.addEntries(newEntries);
+  void addEntries(Iterable<MapEntry<K, V>> newEntries) => $backingMap.addEntries(newEntries);
   @override
-  void removeWhere(bool predicate(K key, V value)) =>
-      $backingMap.removeWhere(predicate);
+  void removeWhere(bool predicate(K key, V value)) => $backingMap.removeWhere(predicate);
   @override
-  V update(K key, V update(V value), {V ifAbsent()}) =>
-      $backingMap.update(key, update, ifAbsent: ifAbsent);
+  V update(K key, V update(V value), {V ifAbsent()}) => $backingMap.update(key, update, ifAbsent: ifAbsent);
   @override
   void updateAll(V update(K key, V value)) => $backingMap.updateAll(update);
   @override

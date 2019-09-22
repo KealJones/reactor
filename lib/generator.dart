@@ -8,8 +8,8 @@ import 'package:dart_style/dart_style.dart';
 import './src/generator/reactor_generator.dart';
 
 Builder reactorGenerator(BuilderOptions options) => PartBuilder(
-    [ReactorComponentGenerator()], 
-    '.reactor.g.dart', 
-    formatOutput: DartFormatter(pageWidth: 120).format,
-  );
+      [ReactorComponentGenerator()],
+      '.reactor.g.dart',
+      formatOutput: DartFormatter(pageWidth: 120).format,
+    );
 Builder reactorTestHtmlGenerator(BuilderOptions options) => ReactorTestHtmlBuilder();

@@ -48,10 +48,7 @@ class HelloComponent extends Component<HelloProps, HelloState> {
 
   @override
   render() {
-    var tempProps = HelloProps().from(props)
-      ..remove('dartVal')
-      ..remove('isThisDefault')
-      ..remove('children');
+    var tempProps = HelloProps().from(props)..remove('dartVal')..remove('isThisDefault')..remove('children');
     return Dom.div()(
         Dom.div()(
           (Dom.input()
@@ -67,8 +64,7 @@ class HelloComponent extends Component<HelloProps, HelloState> {
               this.setState(HelloState()..usersName = value);
             })(),
         ),
-        Dom.span()(
-            'Hello${this.state.usersName?.isNotEmpty ?? false ? ', ' + this.state.usersName + '!' : ''}'),
+        Dom.span()('Hello${this.state.usersName?.isNotEmpty ?? false ? ', ' + this.state.usersName + '!' : ''}'),
         Dom.br()(),
         Dom.div()(
           (Goodbye()

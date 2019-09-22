@@ -11,9 +11,11 @@ Factory<_AppProviderProps> AppProvider = _AppProvider;
 @ReactorComponent()
 AppProviderComponent(_AppProviderProps props, String placeholder, int myNum) {
   var counter = React.useState('Inital Context');
-  return [(Dom.button()
+  return [
+    (Dom.button()
       ..onClick = (event) {
         counter.set('Updated Context');
       })('Click me to update context!'),
-      (SomeContext.Provider()..value = counter.value)(props.children)];
+    (SomeContext.Provider()..value = counter.value)(props.children)
+  ];
 }

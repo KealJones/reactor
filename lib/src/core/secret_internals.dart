@@ -20,8 +20,7 @@ class REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
   static JsComponentBuilder({displayName, constructor}) =>
       ReactComponentClassInterop(displayName: displayName, constructor: constructor);
 
-  static get(String property, [dynamic object]) =>
-      js_util.getProperty(object ?? html.window, property);
+  static get(String property, [dynamic object]) => js_util.getProperty(object ?? html.window, property);
 
   /// Shortcut method for using getProperty from [window].
   /// Will recurse through use of `.` wrapping each in a getProperty.
@@ -35,8 +34,7 @@ class REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
       return js_util.getProperty(result, path);
     }
     if (path.contains('[')) {
-      cleanedPath =
-          path.replaceAll('[', '.').replaceAll(RegExp('[\\\"\\]\\\']'), '');
+      cleanedPath = path.replaceAll('[', '.').replaceAll(RegExp('[\\\"\\]\\\']'), '');
     }
     if (path.contains('.')) {
       route = cleanedPath.split('.');
@@ -50,22 +48,15 @@ class REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
     return result;
   }
 
-  static set(dynamic object, String property, dynamic value) =>
-      js_util.setProperty(object, property, value);
+  static set(dynamic object, String property, dynamic value) => js_util.setProperty(object, property, value);
 
-  static setProto(dynamic object, String property, dynamic value) => js_util
-      .setProperty(js_util.getProperty(object, 'prototype'), property, value);
+  static setProto(dynamic object, String property, dynamic value) =>
+      js_util.setProperty(js_util.getProperty(object, 'prototype'), property, value);
 
-  static call(dynamic object, String methodName, List<dynamic> args) =>
-      js_util.callMethod(object, methodName, args);
+  static call(dynamic object, String methodName, List<dynamic> args) => js_util.callMethod(object, methodName, args);
 
-  static define(dynamic object, String property, dynamic value) =>
-      JsObject.defineProperty(
-          object,
-          property,
-          value is DefinePropertyValue
-              ? value
-              : DefinePropertyValue(value: value));
+  static define(dynamic object, String property, dynamic value) => JsObject.defineProperty(
+      object, property, value is DefinePropertyValue ? value : DefinePropertyValue(value: value));
 
   static allowInterop(Function v) => js.allowInterop(v);
 }
