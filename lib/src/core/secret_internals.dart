@@ -18,8 +18,7 @@ class REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
   get react => js_util.getProperty('React', html.window);
   get reactDom => js_util.getProperty('ReactDOM', html.window);
   static JsComponentBuilder({displayName, constructor}) =>
-      ReactJsComponentInterop(
-          displayName: displayName, constructor: constructor);
+      ReactComponentClassInterop(displayName: displayName, constructor: constructor);
 
   static get(String property, [dynamic object]) =>
       js_util.getProperty(object ?? html.window, property);

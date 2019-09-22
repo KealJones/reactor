@@ -6,7 +6,8 @@ import 'dart:core';
 import 'dart:js_util' as js_util;
 
 import 'package:js/js.dart';
-import 'package:reactor/src/interop/interop.dart';
+import 'package:reactor/src/interop/js.dart';
+
 
 /// A view into a JavaScript object ([jsObject]) that conforms to the Dart [Map] interface.
 ///

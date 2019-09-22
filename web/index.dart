@@ -2,12 +2,15 @@ import 'dart:html';
 
 import 'package:reactor/reactor.dart';
 
+import 'app_provider.dart';
+import 'context.dart';
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
 import 'tic_tac_toe.dart';
 
-main() async {
+main() {
+
   Map<String, String> sharedStyleMap = {
     'display': 'flex',
     'flexDirection': 'column',
@@ -16,7 +19,8 @@ main() async {
     'justifyContent': 'center',
     'height': '50vh',
   };
-  var content = React.Fragment()(
+  var content = AppProvider()(
+    React.Fragment()(
     (Dom.div()..style = sharedStyleMap)(
       (Hello()
         ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))
@@ -35,7 +39,7 @@ main() async {
       Game()(),
     ),
     HookTest()(),
-  );
+  ));
 
   ReactDOM.render(content, querySelector('#content'));
 }

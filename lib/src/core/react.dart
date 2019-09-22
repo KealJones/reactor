@@ -1,13 +1,12 @@
 library reactor.core.react;
 
+import 'dart:js';
 import 'dart:js_util' as js_util;
 import 'dart:html';
 
 import 'package:reactor/src/core/react/hooks/use_state.dart';
 import 'package:reactor/src/interop/react.dart' as reactjs;
-import 'package:reactor/src/core/react/hooks/hooks.dart' as hooks;
-import 'package:reactor/src/core/react/components/components.dart'
-    as components;
+import 'package:reactor/src/core/react/react.dart' as react;
 
 export 'package:reactor/src/interop/react.dart' show ReactElement;
 export 'package:reactor/src/core/react/hooks/hooks.dart';
@@ -21,11 +20,21 @@ class React {
     );
   }
 
-  static get Fragment => components.Fragment;
+  static react.Context<T> createContext<T>([T defaultValue, Function calculateChangedBits]) {
+    if (calculateChangedBits != null) {
+      calculateChangedBits = allowInterop(calculateChangedBits);
+    }
+    return react.createContext(defaultValue, calculateChangedBits);
+  }
+
+  static get Fragment => react.Fragment;
+  static get Suspense => react.Suspense;
   static UseStateObject<TState> useState<TState>(TState initialState) =>
-      hooks.useState(initialState);
+      react.useState(initialState);
   static void useEffect(void Function() sideEffect) =>
-      hooks.useEffect(sideEffect);
+      react.useEffect(sideEffect);
+  static T useContext<T>(react.Context<T> contextType) =>
+      react.useContext<T>(contextType);
 }
 
 class ReactDOM {

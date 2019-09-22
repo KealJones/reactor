@@ -75,16 +75,16 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
     return '''
       class _${element.name} extends ${element.name} {
         _${element.name}() {
-          this.reactJsComponent = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: '${getComponentShortName(element)}' ${constructorMethod != null ? ', constructor: ' + constructorMethod.name : ''});
-          reactJsComponent
+          this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: '${getComponentShortName(element)}' ${constructorMethod != null ? ', constructor: ' + constructorMethod.name : ''});
+          reactComponentClass
           ${await createComponentJsMethods(element, buildStep)};
         }
 
         @override
-        ${getComponentPropsName(element)} get props => ${getComponentPropsName(element)}().fromJs(reactJsComponent.props);
+        ${getComponentPropsName(element)} get props => ${getComponentPropsName(element)}().fromJs(reactComponentClass.props);
 
         @override
-        ${getComponentStateName(element)} get state => ${getComponentStateName(element)}().fromJs(reactJsComponent.state);
+        ${getComponentStateName(element)} get state => ${getComponentStateName(element)}().fromJs(reactComponentClass.state);
       }
 
       // Component Instance
@@ -92,7 +92,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
         var _dartComp = _${element.name}();
         return ${getComponentPropsName(element)}()
           ..\$backingMap = JsBackedMap.from(backingMap ?? {})
-          ..\$componentClass = _dartComp.reactJsComponent.reactClass;
+          ..\$componentClass = _dartComp.reactComponentClass.reactClass;
       }
     ''';
   }

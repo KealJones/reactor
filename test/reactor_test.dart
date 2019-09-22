@@ -2,6 +2,7 @@
 import 'dart:html';
 
 import 'package:reactor/test.dart';
+import 'package:react_testing_library/react_testing_library.dart' hide enableTestMode;
 
 import 'package:test/test.dart';
 
@@ -14,7 +15,7 @@ void main() {
       test("1", () {
         window.console.log(document.body.innerHtml);
 
-        var test = TestingLibraryReact.render(Test()());
+        var test = RTL.render(Test()());
 
         test.getByText('Counter: 1').click();
 
@@ -22,7 +23,7 @@ void main() {
       });
 
       test("2", () {
-        var test = TestingLibraryReact.render(Test()());
+        var test = RTL.render(Test()());
 
         test.getByText('Counter: 1')..click()..click()..click();
 

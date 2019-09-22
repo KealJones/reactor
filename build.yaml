@@ -44,6 +44,7 @@ builders:
       generate_for:
         # Only apply to .dart files in the web directory
         include:
+        - lib/**
         - web/**
         - test/**
         #- example/**

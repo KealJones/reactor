@@ -14,7 +14,7 @@ class UiProps extends UiMap with UiComponentInterface {
   dynamic $componentClass;
 
   /// Creates the ReactElement that will be returned from the component.
-  ReactElement build(List<dynamic> children) {
+  ReactElement build(dynamic children) {
     return React.createElement(
       $componentClass,
       $backingMap.jsObject,
@@ -248,4 +248,8 @@ mixin UiComponentInterface {
     c99 = undefined,
     c100 = undefined,
   ]);
+}
+
+mixin UiConsumerComponentInterface<T> {
+  ReactElement call([ReactElement Function(T) c0]);
 }

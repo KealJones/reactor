@@ -7,17 +7,17 @@ import 'package:reactor/src/interop/js.dart';
 import 'package:reactor/src/core/secret_internals.dart';
 import 'package:reactor/src/core/maps.dart';
 
-class ReactJsComponentInterop {
+class ReactComponentClassInterop {
   final String displayName;
 
   dynamic reactClass;
-  ReactJsComponent reactJsComponentInstance;
+  ReactComponentClass reactComponentClassInstance;
 
   getReactComponentThis(dynamic self) {
-    this.reactJsComponentInstance = self;
+    this.reactComponentClassInstance = self;
   }
 
-  ReactJsComponentInterop({this.displayName, void Function() constructor}) {
+  ReactComponentClassInterop({this.displayName, void Function() constructor}) {
     this.reactClass = Js2ArgFunction(
       'dartConstructor',
       'getReactComponentThis',
@@ -38,15 +38,13 @@ class ReactJsComponentInterop {
     );
   }
 
-  dynamic get type => reactJsComponentInstance.type;
+  dynamic get type => reactComponentClassInstance.type;
 
-  get props => reactJsComponentInstance.props;
-  set props(_props) =>
-      reactJsComponentInstance.props = _props.$backingMap.jsObject;
+  get props => reactComponentClassInstance.props;
+  set props(_props) => reactComponentClassInstance.props = _props.$backingMap.jsObject;
 
-  get state => reactJsComponentInstance.state;
-  set state(_state) =>
-      reactJsComponentInstance.state = _state.$backingMap.jsObject;
+  get state => reactComponentClassInstance.state;
+  set state(_state) => reactComponentClassInstance.state = _state.$backingMap.jsObject;
 
   void setState(dynamic partialOrFunction, [Function callback]) {
     var _newState = partialOrFunction;
@@ -57,10 +55,15 @@ class ReactJsComponentInterop {
     }
 
     if (callback != null) {
-      reactJsComponentInstance.setState(_newState, allowInterop(callback));
+      reactComponentClassInstance.setState(_newState, allowInterop(callback));
     } else {
-      reactJsComponentInstance.setState(_newState);
+      reactComponentClassInstance.setState(_newState);
     }
+  }
+
+  set contextType(String v) {
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(reactClass,
+        'contextType', DefinePropertyValue(value: v, configurable: true));
   }
 
   set displayName(String v) {

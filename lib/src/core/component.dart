@@ -4,16 +4,18 @@ import 'package:reactor/src/interop/component.dart';
 import 'package:reactor/src/core/maps.dart';
 
 class Component<P extends Props, S extends State> {
-  ReactJsComponentInterop reactJsComponent;
+  ReactComponentClassInterop reactComponentClass;
 
-  P get props => reactJsComponent.props;
-  set props(_props) => reactJsComponent.props = _props;
+  set contextType(_contextType) => reactComponentClass.contextType = _contextType;
 
-  S get state => reactJsComponent.state;
-  set state(_state) => reactJsComponent.state = _state;
+  P get props => reactComponentClass.props;
+  set props(_props) => reactComponentClass.props = _props;
+
+  S get state => reactComponentClass.state;
+  set state(_state) => reactComponentClass.state = _state;
 
   setState(dynamic partialOrFunction, [Function callback]) {
-    reactJsComponent.setState(partialOrFunction, callback);
+    reactComponentClass.setState(partialOrFunction, callback);
   }
 
   void constructor() {}

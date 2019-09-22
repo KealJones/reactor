@@ -34,6 +34,12 @@ abstract class Reflect {
   external static bool deleteProperty(JsMap target, dynamic propertyKey);
 }
 
+
+@JS('Symbol')
+abstract class JsSymbol {
+  external factory JsSymbol([String name]);
+}
+
 @JS()
 @anonymous
 class DefinePropertyValue {
