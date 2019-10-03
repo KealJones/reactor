@@ -12,4 +12,3 @@ Builder reactorGenerator(BuilderOptions options) => PartBuilder(
       '.reactor.g.dart',
       formatOutput: DartFormatter(pageWidth: 120).format,
     );
-Builder reactorTestHtmlGenerator(BuilderOptions options) => ReactorTestHtmlBuilder();
