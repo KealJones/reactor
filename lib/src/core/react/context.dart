@@ -42,5 +42,7 @@ class Context<T> {
   Factory<ProviderProps<T>> Provider;
   Factory<ConsumerProps<T>> Consumer;
   dynamic jsThis;
+
+  // ignore: avoid_types_as_parameter_names
   Context(this.Provider, this.Consumer, this.jsThis);
 }

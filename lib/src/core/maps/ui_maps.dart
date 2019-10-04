@@ -24,7 +24,7 @@ class UiProps extends UiMap with UiComponentInterface {
 
   @override
   noSuchMethod(Invocation i) {
-    if (i.isMethod && i.memberName == const Symbol('call')) {
+    if (i.isMethod && i.memberName == #call) {
       return build(i.positionalArguments.takeWhile((child) => !identical(child, undefined)).toList());
     }
     return super.noSuchMethod(i);
