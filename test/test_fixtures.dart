@@ -6,7 +6,7 @@ part 'test_fixtures.reactor.g.dart';
 Factory<UiProps> Test = _Test;
 
 @ReactorComponent()
-TestComponent(UiProps props) {
+TestComponent(props) {
   var state = hooker.useState(1);
   return (Dom.button()
     ..onClick = (_) {

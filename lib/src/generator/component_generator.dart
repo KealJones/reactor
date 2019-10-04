@@ -28,9 +28,10 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
   if (element is FunctionElement) {
     var content = '';
     final args = element.parameters;
-    final destructuredPropArgs = args.where((arg) => !arg.name.toLowerCase().contains('props')).toList();
+    final destructuredPropArgs = args.where((arg) => !(arg.name.toLowerCase() == 'props')).toList();
+    final propsArgs = args.where((arg) => arg.name.toLowerCase() == 'props').toList();
     var functionalPropsName = '${getComponentPropsName(element)}';
-    if (destructuredPropArgs.length > 1) {
+    if (destructuredPropArgs.isNotEmpty) {
       content = '''
         class ${getComponentPropsName(element)}Interface {
           ${destructuredPropArgs.map((arg) {
@@ -40,7 +41,11 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
         class ${getComponentPropsName(element)} extends Props implements ${getComponentPropsName(element)}Interface {}
         ''';
     } else {
-      functionalPropsName = 'Props';
+      if (propsArgs.isNotEmpty) {
+        functionalPropsName = (propsArgs.first.type.name == 'dynamic' ? 'Props' : propsArgs.first.type.name ?? 'Props');
+      } else {
+        functionalPropsName = 'Props';
+      }
     }
     return content +
         '''

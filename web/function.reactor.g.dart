@@ -31,6 +31,20 @@ _FunctionalProps _Functional([Map backingMap]) {
 }
 
 // Component Factory
+Functional2Props _Functional2([Map backingMap]) {
+  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]) {
+    Functional2Props tProps = Functional2Props().fromJs(props);
+    return Functional2Component(
+      tProps,
+    );
+  });
+  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', 'Functional2');
+  return Functional2Props()
+    ..$backingMap = JsBackedMap.from(backingMap ?? {})
+    ..$componentClass = interopFunction;
+}
+
+// Component Factory
 Props _HookTest([Map backingMap]) {
   var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]) {
     return HookTestComponent();
