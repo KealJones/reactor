@@ -8,7 +8,7 @@ class SuspensePropsInterface {
 class SuspenseProps extends Props implements SuspensePropsInterface {}
 
 /// Suspense lets components “wait” for something before rendering.
-/// 
+///
 /// Suspense is not currently supported but this is in place for the future
 /// when it can handle more scenarios such as data fetching.
 SuspenseProps Suspense([Map backingMap]) {

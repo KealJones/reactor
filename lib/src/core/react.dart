@@ -9,23 +9,24 @@ import 'package:reactor/src/interop/react.dart' as reactjs;
 import 'package:reactor/src/core/react/react.dart' as react;
 
 export 'package:reactor/src/interop/react.dart' show ReactElement;
-export 'package:reactor/src/core/react/react.dart' show 
-// Components
-Fragment,
-Suspense,
-StrictMode,
+export 'package:reactor/src/core/react/react.dart'
+    show
+  // Components
+        Fragment,
+        Suspense,
+        StrictMode,
 
 // Hooks
-useCallback,
-useContext,
-useDebugValue,
-useEffect,
-useImperativeHandle,
-useLayoutEffect,
-useMemo,
-useReducer,
-useRef,
-useState;
+        useCallback,
+        useContext,
+        useDebugValue,
+        useEffect,
+        useImperativeHandle,
+        useLayoutEffect,
+        useMemo,
+        useReducer,
+        useRef,
+        useState;
 
 // Utilities
 reactjs.ReactElement createElement(component, props, children) {
