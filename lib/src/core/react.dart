@@ -9,7 +9,23 @@ import 'package:reactor/src/interop/react.dart' as reactjs;
 import 'package:reactor/src/core/react/react.dart' as react;
 
 export 'package:reactor/src/interop/react.dart' show ReactElement;
-export 'package:reactor/src/core/react/hooks/hooks.dart';
+export 'package:reactor/src/core/react/react.dart' show 
+// Components
+Fragment,
+Suspense,
+StrictMode,
+
+// Hooks
+useCallback,
+useContext,
+useDebugValue,
+useEffect,
+useImperativeHandle,
+useLayoutEffect,
+useMemo,
+useReducer,
+useRef,
+useState;
 
 // Utilities
 reactjs.ReactElement createElement(component, props, children) {
@@ -26,17 +42,6 @@ react.Context<T> createContext<T>([T defaultValue, Function calculateChangedBits
   }
   return react.createContext(defaultValue, calculateChangedBits);
 }
-
-// Components
-get Fragment => react.Fragment;
-get Suspense => react.Suspense;
-get StrictMode => react.StrictMode;
-
-// Hooks
-UseStateObject<TState> useState<TState>(TState initialState) => react.useState(initialState);
-void useEffect(void Function() sideEffect) => react.useEffect(sideEffect);
-T useContext<T>(react.Context<T> contextType) => react.useContext<T>(contextType);
-
 
 class ReactDOM {
   static reactjs.ReactElement render(element, node, [callback]) => reactjs.ReactDOM.render(element, node, callback);

@@ -137,7 +137,7 @@ class React {
   external static void useDebugValue<T>(T value, dynamic Function(T value) format);
   external static dynamic useLayoutEffect(void Function() init, [List<dynamic> dependencies]);
   external static T useMemo<T>(T Function() componentFactory, [List<dynamic> dependencies]);
-  external static List<dynamic> useReducer(Reducer reducer, dynamic initialArg, [init]);
+  external static List<dynamic> useReducer<T, A>(Reducer<T, A> reducer, dynamic initialArg, [init]);
   external static RefObject useRef<T>([T initialValue]);
   external static List<dynamic> useState<TState>(TState initialValue);
 }
