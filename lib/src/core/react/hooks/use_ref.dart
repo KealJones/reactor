@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:reactor/src/interop/react.dart' as interop;
 
 /// [useRef] returns a mutable ref object whose .current property is initialized

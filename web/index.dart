@@ -3,7 +3,6 @@ import 'dart:html';
 import 'package:reactor/reactor.dart';
 
 import 'app_provider.dart';
-import 'context.dart';
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';

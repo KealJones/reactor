@@ -1,6 +1,6 @@
 import 'dart:js';
 
-import 'package:reactor/src/interop/react.dart';
+import 'package:reactor/src/interop/react.dart' as interop;
 
 /// Accepts a function that contains imperative, possibly effectful code.
 ///
@@ -16,5 +16,5 @@ import 'package:reactor/src/interop/react.dart';
 /// By default, effects run after every completed render, but you can choose to
 /// fire it only when certain values have changed.
 void useEffect(void Function() sideEffect) {
-  React.useEffect(allowInterop(sideEffect));
+  interop.React.useEffect(allowInterop(sideEffect));
 }
