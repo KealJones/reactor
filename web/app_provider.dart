@@ -1,5 +1,3 @@
-import 'dart:html';
-import 'dart:js_util' as js_util;
 import 'package:reactor/reactor.dart';
 
 import 'context.dart';
@@ -10,7 +8,7 @@ Factory<_AppProviderProps> AppProvider = _AppProvider;
 
 @ReactorComponent()
 AppProviderComponent(_AppProviderProps props, String placeholder, int myNum) {
-  var counter = React.useState('Inital Context');
+  var counter = useState('Inital Context');
   return [
     (Dom.button()
       ..onClick = (event) {

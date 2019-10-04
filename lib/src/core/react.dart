@@ -11,28 +11,32 @@ import 'package:reactor/src/core/react/react.dart' as react;
 export 'package:reactor/src/interop/react.dart' show ReactElement;
 export 'package:reactor/src/core/react/hooks/hooks.dart';
 
-class React {
-  static reactjs.ReactElement createElement(component, props, children) {
-    return js_util.callMethod(
-      js_util.getProperty(window, 'React'),
-      'createElement',
-      [component, props, ...children],
-    );
-  }
-
-  static react.Context<T> createContext<T>([T defaultValue, Function calculateChangedBits]) {
-    if (calculateChangedBits != null) {
-      calculateChangedBits = allowInterop(calculateChangedBits);
-    }
-    return react.createContext(defaultValue, calculateChangedBits);
-  }
-
-  static get Fragment => react.Fragment;
-  static get Suspense => react.Suspense;
-  static UseStateObject<TState> useState<TState>(TState initialState) => react.useState(initialState);
-  static void useEffect(void Function() sideEffect) => react.useEffect(sideEffect);
-  static T useContext<T>(react.Context<T> contextType) => react.useContext<T>(contextType);
+// Utilities
+reactjs.ReactElement createElement(component, props, children) {
+  return js_util.callMethod(
+    js_util.getProperty(window, 'React'),
+    'createElement',
+    [component, props, ...children],
+  );
 }
+
+react.Context<T> createContext<T>([T defaultValue, Function calculateChangedBits]) {
+  if (calculateChangedBits != null) {
+    calculateChangedBits = allowInterop(calculateChangedBits);
+  }
+  return react.createContext(defaultValue, calculateChangedBits);
+}
+
+// Components
+get Fragment => react.Fragment;
+get Suspense => react.Suspense;
+get StrictMode => react.StrictMode;
+
+// Hooks
+UseStateObject<TState> useState<TState>(TState initialState) => react.useState(initialState);
+void useEffect(void Function() sideEffect) => react.useEffect(sideEffect);
+T useContext<T>(react.Context<T> contextType) => react.useContext<T>(contextType);
+
 
 class ReactDOM {
   static reactjs.ReactElement render(element, node, [callback]) => reactjs.ReactDOM.render(element, node, callback);

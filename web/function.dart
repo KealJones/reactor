@@ -10,7 +10,7 @@ Factory<_FunctionalProps> Functional = _Functional;
 
 @ReactorComponent()
 FunctionalComponent(_FunctionalProps props, String placeholder, int myNum) {
-  var value = React.useContext(SomeContext);
+  var value = useContext(SomeContext);
   return [
     'Current Context Value: $value',
     (Dom.input()
@@ -28,10 +28,10 @@ Factory HookTest = _HookTest;
 
 @ReactorComponent()
 HookTestComponent() {
-  var counter = React.useState(1);
-  var toggle = React.useState(true);
+  var counter = useState(1);
+  var toggle = useState(true);
 
-  React.useEffect(() {
+  useEffect(() {
     js_util.setProperty(window.document, 'title', 'You clicked ${counter.value} times');
   });
 

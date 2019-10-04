@@ -10,11 +10,16 @@ class ReactChildrenPropInterface {
 class ReactPropsInterface {
   String key;
   dynamic ref;
-  String className;
 }
 
 class Props extends UiProps with UbiquitousDomProps implements ReactPropsInterface, ReactChildrenPropInterface {
   Props([Map backingMap]) {
+    $backingMap = backingMap ?? $backingMap;
+  }
+}
+
+class NoProps extends UiProps implements ReactPropsInterface, ReactChildrenPropInterface {
+  NoProps([Map backingMap]) {
     $backingMap = backingMap ?? $backingMap;
   }
 }
