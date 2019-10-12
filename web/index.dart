@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:reactor/reactor.dart';
 
 import 'app_provider.dart';
+import 'deferred_wrapper.dart';
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
@@ -19,6 +20,7 @@ main() {
   };
   var content = StrictMode()(
     AppProvider()(
+      DeferredWrapper()(),
       Fragment()(
         (Dom.div()..style = sharedStyleMap)(
           (Hello()

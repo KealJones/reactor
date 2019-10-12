@@ -7,10 +7,10 @@ import 'goodbye.dart';
 
 part 'hello.reactor.g.dart';
 
-Factory<UiProps> Test = _Test;
+Factory<Props> Test = _Test;
 
 @ReactorComponent()
-TestComponent(UiProps props) {
+TestComponent(Props props) {
   var state = useState(1);
   return (Dom.button()
     ..onClick = (_) {

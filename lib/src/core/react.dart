@@ -10,7 +10,7 @@ import 'package:reactor/src/core/react/react.dart' as react;
 export 'package:reactor/src/interop/react.dart' show ReactElement;
 export 'package:reactor/src/core/react/react.dart'
     show
-        // Components
+// Components
         Fragment,
         Suspense,
         StrictMode,
