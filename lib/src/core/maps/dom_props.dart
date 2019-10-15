@@ -4,6 +4,11 @@ import 'package:reactor/src/core/maps/props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
 
+import '../annotations.dart';
+
+part 'dom_props.reactor.g.dart';
+
+@ReactorProps()
 class DomProps extends UiProps implements ReactPropsInterface, DomPropsInterface {
   DomProps([backingMap]) {
     $backingMap = backingMap ?? $backingMap;
@@ -15,6 +20,7 @@ class DomProps extends UiProps implements ReactPropsInterface, DomPropsInterface
   AriaProps get aria => AriaProps($backingMap);
 }
 
+@ReactorProps()
 class AriaProps extends UiMap implements AriaPropsInterface {
   AriaProps([backingMap]) : super(backingMap);
 
@@ -22,6 +28,7 @@ class AriaProps extends UiMap implements AriaPropsInterface {
   final String keyPrefix = 'aria-';
 }
 
+@ReactorProps()
 mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   /// A view into this map that can be used to access `aria-` props, for convenience.
   ///

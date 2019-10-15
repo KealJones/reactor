@@ -46,3 +46,24 @@ HelloProps _Hello([Map backingMap]) {
     ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = _dartComp.reactComponentClass.reactClass;
 }
+
+// **************************************************************************
+// ReactorPropsGenerator
+// **************************************************************************
+
+extension GeneratedHelloProps on HelloProps {
+  ExampleDartValue get dartVal => $backingMap['dartVal']; // false
+  set dartVal(ExampleDartValue v) => $backingMap['dartVal'] = v;
+
+  bool get isThisDefault => $backingMap['isThisDefault']; // false
+  set isThisDefault(bool v) => $backingMap['isThisDefault'] = v;
+}
+
+// **************************************************************************
+// ReactorStateGenerator
+// **************************************************************************
+
+extension GeneratedHelloState on HelloState {
+  String get usersName => $backingMap['usersName']; // false
+  set usersName(String v) => $backingMap['usersName'] = v;
+}

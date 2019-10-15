@@ -18,3 +18,27 @@ class ReactorComponentGenerator extends GeneratorForAnnotation<ReactorComponent>
     return await createComponentFromElement(element, buildStep);
   }
 }
+
+class ReactorPropsGenerator extends GeneratorForAnnotation<ReactorProps> {
+  @override
+  Future<String> generateForAnnotatedElement(
+    Element element,
+    ConstantReader annotation,
+    BuildStep buildStep,
+  ) async {
+    // Return a string representing the code to emit.
+    return await createPropsFromElement(element, buildStep);
+  }
+}
+
+class ReactorStateGenerator extends GeneratorForAnnotation<ReactorState> {
+  @override
+  Future<String> generateForAnnotatedElement(
+    Element element,
+    ConstantReader annotation,
+    BuildStep buildStep,
+  ) async {
+    // Return a string representing the code to emit.
+    return await createStateFromElement(element, buildStep);
+  }
+}

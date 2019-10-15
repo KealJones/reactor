@@ -8,7 +8,7 @@ import 'package:dart_style/dart_style.dart';
 import './src/generator/reactor_generator.dart';
 
 Builder reactorGenerator(BuilderOptions options) => PartBuilder(
-      [ReactorComponentGenerator()],
+      [ReactorComponentGenerator(), ReactorPropsGenerator(), ReactorStateGenerator()],
       '.reactor.g.dart',
       formatOutput: DartFormatter(pageWidth: 120).format,
     );

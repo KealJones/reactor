@@ -1,12 +1,16 @@
 import 'package:reactor/reactor.dart';
 import 'package:reactor/src/interop/react.dart' as reactjs;
 
+part 'context.reactor.g.dart';
+
 class ProviderPropsInterface<T> {
   T value;
 }
 
+@ReactorProps()
 class ProviderProps<T> extends Props implements ProviderPropsInterface<T> {}
 
+@ReactorProps()
 class ConsumerProps<T> extends UiProps
     with UbiquitousDomProps
     implements ReactPropsInterface, UiConsumerComponentInterface<T> {

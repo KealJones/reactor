@@ -76,6 +76,7 @@ class BoardPropsInterface {
   Function(int squareId) handleClick;
 }
 
+@ReactorProps()
 class BoardProps extends Props implements BoardPropsInterface {}
 
 @ReactorComponent()

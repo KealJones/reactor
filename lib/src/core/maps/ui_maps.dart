@@ -25,7 +25,7 @@ class UiProps extends UiMap with UiComponentInterface {
   @override
   noSuchMethod(Invocation i) {
     if (i.isMethod && i.memberName == #call) {
-      return build(i.positionalArguments.takeWhile((child) => !identical(child, undefined)).toList());
+       return build(i.positionalArguments.takeWhile((child) => !identical(child, undefined)).toList());
     }
     return super.noSuchMethod(i);
   }
@@ -73,6 +73,7 @@ class UiMap extends MapBase with UiMapBase, UiMapViewMixin {
         $backingMap[memberNameString] = value;
       }
     }
+    super.noSuchMethod(i);
   }
 }
 

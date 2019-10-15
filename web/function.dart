@@ -32,6 +32,7 @@ class Functional2PropsInterface {
   int myNum;
 }
 
+@ReactorProps()
 class Functional2Props extends Props implements Functional2PropsInterface {}
 
 @ReactorComponent()

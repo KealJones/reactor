@@ -12,6 +12,7 @@ class _FunctionalPropsInterface {
   int myNum;
 }
 
+@ReactorProps()
 class _FunctionalProps extends Props implements _FunctionalPropsInterface {}
 
 // Component Factory
@@ -53,4 +54,19 @@ Props _HookTest([Map backingMap]) {
   return Props()
     ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = interopFunction;
+}
+
+// **************************************************************************
+// ReactorPropsGenerator
+// **************************************************************************
+
+extension GeneratedFunctional2Props on Functional2Props {
+  String get test => $backingMap['test']; // false
+  set test(String v) => $backingMap['test'] = v;
+
+  String get placeholder => $backingMap['placeholder']; // false
+  set placeholder(String v) => $backingMap['placeholder'] = v;
+
+  int get myNum => $backingMap['myNum']; // false
+  set myNum(int v) => $backingMap['myNum'] = v;
 }

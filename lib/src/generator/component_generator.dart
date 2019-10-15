@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:collection';
+
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 
@@ -38,6 +41,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
         return '${arg.type.name ?? 'var'} ${arg.name};\n';
       }).join('\n')}
         }
+        @ReactorProps()
         class ${getComponentPropsName(element)} extends Props implements ${getComponentPropsName(element)}Interface {}
         ''';
     } else {
@@ -59,7 +63,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
             return 'tProps, ';
           }
           return 'tProps.${arg.name},';
-        }).join(' ')} 
+        }).join(' ')}
           );
         });
         REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', '${getComponentShortName(element)}');
@@ -163,50 +167,93 @@ createInteropWrapperMethod(MethodElement method, ClassElement element) {
   }''';
 }
 
-createPropsFromElement(ClassElement element) {
-  String content = 'var something = (){ var whatever = new ${element.name}();';
-  //String content = 'class ${element.name.replaceAll('_', '')} extends ${element.name} {';
-  element.fields.forEach((FieldElement field) {
-    content += 'whatever.${field.name}';
-    // content += toGetterString(field, 'props');
-    // content += toSetterString(field, 'props');
-    content += '\n';
-  });
-  /*content += '''
-    /*_${element.name}();
-    _${element.name}.fromJsObj(v){
-      this.fromJs(v);
-    }*/
-  ''';*/
-  content += '};';
-  return content;
-}
+List<FieldElement> merge(List<FieldElement> a, List<FieldElement> b) {
+    List<FieldElement> output = [];
 
-createStateFromElement(ClassElement element) {
-  String content = 'class ${element.name.replaceAll('_', '')} extends ${element.name} {';
-  element.fields.forEach((FieldElement field) {
-    // content += toGetterString(field, 'state');
-    // content += toSetterString(field, 'state');
-    content += '\n';
+    var min_length = min(a.length, b.length);
+    var max_length = max(a.length, b.length);
+
+    for(var i = 0; i < min_length; i++) {
+      output.add(a[i]);
+      output.add(b[i]);
+    }
+
+    List<FieldElement> longer = a.length > b.length ? a : b;
+
+    for(var i = min_length; i < max_length; i++) {
+      output.add(longer[i]);
+    }
+
+    return output;
+  }
+
+createPropsFromElement(ClassElement element, [_]) {
+  //List<FieldElement> allFields = element.fields;
+  final allFields = LinkedHashSet<Element>(
+      equals: (Element e1, Element e2) => e1.name == e2.name,
+      hashCode: (Element e) => e.name.hashCode);
+
+  String content = 'extension Generated${element.name.replaceAll('_', '')} on ${element.name} {';
+  allFields.addAll(element.accessors);
+  allFields.addAll(element.fields);
+  element.interfaces.forEach((interface) {
+    allFields.addAll(interface.element.fields);
   });
-  /*content += '''
-    /*_${element.name}();
-    _${element.name}.fromJsObj(v){
-      this.fromJs(v);
-    }*/
-  ''';*/
+
+  allFields.forEach((field) {
+      if (field.hasOverride || field is PropertyAccessorElement){
+        // if this is the case lets assume they are doing something special...
+        return;
+      }
+      //content += 'whatever.${field.name}';
+      content += toGetterString(field);
+      content += toSetterString(field);
+      content += '\n';
+    });
   content += '}';
   return content;
 }
 
-toSetterString(FieldElement field, [forWhat = 'props']) {
-  return '''@override
-  set ${field.name}(${field.type ?? 'dynamic'} v) => $forWhat[\'${field.name}\'] = v;
+ createStateFromElement(ClassElement element, [_]) => createPropsFromElement(element, _);//{
+//   String content = 'extension Generated${element.name.replaceAll('_', '')} on ${element.name} {';
+//   //String content = 'class ${element.name.replaceAll('_', '')} extends ${element.name} {';
+//   element.interfaces.forEach((interface) {
+//     interface.element.fields.forEach((field) {
+//        if (field.hasOverride) return;
+//       //content += 'whatever.${field.name}';
+//       content += toGetterString(field);
+//       content += toSetterString(field);
+//       content += '\n';
+//     });
+//   });
+//   /*content += '''
+    /*_${element.name}();
+    _${element.name}.fromJsObj(v){
+      this.fromJs(v);
+    }*/
+//   ''';*/
+//   content += '}';
+//   return content;
+// }
+
+toSetterString(FieldElement field, [forWhat = '\$backingMap']) {
+  String wrappedField() {
+    var unwrappedFieled = 'v';
+    if (field.type is Function) {
+      return 'allowInterop(v)';
+    } else if (field.type is Map) {
+      return 'jsify(v)';
+    }
+    return unwrappedFieled;
+  }
+
+  return '''
+  set ${field.name}(${field.type ?? 'dynamic'} v) => $forWhat[\'${field.name}\'] = ${wrappedField()};
   ''';
 }
 
-toGetterString(FieldElement field, [forWhat = 'props']) {
-  return '''@override
-  ${field.type != null ? "${field.type} " : ""}get ${field.name} => $forWhat[\'${field.name}\'];
+toGetterString(FieldElement field, [forWhat = '\$backingMap']) {
+  return '''
+  ${field.type ?? 'dynamic'} get ${field.name} => $forWhat[\'${field.name}\']; // ${field.hasOverride}
   ''';
 }

@@ -1,6 +1,5 @@
 import 'dart:html';
 
-import 'package:meta/meta.dart';
 import 'package:reactor/reactor.dart';
 
 import 'goodbye.dart';
@@ -30,16 +29,18 @@ class HelloPropsInterface {
   ExampleDartValue dartVal;
 
   /// A random prop default :P
-  @required
   bool isThisDefault;
 }
 
+@ReactorProps()
 class HelloProps extends Props implements HelloPropsInterface {}
+
 
 class HelloStateInterface {
   String usersName;
 }
 
+@ReactorState()
 class HelloState extends State implements HelloStateInterface {}
 
 @ReactorComponent()

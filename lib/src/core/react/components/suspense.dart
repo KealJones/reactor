@@ -1,10 +1,13 @@
 import 'package:reactor/reactor.dart';
 import 'package:reactor/src/interop/react.dart' as reactjs;
 
+part 'suspense.reactor.g.dart';
+
 class SuspensePropsInterface {
   dynamic /* ReactElement|String|List */ fallback;
 }
 
+@ReactorProps()
 class SuspenseProps extends Props implements SuspensePropsInterface {}
 
 /// Suspense lets components “wait” for something before rendering.

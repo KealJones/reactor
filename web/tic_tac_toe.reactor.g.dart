@@ -12,6 +12,7 @@ class _SquarePropsInterface {
   Function handleSquareClick;
 }
 
+@ReactorProps()
 class _SquareProps extends Props implements _SquarePropsInterface {}
 
 // Component Factory
@@ -72,4 +73,16 @@ Props _Game([Map backingMap]) {
   return Props()
     ..$backingMap = JsBackedMap.from(backingMap ?? {})
     ..$componentClass = _dartComp.reactComponentClass.reactClass;
+}
+
+// **************************************************************************
+// ReactorPropsGenerator
+// **************************************************************************
+
+extension GeneratedBoardProps on BoardProps {
+  List<dynamic> get squares => $backingMap['squares']; // false
+  set squares(List<dynamic> v) => $backingMap['squares'] = v;
+
+  dynamic Function(int) get handleClick => $backingMap['handleClick']; // false
+  set handleClick(dynamic Function(int) v) => $backingMap['handleClick'] = v;
 }

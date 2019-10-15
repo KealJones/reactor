@@ -12,6 +12,7 @@ class _AppProviderPropsInterface {
   int myNum;
 }
 
+@ReactorProps()
 class _AppProviderProps extends Props implements _AppProviderPropsInterface {}
 
 // Component Factory

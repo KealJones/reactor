@@ -9,12 +9,14 @@ class GoodbyePropsInterface {
   String test;
 }
 
+@ReactorProps()
 class GoodbyeProps extends Props implements GoodbyePropsInterface, HelloPropsInterface {}
 
 class GoodbyeStateInterface {
   bool matchesString;
 }
 
+@ReactorState()
 class GoodbyeState extends State implements GoodbyeStateInterface, HelloStateInterface {}
 
 @ReactorComponent()
