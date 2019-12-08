@@ -2,6 +2,7 @@
 library reactor.interop.react;
 
 import 'package:js/js.dart';
+import 'package:reactor/reactor.dart' show Component;
 import 'package:reactor/src/interop/js.dart';
 
 @JS()
@@ -125,7 +126,7 @@ class React {
 
   external static Context createContext(dynamic defaultValue, ObservedBitsFn calculateChangedBits);
 
-  external static ReactComponentClass lazy<T>(Promise<T> Function() componentFactory);
+  external static LazyComponent<T> lazy<T>(Promise<T> Function() componentFactory);
   external static ReactComponentClass memo(ReactComponentClass component,
       [bool Function(JsMap prevProps, JsMap nextProps) arePropsEqual]);
 
@@ -140,4 +141,13 @@ class React {
   external static List<dynamic> useReducer<T, A>(Reducer<T, A> reducer, dynamic initialArg, [init]);
   external static RefObject useRef<T>([T initialValue]);
   external static List<dynamic> useState<TState>(TState initialValue);
+}
+
+@JS()
+@anonymous
+abstract class LazyComponent<T> {
+  external dynamic get $$typeof;
+  external Promise<T> get _ctor;
+  external int get _status;
+  external dynamic get _result;
 }

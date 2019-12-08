@@ -1,26 +1,43 @@
+import 'dart:async';
 import 'dart:html';
+import 'dart:js_util';
 
+import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
+import 'package:reactor/src/interop/interop.dart' show LazyComponent, React, futureToPromise;
 
 import 'app_provider.dart';
-import 'deferred_wrapper.dart';
+
 import 'function.dart';
 import 'hello.dart';
 import 'simple.dart';
 import 'tic_tac_toe.dart';
 
-main() {
-  Map<String, String> sharedStyleMap = {
-    'display': 'flex',
-    'flexDirection': 'column',
-    'textAlign': 'center',
-    'alignItems': 'center',
-    'justifyContent': 'center',
-    'height': '50vh',
+import 'deferred_component.dart' deferred as deferred_component;
+
+Factory lazy<T extends UiProps>(Future Function() loadLib, [Factory<T> Function() whatToReturn]) {
+  return ([Map props]) {
+    return Props(props)..$componentClass = 
+      React.lazy(
+        allowInterop(
+          () => futureToPromise(
+            loadLib().then((v) { 
+                return jsify({'default': whatToReturn()().$componentClass});
+              }
+            )
+          )
+        )
+      );
   };
-  var content = StrictMode()(
-    AppProvider()(
-      DeferredWrapper()(),
+}
+
+var lazyTest = lazy(() => deferred_component.loadLibrary(), () => deferred_component.DeferredC);
+
+main() {
+  var content = (Suspense()..fallback = Dom.div()('Loading...'))(lazyTest()());
+  ReactDOM.render(content, querySelector('#content'));
+}
+/*
       Fragment()(
         (Dom.div()..style = sharedStyleMap)(
           (Hello()
@@ -46,5 +63,6 @@ main() {
     ),
   );
 
-  ReactDOM.render(content, querySelector('#content'));
+ 
 }
+*/

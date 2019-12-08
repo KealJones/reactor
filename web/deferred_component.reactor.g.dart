@@ -6,16 +6,24 @@ part of deferred_component;
 // ReactorComponentGenerator
 // **************************************************************************
 
-// Component Factory
+class _DeferredComponent extends DeferredComponent {
+  _DeferredComponent() {
+    this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
+        displayName: 'Deferred', initialState: initialState);
+    reactComponentClass..render = render;
+  }
+
+  @override
+  Props get props => Props().fromJs(reactComponentClass.props);
+
+  @override
+  State get state => State().fromJs(reactComponentClass.state);
+}
+
+// Component Instance
 Props _Deferred([Map backingMap]) {
-  var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]) {
-    Props tProps = Props().fromJs(props);
-    return DeferredComponent(
-      tProps,
-    );
-  });
-  REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', 'Deferred');
+  var _dartComp = _DeferredComponent();
   return Props()
     ..$backingMap = JsBackedMap.from(backingMap ?? {})
-    ..$componentClass = interopFunction;
+    ..$componentClass = _dartComp.reactComponentClass.reactClass;
 }

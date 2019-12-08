@@ -6,9 +6,14 @@ part 'deferred_component.reactor.g.dart';
 
 Factory<Props> DeferredC = _Deferred;
 
+abstract class DeferredPropsInterface {
+  bool testingProps;
+}
+class DeferredProps extends Props implements DeferredPropsInterface {}
+
 @ReactorComponent()
-DeferredComponent(Props props) {
-  return Dom.div()('i am deferred!');
+class DeferredComponent extends Component<Props, State> {
+  render() => Dom.div()('i am deferred!');
 }
 
 Factory<Props> component = DeferredC;

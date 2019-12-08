@@ -58,6 +58,13 @@ class JsMap {
 }
 
 @JS('Promise')
-abstract class Promise<T> {
+class Promise<T> {
+  external Promise(dynamic Function(Function resolve, Function reject));
   external Promise then(onFulfilled(T value), onRejected(Object reason));
+}
+
+Promise<T> futureToPromise<T>(Future<T> future) {
+  return Promise(allowInterop((Function resolve, Function reject) {
+    future.then(resolve, onError: reject);
+  }));
 }
