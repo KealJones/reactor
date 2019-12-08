@@ -205,12 +205,10 @@ class GameState extends State implements GameStateInterface {}
 @ReactorComponent()
 class GameComponent extends Component<Props, GameState> {
   @override
-  constructor() {
-    state = GameState()
+  get initialState => GameState()
       ..history = [List<String>.filled(9, null)]
       ..stepNumber = 0
       ..xIsNext = true;
-  }
 
   handleClick(i) {
     var history = List<List<String>>.from(state.history).sublist(0, state.stepNumber + 1);

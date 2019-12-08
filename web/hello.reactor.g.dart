@@ -22,9 +22,10 @@ Props _Test([Map backingMap]) {
 
 class _HelloComponent extends HelloComponent {
   _HelloComponent() {
-    this.reactComponentClass =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Hello');
+    this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
+        displayName: 'Hello', initialState: initialState);
     reactComponentClass
+      ..defaultProps = defaultProps
       ..render = render
       ..componentDidMount = componentDidMount
       ..componentDidUpdate = (_jsprevProps, _jsprevState, _jssnapshot) {

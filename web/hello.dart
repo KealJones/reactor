@@ -47,6 +47,9 @@ class HelloComponent extends Component<HelloProps, HelloState> {
   InputElement inputRef = InputElement();
 
   @override
+  get defaultProps => HelloProps()..isThisDefault = true;
+
+  @override
   render() {
     var tempProps = HelloProps().from(props)..remove('dartVal')..remove('isThisDefault')..remove('children');
     return Dom.div()(

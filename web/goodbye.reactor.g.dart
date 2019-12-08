@@ -8,8 +8,8 @@ part of 'goodbye.dart';
 
 class _GoodbyeComponent extends GoodbyeComponent {
   _GoodbyeComponent() {
-    this.reactComponentClass =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Goodbye');
+    this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
+        displayName: 'Goodbye', initialState: initialState);
     reactComponentClass
       ..render = render
       ..getDerivedStateFromProps = (_js_props, _jsstate) {

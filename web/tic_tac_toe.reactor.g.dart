@@ -32,8 +32,8 @@ _SquareProps _Square([Map backingMap]) {
 
 class _BoardComponent extends BoardComponent {
   _BoardComponent() {
-    this.reactComponentClass =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Board');
+    this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
+        displayName: 'Board', initialState: initialState);
     reactComponentClass..render = render;
   }
 
@@ -55,7 +55,7 @@ BoardProps _Board([Map backingMap]) {
 class _GameComponent extends GameComponent {
   _GameComponent() {
     this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
-        displayName: 'Game', constructor: constructor);
+        displayName: 'Game', initialState: initialState);
     reactComponentClass..render = render;
   }
 

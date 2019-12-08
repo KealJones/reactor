@@ -2,6 +2,7 @@ library reactor.interop.component;
 
 import 'dart:js';
 
+import 'package:reactor/reactor.dart';
 import 'package:reactor/src/interop/react.dart';
 import 'package:reactor/src/interop/js.dart';
 import 'package:reactor/src/core/secret_internals.dart';
@@ -9,36 +10,43 @@ import 'package:reactor/src/core/maps.dart';
 
 class ReactComponentClassInterop {
   final String displayName;
+  final State initialState;
 
   dynamic reactClass;
   ReactComponentClass reactComponentClassInstance;
 
-  getReactComponentThis(dynamic self) {
-    this.reactComponentClassInstance = self;
-  }
+  ReactComponentClassInterop({this.displayName, this.initialState}) {
+    var jsInitialState = initialState != null ? initialState.$backingMap.jsObject : null;
 
-  ReactComponentClassInterop({this.displayName, void Function() constructor}) {
     this.reactClass = Js2ArgFunction(
-      'dartConstructor',
       'getReactComponentThis',
+      'jsInitialState',
       '''
       class $displayName extends React.Component {
         constructor(props, context, updater) {
           super(props, context, updater);
-          this.state = {};
+          this.state = jsInitialState || {};
           getReactComponentThis(this);
-          dartConstructor();
         }
       }
       return $displayName;
       ''',
     )(
-      allowInterop(constructor ?? () {}),
-      allowInterop(getReactComponentThis),
+      allowInterop((dynamic self) {
+        this.reactComponentClassInstance = self;
+      }),
+      jsInitialState,
     );
   }
 
   dynamic get type => reactComponentClassInstance.type;
+
+  get defaultProps => reactComponentClassInstance.defaultProps;
+
+  set defaultProps(dynamic v) {
+    REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
+        reactClass, 'defaultProps', DefinePropertyValue(value: v.$backingMap.jsObject, configurable: true));
+  }
 
   get props => reactComponentClassInstance.props;
   set props(_props) => reactComponentClassInstance.props = _props.$backingMap.jsObject;

@@ -8,8 +8,8 @@ part of 'simple.dart';
 
 class _SimpleComponent extends SimpleComponent {
   _SimpleComponent() {
-    this.reactComponentClass =
-        REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: 'Simple');
+    this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(
+        displayName: 'Simple', initialState: initialState);
     reactComponentClass..render = render;
   }
 

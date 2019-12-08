@@ -71,12 +71,10 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
   }
 
   if (element is ClassElement) {
-    MethodElement constructorMethod =
-        element.methods.singleWhere((method) => method.name == 'constructor', orElse: () => null);
     return '''
       class _${element.name} extends ${element.name} {
         _${element.name}() {
-          this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: '${getComponentShortName(element)}' ${constructorMethod != null ? ', constructor: ' + constructorMethod.name : ''});
+          this.reactComponentClass = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.JsComponentBuilder(displayName: '${getComponentShortName(element)}', initialState: initialState);
           reactComponentClass
           ${await createComponentJsMethods(element, buildStep)};
         }
@@ -102,6 +100,9 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
 createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
   String content = '';
 
+  List<String> componentLifecycleStatics = [
+    'defaultProps'
+  ];
   List<String> componentLifecycleMethods = [
     'getDerivedStateFromError',
     'getDerivedStateFromProps',
@@ -111,23 +112,24 @@ createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
     'componentDidMount',
     'componentDidUpdate',
     'componentWillUnmount',
-    'componentDidCatch'
+    'componentDidCatch',
   ];
-  Map<String, MethodElement> implementedMethods = {};
-  componentLifecycleMethods.forEach((String methodString) async {
-    MethodElement method = element.lookUpInheritedMethod(methodString, element.library);
-    if (method.enclosingElement.name != 'Component' && method.enclosingElement.name != 'Component') {
-      implementedMethods[methodString] = method;
+  Map<String, dynamic> implementedMethods = {};
+
+  element.accessors.forEach((PropertyAccessorElement accessor) {
+    if (componentLifecycleStatics.contains(accessor.name)) {
+      implementedMethods[accessor.name] = '${accessor.name}';
     }
   });
 
   element.methods.forEach((MethodElement method) {
     if (componentLifecycleMethods.contains(method.name)) {
-      implementedMethods[method.name] = method;
+      implementedMethods[method.name] = createInteropWrapperMethod(method, element);
     }
   });
-  implementedMethods.values.forEach((MethodElement method) {
-    content += '..${method.name} = ${createInteropWrapperMethod(method, element)}\n';
+
+  implementedMethods.forEach((String key, dynamic method) {
+    content += '..$key = $method\n';
   });
   return content;
 }

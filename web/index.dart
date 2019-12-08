@@ -26,7 +26,6 @@ main() {
           (Hello()
             ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))
             ..aria.autocomplete = false
-            ..isThisDefault = false
             ..key = 'hello')(
             (Dom.span()..key = 'test')('Test'),
           ),
