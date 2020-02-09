@@ -13,7 +13,7 @@ class DeferredProps extends Props implements DeferredPropsInterface {}
 
 @ReactorComponent()
 class DeferredComponent extends Component<Props, State> {
-  render() => Dom.div()('i am deferred!');
+  render() => Dom.div()(['i am deferred!', if (props.children != null) ...props.children]);
 }
 
 Factory<Props> component = DeferredC;

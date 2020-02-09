@@ -17,12 +17,12 @@ import 'deferred_component.dart' deferred as deferred_component;
 
 Factory lazy<T extends UiProps>(Future Function() loadLib, [Factory<T> Function() whatToReturn]) {
   return ([Map props]) {
-    return Props(props)..$componentClass = 
+    return Props(props)..$componentClass =
       React.lazy(
         allowInterop(
           () => futureToPromise(
-            loadLib().then((v) { 
-                return jsify({'default': whatToReturn()().$componentClass});
+            loadLib().then((v) {
+                return jsify({'default': whatToReturn()(props).$componentClass});
               }
             )
           )
@@ -34,7 +34,9 @@ Factory lazy<T extends UiProps>(Future Function() loadLib, [Factory<T> Function(
 var lazyTest = lazy(() => deferred_component.loadLibrary(), () => deferred_component.DeferredC);
 
 main() {
-  var content = (Suspense()..fallback = Dom.div()('Loading...'))(lazyTest()());
+  var content = (Suspense()..fallback = Dom.div()('Loading...'))(
+    lazyTest()(Dom.div()('child'))
+  );
   ReactDOM.render(content, querySelector('#content'));
 }
 /*
@@ -63,6 +65,6 @@ main() {
     ),
   );
 
- 
+
 }
 */
