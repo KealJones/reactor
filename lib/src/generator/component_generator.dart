@@ -100,9 +100,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
 createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
   String content = '';
 
-  List<String> componentLifecycleStatics = [
-    'defaultProps'
-  ];
+  List<String> componentLifecycleStatics = ['defaultProps'];
   List<String> componentLifecycleMethods = [
     'getDerivedStateFromError',
     'getDerivedStateFromProps',
