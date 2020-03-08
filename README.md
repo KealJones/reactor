@@ -4,13 +4,15 @@
 
 Reactor is a statically-typed Dart library for building user interfaces. Reactor wraps ReactJS.
 
+> Please Note: This package is in early stages of development and will change frequently while in major version 0
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-* Dart 2.4 or higher
+* Dart 2.7.1 or higher
 
 ### Running the example
 
@@ -21,59 +23,31 @@ pub get
 
 Then:
 ```
-pub run build_runner serve
+webdev serve
 ```
 
 ### Using in your project
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-yep
-```
+Coming Soon...
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
 ```
-Give an example
+pub run build_runner test
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
 * [Dart](https://dart.dev/) - The language
 * [React](https://reactjs.org/) - The wrapped JavaScript library
 
-## Contributing
-
-<!--Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.-->
-
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kealjones/reactor/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/kealjones/reactor/tags).
 
 ## Authors
 
-* **Keal Jones** - [Keal Jones](https://github.com/kealjones)
+* **Keal Jones** - [Github](https://github.com/kealjones)
 
 See also the list of [contributors](https://github.com/kealjones/reactor/contributors) who participated in this project.
 
@@ -83,7 +57,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-These projects are the true OG's of React in dart. Reactor would not exist without them. They have been strong insperation points and togeather, Reactor and these projects, will continue to grow to make the community even stronger.
+These projects are the true OG's of React in dart. Reactor would not exist without them. They have been strong inspiration points and together, Reactor and these projects, will continue to grow to make the react in dart community even stronger.
 
 * [OverReact](https://github.com/workiva/over_react)
 * [react-dart](https://github.com/cleandart/react-dart)

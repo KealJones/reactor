@@ -40,15 +40,15 @@ class UiMap extends MapBase with UiMapBase, UiMapViewMixin {
 
   from(dynamic someMap) {
     if (someMap is JsMap) {
-      $backingMap = JsBackedMap.backedBy(someMap);
+      $backingMap = JsBackedMap.backedBy(someMap ?? JsMap());
     } else if (someMap is Map) {
-      $backingMap = JsBackedMap.from(someMap);
+      $backingMap = JsBackedMap.from(someMap ?? JsMap());
     }
     return this;
   }
 
   fromJs(dynamic someMap) {
-    $backingMap = JsBackedMap.backedBy(someMap);
+    $backingMap = JsBackedMap.backedBy(someMap ?? JsMap());
     return this;
   }
 

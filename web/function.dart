@@ -1,6 +1,8 @@
 import 'dart:html';
 import 'dart:js_util' as js_util;
+import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
+import 'package:reactor/src/core/react/hooks/hooks.dart';
 
 import 'context.dart';
 
@@ -15,7 +17,7 @@ FunctionalComponent(_FunctionalProps props, String placeholder, int myNum) {
     'Current Context Value: $value',
     (Dom.input()
       ..className = 'test $value'
-      ..placeholder = '$placeholder' ?? "type something here"
+      ..placeholder = placeholder ?? "type something here"
       ..aria.readonly = false
       ..onChange = (event) {
         String value = js_util.getProperty(js_util.getProperty(event, 'currentTarget'), 'value');
@@ -52,18 +54,28 @@ Functional2Component(Functional2Props props) {
 
 Factory HookTest = _HookTest;
 
-@ReactorComponent()
-HookTestComponent() {
+class DopeHookObject {
+  UseStateObject<int> counter;
+  UseStateObject<bool> toggle;
+  DopeHookObject(this.counter, this.toggle);
+}
+var useDopeHook = allowInterop(() {
   var counter = useState(1);
   var toggle = useState(true);
-
+  useDebugValue('Count:$counter');
   useEffect(() {
     js_util.setProperty(window.document, 'title', 'You clicked ${counter.value} times');
   });
+  return DopeHookObject(counter, toggle);
+});
+
+@ReactorComponent()
+HookTestComponent() {
+  var dope = useDopeHook();
 
   return (Dom.button()
     ..onClick = (_) {
-      counter.set(++counter.value);
-      toggle.set(!toggle.value);
-    })('${counter.value} ${toggle.value}');
+      dope.counter.set(++dope.counter.value);
+      dope.toggle..set(!dope.toggle.value);
+    })('${dope.counter.value} ${dope.toggle.value}');
 }

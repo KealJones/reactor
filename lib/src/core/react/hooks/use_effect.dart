@@ -15,6 +15,6 @@ import 'package:reactor/src/interop/react.dart' as interop;
 ///
 /// By default, effects run after every completed render, but you can choose to
 /// fire it only when certain values have changed.
-void useEffect(void Function() sideEffect) {
+void Function(void Function()) useEffect = allowInterop((void Function() sideEffect) {
   interop.React.useEffect(allowInterop(sideEffect));
-}
+});

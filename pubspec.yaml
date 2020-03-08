@@ -4,7 +4,7 @@ homepage: https://github.com/KealJones/reactor
 description: Reactor is a statically-typed Dart wrapper of ReactJS for building user interfaces.
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: ">=2.7.1 <3.0.0"
 
 dependencies:
   js: ^0.6.1
