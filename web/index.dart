@@ -33,8 +33,7 @@ main() {
           (Functional()
             ..placeholder = 'I am a functional component'
             ..id = 'omg')(),
-          (Functional2()
-            ..id = 'test2')(),
+          (Functional2()..id = 'test2')(),
         ),
         Dom.hr()(),
         (Dom.div()..style = sharedStyleMap)(

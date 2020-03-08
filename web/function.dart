@@ -59,6 +59,7 @@ class DopeHookObject {
   UseStateObject<bool> toggle;
   DopeHookObject(this.counter, this.toggle);
 }
+
 var useDopeHook = allowInterop(() {
   var counter = useState(1);
   var toggle = useState(true);
