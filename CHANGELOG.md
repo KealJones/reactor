@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2020-04-08
+### Fixed
+- build.yaml _localReactorBuilder config
+
 ## [0.1.1] - 2020-03-07
 ### Fixed
 - Formatting.

@@ -1,5 +1,5 @@
 name: reactor
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/KealJones/reactor
 description: Reactor is a statically-typed Dart wrapper of ReactJS for building user interfaces.
 
