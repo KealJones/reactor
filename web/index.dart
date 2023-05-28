@@ -1,48 +1,67 @@
-import 'dart:html';
+@JS()
+library playground;
 
+import 'dart:html';
+import 'dart:js_util';
+import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
 
-import 'app_provider.dart';
-import 'deferred_wrapper.dart';
-import 'function.dart';
-import 'hello.dart';
-import 'simple.dart';
-import 'tic_tac_toe.dart';
+// @JS()
+// @anonymous
+// @staticInterop
+// abstract class Props {
+//   external factory Props();
+// }
+
+// extension ReactProps on Props {
+
+// }
+
+@JS()
+@anonymous
+@staticInterop
+class WhateverProps extends Props {
+  external factory WhateverProps();
+}
+
+extension WhateverPropsExt on WhateverProps {
+  /// Test
+  external bool? testBool;
+
+  @JS('jsName')
+  external String? differentJsName;
+
+  external Function someFun;
+}
+
+
+MyFunctionComponent([WhateverProps? props]) {
+  window.console.log(props?.someFun());
+  return (Dom.div()..id="whatever")('Whatever: ${props?.testBool}');
+}
+
+
+final Whatever = FC(MyFunctionComponent)(() => WhateverProps());
+
+extension FC<T extends Props> on Function([T? props]) {
+  T Function() call(T Function() propBuilder) {
+    final component = allowInterop((props, [legacyContext]) => this(props));
+    final displayName = this.toString().replaceAll("Closure '", "").replaceAll("'", "");
+    setProperty(component, 'displayName', displayName);
+    final props = propBuilder()..$$component = component;
+    return () => props;
+  }
+}
 
 main() {
-  Map<String, String> sharedStyleMap = {
-    'display': 'flex',
-    'flexDirection': 'column',
-    'textAlign': 'center',
-    'alignItems': 'center',
-    'justifyContent': 'center',
-    'height': '50vh',
-  };
+  window.console.log((Whatever()..someFun = (() => 'poop')..differentJsName='test'..testBool = true)(Dom.div()()));
   var content = StrictMode()(
-    AppProvider()(
-      DeferredWrapper()(),
-      Fragment()(
-        (Dom.div()..style = sharedStyleMap)(
-          (Hello()
-            ..dartVal = ExampleDartValue(dur: Duration(seconds: 10))
-            ..aria.autocomplete = false
-            ..key = 'hello')(
-            (Dom.span()..key = 'test')('Test'),
-          ),
-          Simple()(),
-          (Functional()
-            ..placeholder = 'I am a functional component'
-            ..id = 'omg')(),
-          (Functional2()..id = 'test2')(),
-        ),
-        Dom.hr()(),
-        (Dom.div()..style = sharedStyleMap)(
-          Game()(),
-        ),
-        HookTest()(),
-      ),
-    ),
+    //re(Whatever,(WhateverProps()..testBool = true))
+    //(Whatever.r()..testBool = true)()//.build()
+
+    (Whatever()..differentJsName = 'test'..testBool = true)()
   );
 
-  ReactDOM.render(content, querySelector('#content'));
+  final root = ReactDOM.createRoot(querySelector('#content'));
+  root.render(content);
 }

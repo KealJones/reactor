@@ -36,7 +36,7 @@ reactjs.ReactElement createElement(component, props, children) {
   );
 }
 
-react.Context<T> createContext<T>([T defaultValue, Function calculateChangedBits]) {
+react.Context<T> createContext<T>([T? defaultValue, reactjs.ObservedBitsFn? calculateChangedBits]) {
   if (calculateChangedBits != null) {
     calculateChangedBits = allowInterop(calculateChangedBits);
   }
@@ -44,5 +44,5 @@ react.Context<T> createContext<T>([T defaultValue, Function calculateChangedBits
 }
 
 class ReactDOM {
-  static reactjs.ReactElement render(element, node, [callback]) => reactjs.ReactDOM.render(element, node, callback);
+  static reactjs.ReactRoot createRoot(element) => reactjs.ReactDOM.createRoot(element);
 }

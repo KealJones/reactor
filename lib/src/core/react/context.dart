@@ -1,36 +1,46 @@
+library reactor.core.react.context;
+
+import 'dart:html';
+
+import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
 import 'package:reactor/src/interop/react.dart' as reactjs;
 
-class ProviderPropsInterface<T> {
-  T value;
+extension ProviderPropsExt on ProviderProps {
+  external dynamic value;
 }
 
-class ProviderProps<T> extends Props implements ProviderPropsInterface<T> {}
-
-class ConsumerProps<T> extends UiProps
-    with UbiquitousDomProps
-    implements ReactPropsInterface, UiConsumerComponentInterface<T> {
-  ConsumerProps([Map backingMap]) {
-    $backingMap = backingMap ?? $backingMap;
-  }
-
-  covariant dynamic Function(dynamic) children;
+@JS()
+@anonymous
+@staticInterop
+class ProviderProps<T> extends Props {
+  external factory ProviderProps();
 }
 
-Context<T> createContext<T>([T defaultValue, Function calculateChangedBits]) {
+@JS()
+@anonymous
+@staticInterop
+class ConsumerProps<T> extends Props {
+  external factory ConsumerProps();
+}
+
+extension ConsumerPropsExt on ConsumerProps {
+  external void Function(dynamic value) children;
+}
+
+Context<T> createContext<T>([T? defaultValue, reactjs.ObservedBitsFn? calculateChangedBits]) {
   reactjs.Context jsContext = reactjs.React.createContext(defaultValue, calculateChangedBits);
-  ProviderProps<T> Provider([Map backingMap]) {
+  ProviderProps<T> Provider([Map? backingMap]) {
     return ProviderProps<T>()
-      ..$backingMap = JsBackedMap.from(backingMap ?? {})
-      ..$componentClass = jsContext.Provider;
+
+      ..$$component = jsContext.Provider;
   }
 
   Factory<ProviderProps<T>> ProviderFactory = Provider;
 
-  ConsumerProps<T> Consumer([Map backingMap]) {
+  ConsumerProps<T> Consumer([Map? backingMap]) {
     return ConsumerProps<T>()
-      ..$backingMap = JsBackedMap.from(backingMap ?? {})
-      ..$componentClass = jsContext.Consumer;
+      ..$$component = jsContext.Consumer;
   }
 
   Factory<ConsumerProps<T>> ConsumerFactory = Consumer;

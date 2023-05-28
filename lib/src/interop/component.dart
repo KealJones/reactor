@@ -10,13 +10,13 @@ import 'package:reactor/src/core/maps.dart';
 
 class ReactComponentClassInterop {
   final String displayName;
-  final State initialState;
+  final State? initialState;
 
   dynamic reactClass;
-  ReactComponentClass reactComponentClassInstance;
+  ReactComponentClass? reactComponentClassInstance;
 
-  ReactComponentClassInterop({this.displayName, this.initialState}) {
-    var jsInitialState = initialState != null ? initialState.$backingMap.jsObject : null;
+  ReactComponentClassInterop(this.displayName, {this.initialState}) {
+    var jsInitialState = initialState != null ? initialState : null;
 
     this.reactClass = Js2ArgFunction(
       'getReactComponentThis',
@@ -39,33 +39,33 @@ class ReactComponentClassInterop {
     );
   }
 
-  dynamic get type => reactComponentClassInstance.type;
+  dynamic get type => reactComponentClassInstance?.type;
 
-  get defaultProps => reactComponentClassInstance.defaultProps;
+  get defaultProps => reactComponentClassInstance?.defaultProps;
 
   set defaultProps(dynamic v) {
     REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(
-        reactClass, 'defaultProps', DefinePropertyValue(value: v.$backingMap.jsObject, configurable: true));
+        reactClass, 'defaultProps', DefinePropertyValue(value: v, configurable: true));
   }
 
-  get props => reactComponentClassInstance.props;
-  set props(_props) => reactComponentClassInstance.props = _props.$backingMap.jsObject;
+  get props => reactComponentClassInstance?.props;
+  set props(_props) => reactComponentClassInstance?.props = _props;
 
-  get state => reactComponentClassInstance.state;
-  set state(_state) => reactComponentClassInstance.state = _state.$backingMap.jsObject;
+  get state => reactComponentClassInstance?.state;
+  set state(_state) => reactComponentClassInstance?.state = _state;
 
-  void setState(dynamic partialOrFunction, [Function callback]) {
+  void setState(dynamic partialOrFunction, [Function? callback]) {
     var _newState = partialOrFunction;
     if (partialOrFunction is UiMap) {
-      _newState = partialOrFunction.$backingMap.jsObject;
+      _newState = partialOrFunction;
     } else if (partialOrFunction is Function) {
       _newState = allowInterop(partialOrFunction);
     }
 
     if (callback != null) {
-      reactComponentClassInstance.setState(_newState, allowInterop(callback));
+      reactComponentClassInstance?.setState(_newState, allowInterop(callback));
     } else {
-      reactComponentClassInstance.setState(_newState);
+      reactComponentClassInstance?.setState(_newState);
     }
   }
 

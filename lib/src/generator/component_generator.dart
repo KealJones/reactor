@@ -2,7 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 
 getComponentShortName(Element element) {
-  return element.name.replaceAll('Component', '');
+  return element.name?.replaceAll('Component', '');
 }
 
 getComponentStateName(Element element) {
@@ -18,12 +18,12 @@ getComponentPropsName(Element element) {
 
 getComponentGenerics(Element element) {
   if (element is ClassElement) {
-    return element.supertype.typeArguments.map((dartType) => dartType.toString()).toList();
+    return element.supertype?.typeArguments.map((dartType) => dartType.toString().replaceAll('*', '')).toList();
   }
   return ['Props', 'State'];
 }
 
-createComponentFromElement(Element _element, [BuildStep buildStep]) async {
+createComponentFromElement(Element _element, BuildStep buildStep) async {
   Element element = _element;
   if (element is FunctionElement) {
     var content = '';
@@ -35,7 +35,7 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
       content = '''
         class ${getComponentPropsName(element)}Interface {
           ${destructuredPropArgs.map((arg) {
-        return '${arg.type.name ?? 'var'} ${arg.name};\n';
+        return '${arg.type.getDisplayString(withNullability: true) ?? 'var'}? ${arg.name};\n';
       }).join('\n')}
         }
         class ${getComponentPropsName(element)} extends Props implements ${getComponentPropsName(element)}Interface {}
@@ -50,22 +50,22 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
     return content +
         '''
       // Component Factory
-      $functionalPropsName _${getComponentShortName(element)}([Map backingMap]) {
+      $functionalPropsName _${getComponentShortName(element)}([Map? backingMap]) {
         var interopFunction = REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.allowInterop((props, [context]){
           ${(args.isNotEmpty && args[0].name == 'props') ? '$functionalPropsName tProps = $functionalPropsName().fromJs(props);' : ''}
           return ${element.name}(
             ${args.map((arg) {
           if (arg.name == 'props') {
-            return 'tProps, ';
+            return 'tProps,';
           }
-          return 'tProps.${arg.name},';
-        }).join(' ')} 
+          return 'tProps.?${arg.name},';
+        }).join(' ')}
           );
         });
         REACTOR_SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.define(interopFunction, 'name', '${getComponentShortName(element)}');
         return $functionalPropsName()
-          ..\$backingMap = JsBackedMap.from(backingMap ?? {})
-          ..\$componentClass = interopFunction;
+
+          ..\$\$component = interopFunction;
       }
     ''';
   }
@@ -87,17 +87,16 @@ createComponentFromElement(Element _element, [BuildStep buildStep]) async {
       }
 
       // Component Instance
-      ${getComponentPropsName(element)} _${getComponentShortName(element)}([Map backingMap]) {
+      ${getComponentPropsName(element)} _${getComponentShortName(element)}([Map? backingMap]) {
         var _dartComp = _${element.name}();
         return ${getComponentPropsName(element)}()
-          ..\$backingMap = JsBackedMap.from(backingMap ?? {})
-          ..\$componentClass = _dartComp.reactComponentClass.reactClass;
+          ..\$\$component = _dartComp.reactComponentClass.reactClass;
       }
     ''';
   }
 }
 
-createComponentJsMethods(ClassElement element, [BuildStep buildStep]) async {
+createComponentJsMethods(ClassElement element, BuildStep buildStep) async {
   String content = '';
 
   List<String> componentLifecycleStatics = ['defaultProps'];
@@ -201,12 +200,12 @@ createStateFromElement(ClassElement element) {
 
 toSetterString(FieldElement field, [forWhat = 'props']) {
   return '''@override
-  set ${field.name}(${field.type ?? 'dynamic'} v) => $forWhat[\'${field.name}\'] = v;
+  set ${field.name}(${field.type.toString().replaceAll('*','')} v) => $forWhat[\'${field.name}\'] = v;
   ''';
 }
 
 toGetterString(FieldElement field, [forWhat = 'props']) {
   return '''@override
-  ${field.type != null ? "${field.type} " : ""}get ${field.name} => $forWhat[\'${field.name}\'];
+  ${field.type.toString().replaceAll('*','')} get ${field.name} => $forWhat[\'${field.name}\'];
   ''';
 }

@@ -1,22 +1,43 @@
-import 'dart:html';
+// @JS()
+// library playground;
 
-import 'package:reactor/reactor.dart';
+// import 'dart:html';
+// import 'dart:js_util';
+// import 'package:js/js.dart';
+// import 'package:reactor/reactor.dart';
 
-class WhateverProps extends Props {
-  /// Test
-  String testBool;
-}
+// abstract class MyComponentPropsInterface extends Props {
+//   bool? testBool;
+// }
 
-@ReactorComponent()
-class Whatever extends Component<WhateverProps, State> {
-  @override
-  render() {
-    return props.testBool ?? 'nothing';
-  }
-}
+// MyComponentFunction([MyComponentProps? props]) {
+//   return (Dom.div()..id="whatever")('Whatever: ${props?.testBool}');
+// }
 
-main() {
-  var content = Dom.div()();
+// class MyComponentProps extends Props implements MyComponentPropsInterface {}
 
-  ReactDOM.render(content, querySelector('#content'));
-}
+// final Whatever = FC<MyComponentProps>(MyComponentFunction).r(MyComponentProps.new);
+
+// extension FC<T extends Props> on Function {
+//   T Function() r(T Function() propBuilder) {
+//     final props = propBuilder()..$$component = allowInterop(this);
+//     return () => props;
+//   }
+// }
+
+// // extension<T extends Props> on Function {
+// //   T
+// // }
+
+// main() {
+//   window.console.log((Whatever()..testBool = true)(Dom.div()()));
+//   var content = StrictMode()(
+//     //re(Whatever,(WhateverProps()..testBool = true))
+//     //(Whatever.r()..testBool = true)()//.build()
+
+//     (Whatever()..testBool = true)()
+//   );
+
+//   final root = ReactDOM.createRoot(querySelector('#content'));
+//   root.render(content);
+// }

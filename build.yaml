@@ -11,11 +11,11 @@ targets:
             - --csp
             - --no-minify
         enabled: true
-      test_html_builder:
-        options:
-          templates:
-            "test/test_html_template.html":
-              - "test/**_test.dart"
+      # test_html_builder:
+      #   options:
+      #     templates:
+      #       "test/test_html_template.html":
+      #         - "test/**_test.dart"
       reactor:_reactorLocalGenerator:
         enabled: true
 

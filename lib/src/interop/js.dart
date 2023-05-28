@@ -24,6 +24,7 @@ class JsObject {
   external static Function([String arg1Name, String arg2Name, String arg3Name, String functionBody]);
   external static List<dynamic> keys(JsMap object);
   external static List<dynamic> values(JsMap object);
+  external static Iterable<MapEntry<dynamic, dynamic>> entries(JsMap object);
 }
 
 @JS('Reflect')

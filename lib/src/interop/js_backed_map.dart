@@ -36,8 +36,11 @@ class JsBackedMap<K, V> extends MapBase<K, V> {
   factory JsBackedMap.fromJs(JsMap jsOther) => JsBackedMap()..addAllFromJs(jsOther);
 
   // Private helpers with narrower typing than we want to expose, for use in other methods
-  List<K> get _keys => JsObject.keys(jsObject);
-  List<V> get _values => JsObject.values(jsObject);
+  @override
+  List<K> get _keys => JsObject.keys(jsObject) as List<K>;
+
+  @override
+  List<V> get _values => JsObject.values(jsObject) as List<V>;
 
   /// Adds all key/value pairs of the JS object [jsOther] to this map.
   ///
@@ -55,20 +58,20 @@ class JsBackedMap<K, V> extends MapBase<K, V> {
   // ----------------------------------
 
   @override
-  V operator [](Object key) {
-    return js_util.getProperty(jsObject, key);
+  V? operator [](Object? key) {
+    return js_util.getProperty(jsObject, key!);
   }
 
   @override
   void operator []=(K key, V value) {
-    js_util.setProperty(jsObject, key, value);
+    js_util.setProperty(jsObject, key!, value);
   }
 
   @override
   Iterable<K> get keys => _keys;
 
   @override
-  V remove(Object key) {
+  V? remove(Object? key) {
     final value = this[key];
     Reflect.deleteProperty(jsObject, key);
     return value;
@@ -91,19 +94,19 @@ class JsBackedMap<K, V> extends MapBase<K, V> {
       // Object.assign is more efficient than iterating through and setting properties in Dart.
       addAllFromJs(other.jsObject);
     } else {
-      super.addAll(other);
+      super.addAll(other.cast<K,V>());
     }
   }
 
   @override
-  bool containsKey(Object key) => js_util.hasProperty(jsObject, key);
+  bool containsKey(Object? key) => js_util.hasProperty(jsObject, key!);
 
   @override
   Iterable<V> get values => _values;
 
   // todo figure out if this is faster than default implementation
   @override
-  bool containsValue(Object value) => _values.contains(value);
+  bool containsValue(Object? value) => _values.contains(value);
 
   @override
   bool operator ==(other) => other is JsBackedMap && other.jsObject == jsObject;
