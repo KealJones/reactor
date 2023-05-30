@@ -1,11 +1,8 @@
 @JS()
 library web.playground;
 
-import 'dart:html';
-import 'dart:js_util';
 import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
-import 'package:reactor/src/interop/interop.dart';
 
 @JS()
 @anonymous

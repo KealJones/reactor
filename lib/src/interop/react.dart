@@ -99,10 +99,10 @@ class ReactChildren {
   external only(children);
 }
 
-typedef int ObservedBitsFn(JsMap prev, JsMap next);
+typedef ObservedBitsFn = int Function(JsMap prev, JsMap next);
 
-typedef S Reducer<S, A>(S prevState, A action);
-typedef void Dispatch<A>(A value);
+typedef Reducer<S, A> = S Function(S prevState, A action);
+typedef Dispatch<A> = void Function(A value);
 
 class ReducerState<R extends Reducer<S, dynamic>, S> {}
 
@@ -137,7 +137,7 @@ class React {
   external static T useContext<T>(dynamic contextType);
   external static void useDebugValue<T>(T value, [dynamic Function(T value)? format]);
   external static T useDeferredValue<T>(T value);
-  external static void useEffect(void Function(), [List<dynamic>? dependencies]);
+  external static void useEffect(void Function() Function, [List<dynamic>? dependencies]);
   external static String useId();
   external static dynamic useImperativeHandle<T, R extends T>(RefObject<T> ref, R Function() init,
       [List<dynamic>? dependencies]);

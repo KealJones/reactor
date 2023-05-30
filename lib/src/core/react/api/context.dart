@@ -1,13 +1,11 @@
 @JS()
 library reactor.core.react.api.context;
 
-import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
 import 'package:reactor/src/core/typedefs.dart';
 import 'package:reactor/src/interop/react.dart' as reactjs;
-import 'package:reactor/src/core/react/react.dart' as react;
 
 extension ProviderPropsExt on ProviderProps {
   external dynamic value;

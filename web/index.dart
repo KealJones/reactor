@@ -2,7 +2,6 @@
 library web;
 
 import 'dart:html';
-import 'dart:js_util';
 import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
 import './playground/index.dart';

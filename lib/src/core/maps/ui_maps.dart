@@ -72,7 +72,7 @@ extension UiMapBase on UiMap {
   bool containsValue(Object? value) => _values.contains(value);
 
 
-  void forEach(void action(dynamic key, dynamic value)) {
+  void forEach(void Function(dynamic key, dynamic value) action) {
     for (dynamic key in keys) {
       action(key, this[key]);
     }
@@ -93,24 +93,24 @@ extension UiMapBase on UiMap {
     return;
   }
 
-  dynamic putIfAbsent(dynamic key, dynamic ifAbsent()) {
+  dynamic putIfAbsent(dynamic key, dynamic Function() ifAbsent) {
     if (containsKey(key)) {
       return this[key];
     }
     return this[key] = ifAbsent();
   }
 
-  dynamic update(dynamic key, dynamic update(dynamic value), {dynamic Function()? ifAbsent}) {
+  dynamic update(dynamic key, dynamic Function(dynamic value) update, {dynamic Function()? ifAbsent}) {
     if (containsKey(key)) {
       return this[key] = update(this[key]);
     }
     if (ifAbsent != null) {
       return this[key] = ifAbsent();
     }
-    throw ArgumentError.value(key, "key", "Key not in map.");
+    throw ArgumentError.value(key, 'key', 'Key not in map.');
   }
 
-  void updateAll(dynamic update(dynamic key, dynamic value)) {
+  void updateAll(dynamic Function(dynamic key, dynamic value) update) {
     for (var key in keys) {
       this[key] = update(key, this[key]);
     }
@@ -120,7 +120,7 @@ extension UiMapBase on UiMap {
     return keys.map((dynamic key) => MapEntry<dynamic, dynamic>(key, this[key]));
   }
 
-  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> transform(dynamic key, dynamic value)) {
+  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(dynamic key, dynamic value) transform) {
     var result = <K2, V2>{};
     for (var key in keys) {
       var entry = transform(key, this[key]);
@@ -135,7 +135,7 @@ extension UiMapBase on UiMap {
     }
   }
 
-  void removeWhere(bool test(dynamic key, dynamic value)) {
+  void removeWhere(bool Function(dynamic key, dynamic value) test) {
     var keysToRemove = <dynamic>[];
     for (var key in keys) {
       if (test(key, this[key])) keysToRemove.add(key);

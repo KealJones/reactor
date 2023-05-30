@@ -50,7 +50,7 @@ class JsMap {
 
 @JS('Promise')
 abstract class Promise<T> {
-  external Promise then(onFulfilled(T value), onRejected(Object reason));
+  external Promise then(Function(T value) onFulfilled, Function(Object reason) onRejected);
 }
 
 
@@ -127,7 +127,7 @@ int _anonymousJsObjectOrFrozenObjectHashCode(Object _) => 0;
 /// JavaScript type, and all other objects are proxied.
 dynamic jsifyAndAllowInterop(object) {
   if (object is! Map && object is! Iterable) {
-    throw new ArgumentError.value(object, 'object', 'must be a Map or Iterable');
+    throw ArgumentError.value(object, 'object', 'must be a Map or Iterable');
   }
   return _convertDataTree(object);
 }
@@ -135,34 +135,34 @@ dynamic jsifyAndAllowInterop(object) {
 _convertDataTree(data) {
   // Use _jsObjectFriendlyIdentityHashCode instead of `identityHashCode`/`Map.identity()`
   // to work around https://github.com/dart-lang/sdk/issues/47595
-  final _convertedObjects = LinkedHashMap(equals: identical, hashCode: _jsObjectFriendlyIdentityHashCode);
+  final convertedObjects = LinkedHashMap(equals: identical, hashCode: _jsObjectFriendlyIdentityHashCode);
 
-  _convert(o) {
-    if (_convertedObjects.containsKey(o)) {
-      return _convertedObjects[o];
+  convert(o) {
+    if (convertedObjects.containsKey(o)) {
+      return convertedObjects[o];
     }
     if (o is Map) {
       final convertedMap = newObject();
-      _convertedObjects[o] = convertedMap;
+      convertedObjects[o] = convertedMap;
       for (var key in o.keys) {
-        setProperty(convertedMap, key, _convert(o[key]));
+        setProperty(convertedMap, key, convert(o[key]));
       }
       return convertedMap;
     } else if (o is Iterable) {
       final convertedList = [];
-      _convertedObjects[o] = convertedList;
-      convertedList.addAll(o.map(_convert));
+      convertedObjects[o] = convertedList;
+      convertedList.addAll(o.map(convert));
       return convertedList;
     } else if (o is Function) {
       final convertedFunction = allowInterop(o);
-      _convertedObjects[o] = convertedFunction;
+      convertedObjects[o] = convertedFunction;
       return convertedFunction;
     } else {
       return o;
     }
   }
 
-  return _convert(data);
+  return convert(data);
 }
 
 /// Keeps track of functions found when converting JS props to Dart props.

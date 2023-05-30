@@ -1,12 +1,9 @@
 @JS()
 library reactor.core.maps.props;
-import 'dart:developer';
-import 'dart:html';
 import 'dart:js_util';
 import 'package:js/js.dart';
 import 'package:reactor/src/core/constants.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
-import 'package:reactor/src/core/maps/dom_props.dart';
 import 'package:reactor/src/core/react.dart';
 
 @JS()

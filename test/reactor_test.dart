@@ -1,11 +1,6 @@
-@TestOn('browser')
-import 'dart:html';
 
-import 'package:reactor/test.dart';
 
-import 'package:test/test.dart';
 
-import './test_fixtures.dart';
 
 void main() {
   // group('Reactor', () {

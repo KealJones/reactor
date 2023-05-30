@@ -10,5 +10,5 @@ TestComponent(props) {
   return (Dom.button()
     ..onClick = (_) {
       state.set(++state.value);
-    })('Counter: ' + state.value.toString());
+    })('Counter: ${state.value}');
 }
