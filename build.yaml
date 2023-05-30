@@ -4,33 +4,10 @@ targets:
   $default:
     builders:
       build_web_compilers|entrypoint:
-        options:
+        release_options:
           compiler: dart2js
           dart2js_args:
-            - -O3
-            - --csp
+            # - -O3
+            # - --csp
             - --no-minify
         enabled: true
-      # test_html_builder:
-      #   options:
-      #     templates:
-      #       "test/test_html_template.html":
-      #         - "test/**_test.dart"
-      reactor:_reactorLocalGenerator:
-        enabled: true
-
-builders:
-  reactorGenerator:
-    import: "package:reactor/generator.dart"
-    builder_factories: ["reactorGenerator"]
-    build_extensions: {".dart": ["reactor.g.dart"]}
-    build_to: cache
-    auto_apply: dependents
-
-  # Builder just for this package.
-  _reactorLocalGenerator:
-    import: "package:reactor/generator.dart"
-    builder_factories: ["reactorGenerator"]
-    build_extensions: {".dart": ["reactor.g.dart"]}
-    build_to: source
-    auto_apply: none

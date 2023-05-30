@@ -1,43 +1,29 @@
-// @JS()
-// library playground;
+@JS()
+library web.playground;
 
-// import 'dart:html';
-// import 'dart:js_util';
-// import 'package:js/js.dart';
-// import 'package:reactor/reactor.dart';
+import 'dart:html';
+import 'dart:js_util';
+import 'package:js/js.dart';
+import 'package:reactor/reactor.dart';
+import 'package:reactor/src/interop/interop.dart';
 
-// abstract class MyComponentPropsInterface extends Props {
-//   bool? testBool;
-// }
+@JS()
+@anonymous
+@staticInterop
+class BarProps extends Props {
+  external factory BarProps();
+}
 
-// MyComponentFunction([MyComponentProps? props]) {
-//   return (Dom.div()..id="whatever")('Whatever: ${props?.testBool}');
-// }
+extension BarPropsExt on BarProps {
+  /// Test
+  external bool? testBool;
 
-// class MyComponentProps extends Props implements MyComponentPropsInterface {}
+  @JS('jsName')
+  external String? differentJsName;
 
-// final Whatever = FC<MyComponentProps>(MyComponentFunction).r(MyComponentProps.new);
+  external Function? someFun;
+}
 
-// extension FC<T extends Props> on Function {
-//   T Function() r(T Function() propBuilder) {
-//     final props = propBuilder()..$$component = allowInterop(this);
-//     return () => props;
-//   }
-// }
-
-// // extension<T extends Props> on Function {
-// //   T
-// // }
-
-// main() {
-//   window.console.log((Whatever()..testBool = true)(Dom.div()()));
-//   var content = StrictMode()(
-//     //re(Whatever,(WhateverProps()..testBool = true))
-//     //(Whatever.r()..testBool = true)()//.build()
-
-//     (Whatever()..testBool = true)()
-//   );
-
-//   final root = ReactDOM.createRoot(querySelector('#content'));
-//   root.render(content);
-// }
+final Bar = (BarProps props) {
+  return 'Bar: ${props.testBool}';
+}.toFactory(() => BarProps());

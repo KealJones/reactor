@@ -12,7 +12,7 @@ extension SuspensePropsExtension on SuspenseProps {
 @JS()
 @anonymous
 @staticInterop
-class SuspenseProps extends Props {
+class SuspenseProps extends NoProps {
   external factory SuspenseProps();
 }
 
@@ -22,5 +22,5 @@ class SuspenseProps extends Props {
 /// when it can handle more scenarios such as data fetching.
 SuspenseProps Suspense([Map? backingMap]) {
   return SuspenseProps()
-    ..$$component = reactjs.React.Suspense;
+    ..$component = reactjs.React.Suspense;
 }

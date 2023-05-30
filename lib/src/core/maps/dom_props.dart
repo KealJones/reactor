@@ -1,20 +1,16 @@
+// ignore_for_file: unnecessary_this
+
 library reactor.core.maps.dom_props;
 
 import 'package:js/js.dart';
-import 'package:reactor/src/core/maps/props.dart';
-import 'package:reactor/src/core/maps/ui_maps.dart';
+import 'package:reactor/src/core/maps/maps.dart';
 import 'package:reactor/src/interop/events.dart';
-import 'package:reactor/src/interop/js_backed_map.dart';
 
 @JS()
 @anonymous
 @staticInterop
 class DomProps extends Props {
   external factory DomProps();
-}
-
-extension DomPropsExt on DomProps  {
-  AriaProps get aria => AriaProps();
 }
 
 extension ExtraDomProps on DomProps {
@@ -184,7 +180,7 @@ extension ExtraDomProps on DomProps {
 @JS()
 @anonymous
 @staticInterop
-class AriaProps {
+class AriaProps extends UiMap {
   external factory AriaProps();
 }
 
@@ -876,14 +872,23 @@ extension AriaPropsExt on AriaProps {
 }
 
 extension UbiquitousDomProps on Props {
-/// A view into this map that can be used to access `aria-` props, for convenience.
+  external AriaProps? $aria;
+
+  /// A view into this map that can be used to access `aria-` props, for convenience.
   ///
   /// Example:
   ///
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  AriaProps get aria => AriaProps();
+  AriaProps get aria {
+    if (this.$aria == null) {
+      this.$aria = AriaProps();
+    }
+    return this.$aria!;
+  }
+
+  external DomProps? $dom;
 
   /// A view into this map that can be used to access DOM props, for convenience.
   ///
@@ -892,7 +897,12 @@ extension UbiquitousDomProps on Props {
   ///     (Tab()
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
-  DomProps get dom => DomProps();
+  DomProps get dom {
+    if (this.$dom == null) {
+      this.$dom = DomProps();
+    }
+    return this.$dom!;
+  }
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.

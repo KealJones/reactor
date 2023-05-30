@@ -1,10 +1,13 @@
-library reactor.core.react.context;
+@JS()
+library reactor.core.react.api.context;
 
 import 'dart:html';
 
 import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
+import 'package:reactor/src/core/typedefs.dart';
 import 'package:reactor/src/interop/react.dart' as reactjs;
+import 'package:reactor/src/core/react/react.dart' as react;
 
 extension ProviderPropsExt on ProviderProps {
   external dynamic value;
@@ -33,14 +36,14 @@ Context<T> createContext<T>([T? defaultValue, reactjs.ObservedBitsFn? calculateC
   ProviderProps<T> Provider([Map? backingMap]) {
     return ProviderProps<T>()
 
-      ..$$component = jsContext.Provider;
+      ..$component = jsContext.Provider;
   }
 
   Factory<ProviderProps<T>> ProviderFactory = Provider;
 
   ConsumerProps<T> Consumer([Map? backingMap]) {
     return ConsumerProps<T>()
-      ..$$component = jsContext.Consumer;
+      ..$component = jsContext.Consumer;
   }
 
   Factory<ConsumerProps<T>> ConsumerFactory = Consumer;

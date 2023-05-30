@@ -1,5 +1,5 @@
-library reactor.core.react;
+library reactor.core.react.react;
 
 export './hooks/hooks.dart';
-export './context.dart';
 export './components/components.dart';
+export './api/api.dart';

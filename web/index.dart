@@ -1,21 +1,11 @@
 @JS()
-library playground;
+library web;
 
 import 'dart:html';
 import 'dart:js_util';
 import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
-
-// @JS()
-// @anonymous
-// @staticInterop
-// abstract class Props {
-//   external factory Props();
-// }
-
-// extension ReactProps on Props {
-
-// }
+import './playground/index.dart';
 
 @JS()
 @anonymous
@@ -28,38 +18,35 @@ extension WhateverPropsExt on WhateverProps {
   /// Test
   external bool? testBool;
 
-  @JS('jsName')
-  external String? differentJsName;
+  @JS('data-jsname')
+  external String? dataJsName;
 
   external Function someFun;
 }
 
-
-MyFunctionComponent([WhateverProps? props]) {
-  window.console.log(props?.someFun());
-  return (Dom.div()..id="whatever")('Whatever: ${props?.testBool}');
-}
+final Whatever = (WhateverProps props) {
+  return (Dom.div()..addAll((props..remove('testBool'))))(props.children);
+}.toFactory(() => WhateverProps());
 
 
-final Whatever = FC(MyFunctionComponent)(() => WhateverProps());
-
-extension FC<T extends Props> on Function([T? props]) {
-  T Function() call(T Function() propBuilder) {
-    final component = allowInterop((props, [legacyContext]) => this(props));
-    final displayName = this.toString().replaceAll("Closure '", "").replaceAll("'", "");
-    setProperty(component, 'displayName', displayName);
-    final props = propBuilder()..$$component = component;
-    return () => props;
-  }
-}
+//final Whatever = (MyFunctionComponent..withName('Whatever')).withProps(() => WhateverProps());
 
 main() {
-  window.console.log((Whatever()..someFun = (() => 'poop')..differentJsName='test'..testBool = true)(Dom.div()()));
   var content = StrictMode()(
-    //re(Whatever,(WhateverProps()..testBool = true))
-    //(Whatever.r()..testBool = true)()//.build()
-
-    (Whatever()..differentJsName = 'test'..testBool = true)()
+    (Whatever()
+      ..id = 'we'
+      //..aria.label = 'aria!'
+      ..dataJsName = 'test'
+      ..testBool = true
+    )(
+      (Dom.div()
+       // ..aria.label = 'aria!'
+        ..hidden = false
+      )(
+        'Test',
+        (Bar()..testBool = false)(),
+      ),
+    ),
   );
 
   final root = ReactDOM.createRoot(querySelector('#content'));

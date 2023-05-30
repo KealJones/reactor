@@ -120,31 +120,38 @@ class React {
   external static ReactComponentClass get Fragment;
   external static ReactComponentClass get StrictMode;
   external static ReactComponentClass get Suspense;
-  external static ReactComponentClass get Component;
-  external static ReactComponentClass get PureComponent;
-  external static ReactComponentClass get unstable_Profiler;
-  external static ReactComponentClass get unstable_ConcurrentMode;
+  external static ReactComponentClass get Profiler;
 
   external static ReactChildren get Children;
 
   external static RefObject<T> createRef<T>();
-  external static ReactComponentClass forwardRef(ReactComponentClass render);
 
   external static Context createContext(dynamic defaultValue, ObservedBitsFn? calculateChangedBits);
-
+  external static ReactComponentClass forwardRef(ReactComponentClass render);
   external static ReactComponentClass lazy<T>(Promise<T> Function() componentFactory);
   external static ReactComponentClass memo(ReactComponentClass component,
       [bool Function(JsMap prevProps, JsMap nextProps) arePropsEqual]);
+  external static void startTransition(void Function() scope);
 
   external static dynamic useCallback(Function callback, [List<dynamic>? dependencies]);
   external static T useContext<T>(dynamic contextType);
+  external static void useDebugValue<T>(T value, [dynamic Function(T value)? format]);
+  external static T useDeferredValue<T>(T value);
   external static void useEffect(void Function(), [List<dynamic>? dependencies]);
+  external static String useId();
   external static dynamic useImperativeHandle<T, R extends T>(RefObject<T> ref, R Function() init,
       [List<dynamic>? dependencies]);
-  external static void useDebugValue<T>(T value, [dynamic Function(T value)? format]);
+  external static dynamic useInsertionEffect<T>(void Function() setup, [List<dynamic>? dependencies]);
   external static dynamic useLayoutEffect(void Function() init, [List<dynamic>? dependencies]);
   external static T useMemo<T>(T Function() componentFactory, [List<dynamic>? dependencies]);
   external static List<dynamic> useReducer<T, A>(Reducer<T, A> reducer, dynamic initialArg, [init]);
   external static RefObject useRef<T>([T initialValue]);
   external static List<dynamic> useState<TState>(TState initialValue);
+  external static Snapshot useSyncExternalStore<Snapshot>(
+        void Function() Function(void Function()) subscribe,
+        Snapshot Function() getSnapshot,
+        [Snapshot Function() getServerSnapshot]
+    );
+  external static List<dynamic> useTransition();
+
 }

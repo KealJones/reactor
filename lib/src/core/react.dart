@@ -10,6 +10,10 @@ import 'package:reactor/src/core/react/react.dart' as react;
 export 'package:reactor/src/interop/react.dart' show ReactElement;
 export 'package:reactor/src/core/react/react.dart'
     show
+// APIs
+        createContext,
+        createElement,
+
 // Components
         Fragment,
         Suspense,
@@ -25,23 +29,15 @@ export 'package:reactor/src/core/react/react.dart'
         useMemo,
         useReducer,
         useRef,
-        useState;
+        useState,
+
+// Extensions
+        FC;
 
 // Utilities
-reactjs.ReactElement createElement(component, props, children) {
-  return js_util.callMethod(
-    js_util.getProperty(window, 'React'),
-    'createElement',
-    [component, props, ...children],
-  );
-}
 
-react.Context<T> createContext<T>([T? defaultValue, reactjs.ObservedBitsFn? calculateChangedBits]) {
-  if (calculateChangedBits != null) {
-    calculateChangedBits = allowInterop(calculateChangedBits);
-  }
-  return react.createContext(defaultValue, calculateChangedBits);
-}
+
+
 
 class ReactDOM {
   static reactjs.ReactRoot createRoot(element) => reactjs.ReactDOM.createRoot(element);

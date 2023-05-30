@@ -1,22 +1,36 @@
 @JS()
 library reactor.core.maps.props;
-
+import 'dart:developer';
+import 'dart:html';
+import 'dart:js_util';
 import 'package:js/js.dart';
 import 'package:reactor/src/core/constants.dart';
-import 'package:reactor/src/core/maps/dom_props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
+import 'package:reactor/src/core/maps/dom_props.dart';
 import 'package:reactor/src/core/react.dart';
-import 'package:reactor/src/interop/js.dart';
-import 'package:reactor/src/interop/js_backed_map.dart';
 
 @JS()
 @anonymous
 @staticInterop
-class Props extends UiMap {
+class Props extends BaseReactProps {
   external factory Props();
 }
 
-extension BasicProps on UiMap {
+@JS()
+@anonymous
+@staticInterop
+class NoProps extends BaseReactProps {
+  external factory NoProps();
+}
+
+@JS()
+@anonymous
+@staticInterop
+class BaseReactProps extends UiMap {
+  external factory BaseReactProps();
+}
+
+extension BasicReactProps on BaseReactProps {
   /// A key is a special string attribute you need to include when creating lists of elements.
   /// Keys help React identify which items have changed, are added, or are removed.
   /// Keys should be given to the elements inside the array to give the elements a stable identity.
@@ -28,70 +42,9 @@ extension BasicProps on UiMap {
   /// https://reactjs.org/docs/refs-and-the-dom.html
   external dynamic ref;
 
-  external List<dynamic>? children;
-}
+  external dynamic children;
 
-// extension UiMapView<K extends dynamic, V extends dynamic> on UiMap {
-//   @override
-//   Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => this.map<K2, V2>(f);
-//   @override
-//   Iterable<MapEntry<dynamic, dynamic>> get entries => JsObject.entries(this);
-//   @override
-//   void addEntries(Iterable<MapEntry<K, V>> newEntries) => this.addEntries(newEntries);
-//   @override
-//   void removeWhere(bool predicate(K key, V value)) => this.removeWhere(predicate);
-//   @override
-//   V update(K key, V update(V value), {V Function()? ifAbsent}) => this.update(key, update, ifAbsent: ifAbsent);
-//   @override
-//   void updateAll(V update(K key, V value)) => this.updateAll(update);
-//   @override
-//   Map<RK, RV> cast<RK, RV>() => this.cast<RK, RV>();
-//   @override
-//   V? operator [](Object? key) => key == null ? null : this[key];
-//   @override
-//   void operator []=(K? key, V value) {
-//     if (key != null) {
-//       this[key] = value;
-//     }
-//   }
-
-//   @override
-//   void addAll(Map<K, V> other) {
-//     this.addAll(other);
-//   }
-
-//   @override
-//   void clear() {
-//     this.clear();
-//   }
-
-//   @override
-//   V putIfAbsent(K key, V ifAbsent()) => this.putIfAbsent(key, ifAbsent);
-//   @override
-//   bool containsKey(Object? key) => key == null ? false : this.containsKey(key);
-//   @override
-//   bool containsValue(Object? value) => value == null ? false : this.containsValue(value);
-//   @override
-//   void forEach(void action(K key, V value)) {
-//     this.forEach(action);
-//   }
-
-//   @override
-//   bool get isEmpty => this.isEmpty;
-//   @override
-//   bool get isNotEmpty => this.isNotEmpty;
-//   @override
-//   int get length => this.length;
-//   @override
-//   Iterable<K> get keys => JsObject.keys(this);
-//   @override
-//   V? remove(Object? key) => key == null ? null : this.remove(key);
-//   @override
-//   Iterable<V> get values => this.values;
-// }
-
-extension ComponentBuilder on Props {
-  external dynamic $$component;
+  external dynamic $component;
 
   ReactElement call([
     c0 = undefined,
@@ -196,15 +149,32 @@ extension ComponentBuilder on Props {
     c99 = undefined,
     c100 = undefined,
   ]) {
-    // Gross hack around to not include the component in the props or be passed as a dom attribute
-    final component = this.$$component;
-    this.remove('\$\$component');
+    final backingMap = UiMap()..addAllFromJs(this);
+
+    if (hasProperty(backingMap, '\$component')) {
+      backingMap.remove('\$component');
+    }
+
+    if (hasProperty(backingMap, '\$aria')) {
+      backingMap
+        ..addAll(getProperty(backingMap, '\$aria'))
+        ..remove('\$aria');
+    }
+    if (hasProperty(backingMap, '\$dom')) {
+      backingMap
+        ..addAll(getProperty(backingMap, '\$dom'))
+        ..remove('\$dom');
+    }
+
+    backingMap.updateAll((key, value) => value is Function ? allowInterop(value) : value);
+
     final returnVal = createElement(
-      component,
-      this,
+      // ignore: unnecessary_this
+      this.$component,
+      backingMap,
       [ c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50, c51, c52, c53, c54, c55, c56, c57, c58, c59, c60, c61, c62, c63, c64, c65, c66, c67, c68, c69, c70, c71, c72, c73, c74, c75, c76, c77, c78, c79, c80, c81, c82, c83, c84, c85, c86, c87, c88, c89, c90, c91, c92, c93, c94, c95, c96, c97, c98, c99, c100 ].takeWhile((child) => !identical(child, undefined)).toList(),
     );
-    this.$$component = component;
+
     return returnVal;
   }
 }
