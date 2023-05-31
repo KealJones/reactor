@@ -4,47 +4,54 @@ library web;
 import 'dart:html';
 import 'package:js/js.dart';
 import 'package:reactor/reactor.dart';
-import './playground/index.dart';
 
+// This staticInterop class is by far the most tedious and
+// annoying part of the boilerplate for this approach.
 @JS()
 @anonymous
 @staticInterop
-class WhateverProps extends Props {
-  external factory WhateverProps();
+class BasicExampleProps extends Props {
+  external factory BasicExampleProps();
 }
 
-extension WhateverPropsExt on WhateverProps {
-  /// Test
-  external bool? testBool;
-
+// Use the extension to add properties to your props class.
+extension BasicExamplePropsExt on BasicExampleProps {
+  // You can change the name of the property that is actually used in JS!
   @JS('data-jsname')
   external String? dataJsName;
 
-  external Function someFun;
+  external Function testFunction;
+
+  external bool? testBool;
 }
 
-final Whatever = (WhateverProps props) {
-  return (Dom.div()..addAll((props..remove('testBool'))))(props.children);
-}.toFactory(() => WhateverProps());
-
-
-//final Whatever = (MyFunctionComponent..withName('Whatever')).withProps(() => WhateverProps());
+// This is pretty sweet, it gets the name from the final variable name. :O
+final BasicExample = (BasicExampleProps props) {
+  return (Dom.div()
+      ..addAll((props..remove('testBool')))
+    )(
+      'Basic Example Children:',
+      Dom.br()(),
+      props.children,
+    );
+  // Just call `toFactory` on the function component and pass in a function for
+  // creating the props class you want to use on the factory.
+}.toFactory(() => BasicExampleProps());
 
 main() {
   var content = StrictMode()(
-    (Whatever()
+    Dom.h1()('Examples'),
+    (Dom.a()..href = '/multiple_props/')('Two Props Classes One Function Component'),
+    (Dom.a()..href = '/generic_props/')('Generic Props Class `YourProps<T>`'),
+    (BasicExample()
       ..id = 'we'
-      //..aria.label = 'aria!'
+      // Aria attributes are automatically converted to kebab-case!
+      // Aria attributes are currently broken in DDC, but try using `webdev serve -r` and it works!
+      ..aria.label = 'aria!'
       ..dataJsName = 'test'
       ..testBool = true
     )(
-      (Dom.div()
-       // ..aria.label = 'aria!'
-        ..hidden = false
-      )(
-        'Test',
-        (Bar()..testBool = false)(),
-      ),
+      'Woo!',
     ),
   );
 

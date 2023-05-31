@@ -9,6 +9,13 @@ import 'package:reactor/src/core/react.dart';
 @JS()
 @anonymous
 @staticInterop
+class AnyProps extends Props {
+  external factory AnyProps();
+}
+
+@JS()
+@anonymous
+@staticInterop
 class Props extends BaseReactProps {
   external factory Props();
 }
