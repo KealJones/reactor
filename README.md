@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/KealJones/reactor.svg?branch=master)](https://travis-ci.com/KealJones/reactor)
 
-Reactor is a statically-typed Dart library for building user interfaces. Reactor wraps ReactJS.
+Reactor is a statically-typed Dart library wrapping around ReactJS for building user interfaces.
 
 > Please Note: This package is in early stages of development and will change frequently while in major version 0
 
@@ -12,19 +12,20 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* Dart 2.7.1 or higher
+* Dart 3.0.2 or higher
 
 ### Running the example
 
 First:
 ```
-pub get
+dart pub get
 ```
 
 Then:
 ```
-webdev serve
+webdev serve -r
 ```
+> The non-release (DDC) version has some issues atm.
 
 ### Using in your project
 
