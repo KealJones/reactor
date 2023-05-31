@@ -17,27 +17,20 @@ class GenericExampleProps<T> extends Props {
 
 // Use the extension to add properties to your props class.
 extension GenericExamplePropsExt on GenericExampleProps {
-  // You can change the name of the property that is actually used in JS!
-  @JS('data-jsname')
-  external String? dataJsName;
-
-  external Function testFunction;
-
   external dynamic _testList;
 }
 
+// The generic non-external generic typed members have to be in a separate extension from the externals.
 extension GenericExamplePropsExt2<T> on GenericExampleProps<T> {
+  // Obviously this requires a bit of jsify/dartify boilerplate, but it's not too bad.
   set testListDart(List<T> testList) => _testList = jsify(testList);
   List<T> get testListDart => (dartify(_testList) as List<dynamic>).cast<T>();
 }
 
-// This is pretty sweet, it gets the name from the final variable name. :O
 final GenericExampleBool = (GenericExampleProps<bool> props) {
   return Dom.span()(
       'Boolean List: ', props.testListDart.join(', '),
     );
-  // Just call `toFactory` on the function component and pass in a function for
-  // creating the props class you want to use on the factory.
 }.toFactory(() => GenericExampleProps<bool>());
 
 main() {
