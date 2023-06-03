@@ -1,9 +1,9 @@
-// ignore_for_file: unnecessary_this
-
+@JS()
 library reactor.core.maps.dom_props;
 
 import 'package:js/js.dart';
-import 'package:reactor/src/core/maps/maps.dart';
+import 'package:reactor/src/core/maps/props.dart';
+import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
 
 @JS()
@@ -13,7 +13,7 @@ class DomProps extends Props {
   external factory DomProps();
 }
 
-extension ExtraDomProps on DomProps {
+extension DomPropsExt on DomProps {
   external int? cols, rows, size, span, start;
 
   external bool? allowFullScreen,

@@ -1,3 +1,4 @@
+import 'dart:js';
 import 'dart:js_util';
 
 import 'package:reactor/src/core/maps/maps.dart';

@@ -1,5 +1,7 @@
-library reactor.core.maps;
+@JS()
+library reactor.core.maps.maps;
+import 'package:js/js.dart';
 
-export './dom_props.dart';
-export './props.dart';
 export './ui_maps.dart';
+export './props.dart';
+export './dom_props.dart';

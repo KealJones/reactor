@@ -21,6 +21,11 @@ First:
 dart pub get
 ```
 
+If needed:
+```
+dart pub global activate webdev
+```
+
 Then:
 ```
 webdev serve -r

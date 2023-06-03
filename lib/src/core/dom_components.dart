@@ -1,6 +1,7 @@
 library reactor.core.dom_components;
 
-import 'package:reactor/src/core/maps/maps.dart';
+import 'package:reactor/src/core/maps/props.dart';
+import 'package:reactor/src/core/maps/dom_props.dart';
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
 abstract class Dom {

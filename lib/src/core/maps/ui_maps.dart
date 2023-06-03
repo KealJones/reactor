@@ -1,3 +1,4 @@
+@JS()
 library reactor.core.maps.ui_maps;
 
 import 'dart:html';
