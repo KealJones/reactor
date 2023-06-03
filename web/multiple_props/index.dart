@@ -1,5 +1,5 @@
 @JS()
-library web;
+library web.multiprops;
 
 import 'dart:html';
 import 'package:js/js.dart';

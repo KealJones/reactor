@@ -1,7 +1,7 @@
 import 'dart:js';
 import 'dart:js_util';
 
-import 'package:reactor/src/core/maps/maps.dart';
+import 'package:reactor/src/core/maps.dart';
 
 extension FC<T extends Props> on Function(T props) {
   T Function() toFactory(T Function() propBuilder, {String? name}) {

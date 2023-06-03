@@ -1,5 +1,5 @@
 @JS()
-library web;
+library web.generics;
 
 import 'dart:html';
 import 'dart:js_util';
