@@ -23,12 +23,15 @@ extension BasicExamplePropsExt on BasicExampleProps {
   external Function testFunction;
 
   external bool? testBool;
+
+
 }
 
 // This is pretty sweet, it gets the name from the final variable name. :O
 final BasicExample = (BasicExampleProps props) {
+  var unconsumedProps = BasicExampleProps()..addAllFromJs(props)..remove('testBool')..remove('testFunction');
   return (Dom.div()
-      ..addAll((props..remove('testBool')))
+      ..addAll(unconsumedProps)
     )(
       'Basic Example Children:',
       Dom.br()(),
@@ -41,10 +44,11 @@ final BasicExample = (BasicExampleProps props) {
 main() {
   var content = StrictMode()(
     Dom.h1()('Examples'),
-    (Dom.a()..href = '/multiple_props/')('Two Props Classes One Function Component'),
-    (Dom.a()..href = '/generic_props/')('Generic Props Class `YourProps<T>`'),
+    (Dom.a()..href = '/multiple_props/')('Different Props Classes with One Function Component'),
+    //(Dom.a()..href = '/generic_props/')('Generic Props Class `YourProps<T>`'),
     (BasicExample()
       ..id = 'we'
+      ..onClick = allowInterop((e) => window.console.log(e))
       // Aria attributes are automatically converted to kebab-case!
       // Aria attributes are currently broken in DDC, but try using `webdev serve -r` and it works!
       ..aria.label = 'aria!'
