@@ -4,5 +4,4 @@ library reactor.core;
 export 'maps.dart';
 export 'dom_components.dart';
 export 'react.dart';
-export 'annotations.dart';
 export 'constants.dart';

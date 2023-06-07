@@ -12,6 +12,7 @@ class ReactDOM {
 }
 
 @JS()
+@anonymous
 class ReactRoot {
   external dynamic render(ReactElement element);
 }

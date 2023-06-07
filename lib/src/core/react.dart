@@ -30,11 +30,6 @@ export 'package:reactor/src/core/react/react.dart'
 // Extensions
         FC;
 
-// Utilities
-
-
-
-
 class ReactDOM {
   static reactjs.ReactRoot createRoot(element) => reactjs.ReactDOM.createRoot(element);
 }

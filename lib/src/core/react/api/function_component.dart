@@ -1,9 +1,8 @@
-import 'dart:js';
 import 'dart:js_util';
 
 import 'package:reactor/src/core/maps.dart';
 
-extension FC<T extends Props> on Function(T props) {
+extension FC<T extends BaseReactProps> on Function(T props) {
   T Function() toFactory(T Function() propBuilder, {String? name}) {
     final component = allowInterop((T props, [legacyContext]) => this(props));
     if (name != null) {

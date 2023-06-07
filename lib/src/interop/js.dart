@@ -10,7 +10,7 @@ import 'package:js/js.dart';
 @JS('Object')
 class JsObject {
   external static void defineProperty(dynamic o, String property, DefinePropertyValue value);
-  external static void assign(JsMap target, JsMap source, [JsMap source2, JsMap source3]);
+  external static JsMap assign(JsMap target, JsMap source, [JsMap source2, JsMap source3]);
   external static Function([String arg1Name, String arg2Name, String arg3Name, String functionBody]);
   external static List<dynamic> keys(JsMap object);
   external static List<dynamic> values(JsMap object);

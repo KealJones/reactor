@@ -1,23 +1,46 @@
+// ignore_for_file: unnecessary_this
+
 @JS()
 library reactor.core.maps.dom_props;
 
 import 'package:js/js.dart';
+import 'package:reactor/src/core/maps/constants.dart';
 import 'package:reactor/src/core/maps/props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
 
+export 'package:reactor/src/core/maps/props.dart';
+
 @JS()
 @anonymous
 @staticInterop
-class DomProps extends Props {
+class DomProps extends NoProps {
   external factory DomProps();
 }
 
 extension DomPropsExt on DomProps {
+
+  @JS(ariaPrivatePropertyKey)
+  external AriaProps? $aria;
+
+  /// A view into this map that can be used to access `aria-` props, for convenience.
+  ///
+  /// Example:
+  ///
+  ///     (Button()
+  ///       ..aria.controls = 'my_popover'
+  ///     )('Open popover')
+  AriaProps get aria {
+    this.$aria ??= AriaProps();
+    return this.$aria!;
+  }
+
   external int? cols, rows, size, span, start;
 
+  @JS('async')
+  external bool? async_;
+
   external bool? allowFullScreen,
-      async,
       autoPlay,
       checked,
       controls,
@@ -869,192 +892,4 @@ extension AriaPropsExt on AriaProps {
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
   @JS('aria-valuetext')
   external String? valuetext;
-}
-
-extension UbiquitousDomProps on Props {
-  external AriaProps? $aria;
-
-  /// A view into this map that can be used to access `aria-` props, for convenience.
-  ///
-  /// Example:
-  ///
-  ///     (Button()
-  ///       ..aria.controls = 'my_popover'
-  ///     )('Open popover')
-  AriaProps get aria {
-    if (this.$aria == null) {
-      this.$aria = AriaProps();
-    }
-    return this.$aria!;
-  }
-
-  external DomProps? $dom;
-
-  /// A view into this map that can be used to access DOM props, for convenience.
-  ///
-  /// Example:
-  ///
-  ///     (Tab()
-  ///       ..dom.draggable = true
-  ///     )('Untitled Document')
-  DomProps get dom {
-    if (this.$dom == null) {
-      this.$dom = DomProps();
-    }
-    return this.$dom!;
-  }
-
-  /// Whether the element if focusable.
-  /// Must be a valid integer or String of valid integer.
-  external dynamic tabIndex;
-
-  /// Unique identifier.
-  /// Must be unique amongst all the ids, and contain at least one character.
-  external String? id;
-
-  /// Represents advisory information about the element.
-  external String? title;
-
-  /// An inline CSS style for the element.
-  ///
-  ///     ..style = {
-  ///       'width': '${state.progress * 100}%',
-  ///       'display': state.isHidden ? 'none' : '',
-  ///     }
-  ///
-  /// See: <https://facebook.github.io/react/tips/inline-styles.html>
-  external Map<String, dynamic>? style;
-
-  /// Callback for when the user copies the content of an element
-  external ClipboardEventCallback? onCopy;
-
-  /// Callback for when the user cuts the content of an element
-  external ClipboardEventCallback? onCut;
-
-  /// Callback for when the user pastes some content in an element
-  external ClipboardEventCallback? onPaste;
-
-  /// Callback for when the user is pressing a key
-  external KeyboardEventCallback? onKeyDown;
-
-  /// Callback for when the user presses a key
-  external KeyboardEventCallback? onKeyPress;
-
-  /// Callback for when the user releases a key
-  external KeyboardEventCallback? onKeyUp;
-
-  /// Callback for when an element gets focus
-  external FocusEventCallback? onFocus;
-
-  /// Callback for when an element loses focus
-  external FocusEventCallback? onBlur;
-
-  /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
-  /// <keygen>, <select>, and <textarea>)
-  external FormEventCallback? onChange;
-
-  /// Callback for when an element gets user input
-  external FormEventCallback? onInput;
-
-  /// Callback for when a form is submitted
-  external FormEventCallback? onSubmit;
-
-  /// Callback for when a form is reset
-  external FormEventCallback? onReset;
-
-  /// Callback for when the user clicks on an element
-  external MouseEventCallback? onClick;
-
-  /// Callback for when the user right-clicks on an element to open a context menu
-  external MouseEventCallback? onContextMenu;
-
-  /// Callback for when the user double-clicks on an element
-  external MouseEventCallback? onDoubleClick;
-
-  /// Callback for when an element is being dragged
-  external MouseEventCallback? onDrag;
-
-  /// Callback for when the user has finished dragging an element
-  external MouseEventCallback? onDragEnd;
-
-  /// Callback for when the dragged element enters the drop target
-  external MouseEventCallback? onDragEnter;
-
-  /// Callback for when the dragged element exits the drop target
-  external MouseEventCallback? onDragExit;
-
-  /// Callback for when the dragged element leaves the drop target
-  external MouseEventCallback? onDragLeave;
-
-  /// Callback for when the dragged element is over the drop target
-  external MouseEventCallback? onDragOver;
-
-  /// Callback for when the user starts to drag an element
-  external MouseEventCallback? onDragStart;
-
-  /// Callback for when the dragged element is dropped on the drop target
-  external MouseEventCallback? onDrop;
-
-  /// Callback for when the user presses a mouse button over an element
-  external MouseEventCallback? onMouseDown;
-
-  /// Callback for when the pointer is moved onto an element
-  external MouseEventCallback? onMouseEnter;
-
-  /// Callback for when the pointer is moved out of an element
-  external MouseEventCallback? onMouseLeave;
-
-  /// Callback for when the pointer is moving while it is over an element
-  external MouseEventCallback? onMouseMove;
-
-  /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
-  external MouseEventCallback? onMouseOut;
-
-  /// Callback for when the pointer is moved onto an element, or onto one of its children
-  external MouseEventCallback? onMouseOver;
-
-  /// Callback for when a user releases a mouse button over an element
-  external MouseEventCallback? onMouseUp;
-
-  /// Callback for when the pointing device is interrupted
-  external PointerEventCallback? onPointerCancel;
-
-  /// Callback for when the pointer becomes active over an element
-  external PointerEventCallback? onPointerDown;
-
-  /// Callback for when the pointer is moved onto an element
-  external PointerEventCallback? onPointerEnter;
-
-  /// Callback for when the pointer is moved out of an element
-  external PointerEventCallback? onPointerLeave;
-
-  /// Callback for when the pointer is moving while it is over an element
-  external PointerEventCallback? onPointerMove;
-
-  /// Callback for when the pointer is moved onto an element, or onto one of its children
-  external PointerEventCallback? onPointerOver;
-
-  /// Callback for when the pointer is moved out of an element, or out of one of its children
-  external PointerEventCallback? onPointerOut;
-
-  /// Callback for when the pointer becomes inactive over an element
-  external PointerEventCallback? onPointerUp;
-
-  /// Callback for when the touch is interrupted
-  external TouchEventCallback? onTouchCancel;
-
-  /// Callback for when a finger is removed from a touch screen
-  external TouchEventCallback? onTouchEnd;
-
-  /// Callback for when a finger is dragged across the screen
-  external TouchEventCallback? onTouchMove;
-
-  /// Callback for when a finger is placed on a touch screen
-  external TouchEventCallback? onTouchStart;
-
-  /// Callback for when an element's scrollbar is being scrolled
-  external UIEventCallback? onScroll;
-
-  /// Callback for when the mouse wheel rolls up or down over an element
-  external WheelEventCallback? onWheel;
 }
