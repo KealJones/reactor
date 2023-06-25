@@ -1,9 +1,12 @@
+@JS()
 library reactor.core.constants;
 
-/// Skrew Dart, I'll have undefined if I want undefined!
-const undefined = Undefined();
+import 'package:js/js.dart';
 
-/// Skrew Dart, I'll have undefined if I want undefined!
-class Undefined {
-  const Undefined();
+/// A const for use as an argument default to distinguish from an explicit `null`.
+const undefined = _Undefined();
+
+/// A const class for use as an argument default to distinguish from an explicit `null`.
+class _Undefined {
+  const _Undefined();
 }

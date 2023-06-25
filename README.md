@@ -2,9 +2,14 @@
 
 [![Build Status](https://travis-ci.com/KealJones/reactor.svg?branch=master)](https://travis-ci.com/KealJones/reactor)
 
-Reactor is a statically-typed Dart library for building user interfaces. Reactor wraps ReactJS.
+Reactor is a statically-typed Dart library wrapping around ReactJS for building user interfaces.
 
 > Please Note: This package is in early stages of development and will change frequently while in major version 0
+
+There are more stable React in Dart packages if you need consistency:
+
+* [OverReact](https://github.com/workiva/over_react) (Uses react-dart under the hood)
+* [react-dart](https://github.com/cleandart/react-dart)
 
 ## Getting Started
 
@@ -12,19 +17,26 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-* Dart 2.7.1 or higher
+* Dart 3.1.0 or higher
 
 ### Running the example
 
 First:
 ```
-pub get
+dart pub get
+```
+
+If needed:
+```
+dart pub global activate webdev
 ```
 
 Then:
 ```
 webdev serve
 ```
+> Prior to dart 3.1.0 static interop had DDC issues.
+> Related Github Issues: [49767](https://github.com/dart-lang/sdk/issues/49767), [49785](https://github.com/dart-lang/sdk/issues/49785), [51060](https://github.com/dart-lang/sdk/issues/51060)
 
 ### Using in your project
 
@@ -57,7 +69,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-These projects are the true OG's of React in dart. Reactor would not exist without them. They have been strong inspiration points and together, Reactor and these projects, will continue to grow to make the react in dart community even stronger.
+There are better and more comprehensive React in Dart packages:
 
 * [OverReact](https://github.com/workiva/over_react)
 * [react-dart](https://github.com/cleandart/react-dart)

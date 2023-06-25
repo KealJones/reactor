@@ -1,28 +1,28 @@
+// ignore_for_file: unnecessary_this
+
+@JS()
 library reactor.core.maps.dom_props;
 
+import 'package:js/js.dart';
+import 'package:reactor/src/core/maps/constants.dart';
 import 'package:reactor/src/core/maps/props.dart';
 import 'package:reactor/src/core/maps/ui_maps.dart';
 import 'package:reactor/src/interop/events.dart';
 
-class DomProps extends UiProps implements ReactPropsInterface, DomPropsInterface {
-  DomProps([backingMap]) {
-    $backingMap = backingMap ?? $backingMap;
-  }
+export 'package:reactor/src/core/maps/props.dart';
 
-  @override
-  final String keyPrefix = '';
-
-  AriaProps get aria => AriaProps($backingMap);
+@JS()
+@anonymous
+@staticInterop
+class DomProps extends NoProps {
+  external factory DomProps();
 }
 
-class AriaProps extends UiMap implements AriaPropsInterface {
-  AriaProps([backingMap]) : super(backingMap);
+extension DomPropsExt on DomProps {
 
-  @override
-  final String keyPrefix = 'aria-';
-}
+  @JS(ariaPrivatePropertyKey)
+  external AriaProps? $aria;
 
-mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   /// A view into this map that can be used to access `aria-` props, for convenience.
   ///
   /// Example:
@@ -30,25 +30,17 @@ mixin UbiquitousDomProps on UiMap implements UbiquitousDomPropsInterface {
   ///     (Button()
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
-  @override
-  AriaProps get aria => AriaProps($backingMap);
+  AriaProps get aria {
+    this.$aria ??= AriaProps();
+    return this.$aria!;
+  }
 
-  /// A view into this map that can be used to access DOM props, for convenience.
-  ///
-  /// Example:
-  ///
-  ///     (Tab()
-  ///       ..dom.draggable = true
-  ///     )('Untitled Document')
-  @override
-  DomProps get dom => DomProps($backingMap);
-}
+  external int? cols, rows, size, span, start;
 
-class DomPropsInterface {
-  int cols, rows, size, span, start;
+  @JS('async')
+  external bool? async_;
 
-  bool allowFullScreen,
-      async,
+  external bool? allowFullScreen,
       autoPlay,
       checked,
       controls,
@@ -61,15 +53,15 @@ class DomPropsInterface {
       muted,
       noValidate,
       readOnly,
-      required,
+      required_,
       seamless,
       selected;
 
-  Map<String, dynamic> style;
+  external Map<String, dynamic>? style;
 
-  String className, title, id;
+  external String? className, title, id;
 
-  dynamic accept,
+  external dynamic accept,
       acceptCharset,
       accessKey,
       action,
@@ -138,11 +130,11 @@ class DomPropsInterface {
       width,
       wmode;
 
-  ClipboardEventCallback onCopy, onCut, onPaste;
-  KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
-  FocusEventCallback onFocus, onBlur;
-  FormEventCallback onChange, onInput, onSubmit, onReset;
-  MouseEventCallback onClick,
+  external ClipboardEventCallback? onCopy, onCut, onPaste;
+  external KeyboardEventCallback? onKeyDown, onKeyPress, onKeyUp;
+  external FocusEventCallback? onFocus, onBlur;
+  external FormEventCallback? onChange, onInput, onSubmit, onReset;
+  external MouseEventCallback? onClick,
       onContextMenu,
       onDoubleClick,
       onDrag,
@@ -160,7 +152,7 @@ class DomPropsInterface {
       onMouseOut,
       onMouseOver,
       onMouseUp;
-  PointerEventCallback onPointerCancel,
+  external PointerEventCallback? onPointerCancel,
       onPointerDown,
       onPointerEnter,
       onPointerLeave,
@@ -168,15 +160,15 @@ class DomPropsInterface {
       onPointerOver,
       onPointerOut,
       onPointerUp;
-  TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
-  UIEventCallback onScroll;
-  WheelEventCallback onWheel;
+  external TouchEventCallback? onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
+  external UIEventCallback? onScroll;
+  external WheelEventCallback? onWheel;
 
-  ClipboardEventCallback onCopyCapture, onCutCapture, onPasteCapture;
-  KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
-  FocusEventCallback onFocusCapture, onBlurCapture;
-  FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
-  MouseEventCallback onClickCapture,
+  external ClipboardEventCallback? onCopyCapture, onCutCapture, onPasteCapture;
+  external KeyboardEventCallback? onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
+  external FocusEventCallback? onFocusCapture, onBlurCapture;
+  external FormEventCallback? onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
+  external MouseEventCallback? onClickCapture,
       onContextMenuCapture,
       onDoubleClickCapture,
       onDragCapture,
@@ -194,21 +186,28 @@ class DomPropsInterface {
       onMouseOutCapture,
       onMouseOverCapture,
       onMouseUpCapture;
-  PointerEventCallback onGotPointerCapture, onLostPointerCapture;
-  TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
-  UIEventCallback onScrollCapture;
-  WheelEventCallback onWheelCapture;
+  external PointerEventCallback? onGotPointerCapture, onLostPointerCapture;
+  external TouchEventCallback? onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
+  external UIEventCallback? onScrollCapture;
+  external WheelEventCallback? onWheelCapture;
 
-  // props specific to React.INPUT
-  bool defaultChecked;
-  dynamic defaultValue;
+  // props? specific? to React.INPUT
+  external bool? defaultChecked;
+  external dynamic defaultValue;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
   /// (mixed in by React DOM <input>, <textarea>, and <select>).
-  bool autoFocus;
+  external bool? autoFocus;
 }
 
-class AriaPropsInterface {
+@JS()
+@anonymous
+@staticInterop
+class AriaProps extends UiMap {
+  external factory AriaProps();
+}
+
+extension AriaPropsExt on AriaProps {
   /// Identifies the currently active descendant of a compositewidget.
   ///
   /// This is used when a composite widget is responsible for managing its current active child
@@ -225,7 +224,8 @@ class AriaPropsInterface {
   /// is visible and in view (or scrolls into view) when focused.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant>
-  String activedescendant;
+  @JS('aria-activedescendant')
+  external String? activedescendant;
 
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
@@ -247,7 +247,8 @@ class AriaPropsInterface {
   /// present the entire changed region at once.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic>
-  bool atomic;
+  @JS('aria-atomic')
+  external bool? atomic;
 
   /// Indicates whether user input completion suggestions are provided.
   ///
@@ -255,7 +256,8 @@ class AriaPropsInterface {
   /// ensure that any auto-completed text is selected, so the user can type over it.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-autocomplete>
-  dynamic autocomplete;
+  @JS('aria-autocomplete')
+  external dynamic autocomplete;
 
   /// Indicates whether an element, and its subtree, are currently being updated.
   ///
@@ -268,7 +270,8 @@ class AriaPropsInterface {
   /// author MAY set the aria-invalid attribute to true.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy>
-  bool busy;
+  @JS('aria-busy')
+  external bool? busy;
 
   /// Indicates the current "checked" state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
@@ -286,7 +289,8 @@ class AriaPropsInterface {
   /// [ARIA-PRACTICES]
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-checked>
-  dynamic checked;
+  @JS('aria-checked')
+  external dynamic checked;
 
   /// Identifies the element (or elements) whose contents or presence are controlled by the current
   /// element. See related aria-owns.
@@ -298,7 +302,8 @@ class AriaPropsInterface {
   /// controls the display of its associated tab panel.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-controls>
-  dynamic controls;
+  @JS('aria-controls')
+  external dynamic controls;
 
   /// Identifies the element (or elements) that describes the object. See related aria-labelledby.
   ///
@@ -311,7 +316,8 @@ class AriaPropsInterface {
   /// paragraphs) with the element referenced by the ID.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-describedby>
-  dynamic describedby;
+  @JS('aria-describedby')
+  external dynamic describedby;
 
   /// Indicates that the element is perceivable but disabled, so it is not editable or otherwise
   /// operable. See related aria-hidden and aria-readonly.
@@ -326,7 +332,8 @@ class AriaPropsInterface {
   /// of the element on which the aria-disabled attribute is applied.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled>
-  bool disabled;
+  @JS('aria-disabled')
+  external bool? disabled;
 
   /// Indicates what functions can be performed when the dragged object is released on the drop
   /// target. This allows assistive technologies to convey the possible drag options available to
@@ -340,7 +347,8 @@ class AriaPropsInterface {
   /// show a visual indication of potential drop targets.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-dropeffect>
-  dynamic dropeffect;
+  @JS('aria-dropeffect')
+  external dynamic dropeffect;
 
   /// Indicates whether the element, or another grouping element it controls, is currently expanded
   /// or collapsed.
@@ -355,7 +363,8 @@ class AriaPropsInterface {
   /// using the aria-controls attribute.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-expanded>
-  dynamic expanded;
+  @JS('aria-expanded')
+  external dynamic expanded;
 
   /// Identifies the next element (or elements) in an alternate reading order of content which,
   /// at the user's discretion, allows assistive technology to override the general default of reading
@@ -372,7 +381,8 @@ class AriaPropsInterface {
   /// named path relationships.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-flowto>
-  dynamic flowto;
+  @JS('aria-flowto')
+  external dynamic flowto;
 
   /// Indicates an element's "grabbed" state in a drag-and-drop operation.
   ///
@@ -386,7 +396,8 @@ class AriaPropsInterface {
   /// associated drop targets to none.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-grabbed>
-  dynamic grabbed;
+  @JS('aria-grabbed')
+  external dynamic grabbed;
 
   /// Indicates that the element has a popup context menu or sub-level menu.
   ///
@@ -397,7 +408,8 @@ class AriaPropsInterface {
   /// main page content.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup>
-  bool haspopup;
+  @JS('aria-haspopup')
+  external bool? haspopup;
 
   /// Indicates that the element and all of its descendants are not visible or perceivable to any
   /// user as implemented by the author. See related aria-disabled.
@@ -443,7 +455,8 @@ class AriaPropsInterface {
   /// to find using a type-ahead item search ("Go to…").
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden>
-  bool hidden;
+  @JS('aria-hidden')
+  external bool? hidden;
 
   /// Indicates the entered value does not conform to the format expected by the application.
   ///
@@ -463,7 +476,8 @@ class AriaPropsInterface {
   /// string, the default value of false applies.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid>
-  dynamic invalid;
+  @JS('aria-invalid')
+  external dynamic invalid;
 
   /// Defines a string value that labels the current element. See related aria-labelledby.
   ///
@@ -482,7 +496,8 @@ class AriaPropsInterface {
   /// the accessible name property.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-label>
-  String label;
+  @JS('aria-label')
+  external String? label;
 
   /// Identifies the element (or elements) that labels the current element. See related aria-label
   /// and aria-describedby.
@@ -506,7 +521,8 @@ class AriaPropsInterface {
   /// for developers.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby>
-  dynamic labelledby;
+  @JS('aria-labelledby')
+  external dynamic labelledby;
 
   /// Defines the hierarchical level of an element within a structure.
   ///
@@ -540,7 +556,8 @@ class AriaPropsInterface {
   /// so the aria-level attribute is applied to the element with the role row.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-level>
-  int level;
+  @JS('aria-level')
+  external int? level;
 
   /// Indicates that an element will be updated, and describes the types of updates the user agents,
   /// assistive technologies, and user can expect from the live region.
@@ -574,7 +591,8 @@ class AriaPropsInterface {
   /// change occurs. (e.g., changes in an assertive region may remove all currently queued changes)
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-live>
-  dynamic live;
+  @JS('aria-live')
+  external dynamic live;
 
   /// Indicates whether a text box accepts multiple lines of input or only a single line.
   ///
@@ -586,7 +604,8 @@ class AriaPropsInterface {
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline>
-  bool multiline;
+  @JS('aria-multiline')
+  external bool? multiline;
 
   /// Indicates that the user may select more than one item from the current selectable descendants.
   ///
@@ -598,12 +617,12 @@ class AriaPropsInterface {
   /// item at a time.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable>
-  bool multiselectable;
+  external bool? multiselectable;
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-orientation>
-  dynamic orientation;
+  external dynamic orientation;
 
   /// Identifies an element (or elements) in order to define a visual, functional, or contextual
   /// parent/child relationship between DOM elements where the DOM hierarchy cannot be used to represent
@@ -620,7 +639,8 @@ class AriaPropsInterface {
   /// words, an element can have only one explicit owner.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-owns>
-  dynamic owns;
+  @JS('aria-owns')
+  external dynamic owns;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -635,7 +655,8 @@ class AriaPropsInterface {
   /// with aria-setsize.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset>
-  int posinset;
+  @JS('aria-posinset')
+  external int? posinset;
 
   /// Indicates the current "pressed" state of toggle buttons. See related aria-checked and aria-selected.
   ///
@@ -649,7 +670,8 @@ class AriaPropsInterface {
   /// systems support pressed on buttons and checked on checkboxes.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-pressed>
-  dynamic pressed;
+  @JS('aria-pressed')
+  external dynamic pressed;
 
   ///  Indicates that the element is not editable, but is otherwise operable. See related aria-disabled.
   ///
@@ -665,12 +687,13 @@ class AriaPropsInterface {
   /// result of a calculation such as a shopping cart total.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly>
-  bool readonly;
+  @JS('aria-readonly')
+  external bool? readonly;
 
   /// Indicates what user agent change notifications (additions, removals, etc.) assistive technologies
   /// will receive within a live region. See related aria-atomic.
   ///
-  /// The attribute is represented as a space delimited list of the following values: additions,
+  /// The attribute is represented as a space delimited list of the following values: additio  ns,
   /// removals, text; or a single catch-all value all.
   ///
   /// This is used to describe semantically meaningful changes, as opposed to merely presentational
@@ -710,7 +733,8 @@ class AriaPropsInterface {
   /// (via aria-labelledby) by an element contained in the live region.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-relevant>
-  dynamic relevant;
+  @JS('aria-relevant')
+  external dynamic relevant;
 
   /// Indicates that user input is required on the element before a form may be submitted.
   ///
@@ -726,13 +750,15 @@ class AriaPropsInterface {
   /// by the user.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
-  bool required;
+  @JS('aria-required')
+  external bool? required;
 
   /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
   /// gives assistive technologies information about how to handle each element.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
-  String role;
+  @JS('aria-role')
+  external String? role;
 
   /// Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.
   ///
@@ -750,7 +776,8 @@ class AriaPropsInterface {
   /// convey implicit selection for the widget.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-selected>
-  dynamic selected;
+  @JS('aria-selected')
+  external dynamic selected;
 
   /// Defines the number of items in the current set of listitems or treeitems. Not required if
   /// all elements in the set are present in the DOM. See related aria-posinset.
@@ -769,7 +796,8 @@ class AriaPropsInterface {
   /// Authors SHOULD use aria-setsize in conjunction with aria-posinset.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize>
-  int setsize;
+  @JS('aria-setsize')
+  external int? setsize;
 
   /// Indicates if items in a table or grid are sorted in ascending or descending order.
   ///
@@ -778,7 +806,7 @@ class AriaPropsInterface {
   /// aria-sort to only one header at a time.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-sort>
-  dynamic sort;
+  external dynamic sort;
 
   /// Defines the maximum allowed value for a range widget.
   ///
@@ -792,7 +820,8 @@ class AriaPropsInterface {
   /// the value of aria-valuemin.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax>
-  num valuemax;
+  @JS('aria-valuemax')
+  external num? valuemax;
 
   /// Defines the minimum allowed value for a range widget.
   ///
@@ -807,7 +836,8 @@ class AriaPropsInterface {
   /// Authors MUST ensure the value of aria-valuemin is less than or equal to the value of aria-valuemax.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin>
-  num valuemin;
+  @JS('aria-valuemin')
+  external num? valuemin;
 
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///
@@ -839,7 +869,8 @@ class AriaPropsInterface {
   /// of aria-valuenow.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow>
-  num valuenow;
+  @JS('aria-valuenow')
+  external num? valuenow;
 
   /// Defines the human readable text alternative of aria-valuenow for a range widget.
   ///
@@ -859,164 +890,6 @@ class AriaPropsInterface {
   /// the value of aria-valuenow.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
-  String valuetext;
-}
-
-class UbiquitousDomPropsInterface {
-  AriaPropsInterface aria;
-  DomPropsInterface dom;
-
-  /// Whether the element if focusable.
-  /// Must be a valid integer or String of valid integer.
-  dynamic tabIndex;
-
-  /// Unique identifier.
-  /// Must be unique amongst all the ids, and contain at least one character.
-  String id;
-
-  /// Represents advisory information about the element.
-  String title;
-
-  /// An inline CSS style for the element.
-  ///
-  ///     ..style = {
-  ///       'width': '${state.progress * 100}%',
-  ///       'display': state.isHidden ? 'none' : '',
-  ///     }
-  ///
-  /// See: <https://facebook.github.io/react/tips/inline-styles.html>
-  Map<String, dynamic> style;
-
-  /// Callback for when the user copies the content of an element
-  ClipboardEventCallback onCopy;
-
-  /// Callback for when the user cuts the content of an element
-  ClipboardEventCallback onCut;
-
-  /// Callback for when the user pastes some content in an element
-  ClipboardEventCallback onPaste;
-
-  /// Callback for when the user is pressing a key
-  KeyboardEventCallback onKeyDown;
-
-  /// Callback for when the user presses a key
-  KeyboardEventCallback onKeyPress;
-
-  /// Callback for when the user releases a key
-  KeyboardEventCallback onKeyUp;
-
-  /// Callback for when an element gets focus
-  FocusEventCallback onFocus;
-
-  /// Callback for when an element loses focus
-  FocusEventCallback onBlur;
-
-  /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
-  /// <keygen>, <select>, and <textarea>)
-  FormEventCallback onChange;
-
-  /// Callback for when an element gets user input
-  FormEventCallback onInput;
-
-  /// Callback for when a form is submitted
-  FormEventCallback onSubmit;
-
-  /// Callback for when a form is reset
-  FormEventCallback onReset;
-
-  /// Callback for when the user clicks on an element
-  MouseEventCallback onClick;
-
-  /// Callback for when the user right-clicks on an element to open a context menu
-  MouseEventCallback onContextMenu;
-
-  /// Callback for when the user double-clicks on an element
-  MouseEventCallback onDoubleClick;
-
-  /// Callback for when an element is being dragged
-  MouseEventCallback onDrag;
-
-  /// Callback for when the user has finished dragging an element
-  MouseEventCallback onDragEnd;
-
-  /// Callback for when the dragged element enters the drop target
-  MouseEventCallback onDragEnter;
-
-  /// Callback for when the dragged element exits the drop target
-  MouseEventCallback onDragExit;
-
-  /// Callback for when the dragged element leaves the drop target
-  MouseEventCallback onDragLeave;
-
-  /// Callback for when the dragged element is over the drop target
-  MouseEventCallback onDragOver;
-
-  /// Callback for when the user starts to drag an element
-  MouseEventCallback onDragStart;
-
-  /// Callback for when the dragged element is dropped on the drop target
-  MouseEventCallback onDrop;
-
-  /// Callback for when the user presses a mouse button over an element
-  MouseEventCallback onMouseDown;
-
-  /// Callback for when the pointer is moved onto an element
-  MouseEventCallback onMouseEnter;
-
-  /// Callback for when the pointer is moved out of an element
-  MouseEventCallback onMouseLeave;
-
-  /// Callback for when the pointer is moving while it is over an element
-  MouseEventCallback onMouseMove;
-
-  /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
-  MouseEventCallback onMouseOut;
-
-  /// Callback for when the pointer is moved onto an element, or onto one of its children
-  MouseEventCallback onMouseOver;
-
-  /// Callback for when a user releases a mouse button over an element
-  MouseEventCallback onMouseUp;
-
-  /// Callback for when the pointing device is interrupted
-  PointerEventCallback onPointerCancel;
-
-  /// Callback for when the pointer becomes active over an element
-  PointerEventCallback onPointerDown;
-
-  /// Callback for when the pointer is moved onto an element
-  PointerEventCallback onPointerEnter;
-
-  /// Callback for when the pointer is moved out of an element
-  PointerEventCallback onPointerLeave;
-
-  /// Callback for when the pointer is moving while it is over an element
-  PointerEventCallback onPointerMove;
-
-  /// Callback for when the pointer is moved onto an element, or onto one of its children
-  PointerEventCallback onPointerOver;
-
-  /// Callback for when the pointer is moved out of an element, or out of one of its children
-  PointerEventCallback onPointerOut;
-
-  /// Callback for when the pointer becomes inactive over an element
-  PointerEventCallback onPointerUp;
-
-  /// Callback for when the touch is interrupted
-  TouchEventCallback onTouchCancel;
-
-  /// Callback for when a finger is removed from a touch screen
-  TouchEventCallback onTouchEnd;
-
-  /// Callback for when a finger is dragged across the screen
-  TouchEventCallback onTouchMove;
-
-  /// Callback for when a finger is placed on a touch screen
-  TouchEventCallback onTouchStart;
-
-  /// Callback for when an element's scrollbar is being scrolled
-  UIEventCallback onScroll;
-
-  /// Callback for when the mouse wheel rolls up or down over an element
-  WheelEventCallback onWheel;
+  @JS('aria-valuetext')
+  external String? valuetext;
 }

@@ -12,8 +12,8 @@ import 'package:reactor/src/interop/react.dart' as interop;
 /// components that trigger deep updates because you can pass dispatch down
 /// instead of callbacks.
 UseReducerObject<TState> useReducer<TState>(interop.Reducer<TState, dynamic> reducer,
-    [TState initalState, TState Function(TState initialState) init]) {
-  var stateStuff = interop.React.useReducer(allowInterop(reducer), initalState, allowInterop(init));
+    [TState? initalState, TState Function(TState initialState)? init]) {
+  var stateStuff = interop.React.useReducer(allowInterop(reducer), initalState, init != null ? allowInterop(init) : null);
   return UseReducerObject<TState>(stateStuff[0], stateStuff[1]);
 }
 

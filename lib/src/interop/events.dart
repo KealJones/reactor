@@ -5,16 +5,16 @@ import 'dart:html';
 
 import 'package:js/js.dart';
 
-typedef DomEventCallback(SyntheticEvent event);
-typedef ClipboardEventCallback(SyntheticEvent event);
-typedef KeyboardEventCallback(SyntheticEvent event);
-typedef FocusEventCallback(SyntheticEvent event);
-typedef FormEventCallback(SyntheticEvent event);
-typedef PointerEventCallback(SyntheticEvent event);
-typedef MouseEventCallback(SyntheticMouseEvent event);
-typedef TouchEventCallback(SyntheticEvent event);
-typedef UIEventCallback(SyntheticEvent event);
-typedef WheelEventCallback(SyntheticEvent event);
+typedef DomEventCallback = Function(SyntheticEvent event);
+typedef ClipboardEventCallback = Function(SyntheticEvent event);
+typedef KeyboardEventCallback = Function(SyntheticEvent event);
+typedef FocusEventCallback = Function(SyntheticEvent event);
+typedef FormEventCallback = Function(SyntheticEvent event);
+typedef PointerEventCallback = Function(SyntheticEvent event);
+typedef MouseEventCallback = Function(SyntheticMouseEvent event);
+typedef TouchEventCallback = Function(SyntheticEvent event);
+typedef UIEventCallback = Function(SyntheticEvent event);
+typedef WheelEventCallback = Function(SyntheticEvent event);
 
 @JS()
 @anonymous
@@ -47,9 +47,9 @@ class SyntheticEvent {
     dynamic target,
     num timeStamp,
     String type,
-    stopPropagation(),
-    preventDefault(),
-    persist(),
+    Function() stopPropagation,
+    Function() preventDefault,
+    Function() persist,
   });
 }
 
@@ -224,9 +224,9 @@ class SyntheticMouseEvent {
     dynamic target,
     num timeStamp,
     String type,
-    stopPropagation(),
-    preventDefault(),
-    persist(),
+    Function() stopPropagation,
+    Function() preventDefault,
+    Function() persist,
   });
 }
 

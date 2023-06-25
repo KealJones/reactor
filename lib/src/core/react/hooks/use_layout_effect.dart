@@ -7,6 +7,6 @@ import 'package:reactor/src/interop/react.dart' as interop;
 ///
 /// Prefer the standard [useEffect] when possible to avoid blocking visual
 /// updates.
-void useLayoutEffect(void Function() init, [List<dynamic> dependencies]) {
+void useLayoutEffect(void Function() init, [List<dynamic>? dependencies]) {
   return interop.React.useLayoutEffect(init, dependencies);
 }
